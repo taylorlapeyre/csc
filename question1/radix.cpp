@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -57,16 +58,25 @@ int main()
 	int k = 100;
 	int values[k];
 	int array[k];
+	clock_t t1,t2;
 
 	for (int i = 0; i < k; i++) {
 		values[i] = rand() % x;
 	}
+
+	t1 = clock();
 	qsort(values, k, sizeof(int), compare);
 
 	for (int i = 0; i < k; i++) {
 		values[i] = rand() % x;
 	}
+
+	t2 = clock();
 	radixSort(array, sizeof(array));
+
+	float diff ((float)t2-(float)t1);
+	float miseconds = (diff / CLOCKS_PER_SEC) * 1000000;
+	cout << "Microseconds: " << miseconds << endl;
 
 	return 0;
 }
