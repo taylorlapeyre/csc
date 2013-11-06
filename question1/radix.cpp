@@ -47,7 +47,7 @@ void radixSort(int array[], int n)
 {
 	int max = getMax(array, n);
 
-	for (int exp = 1; n/exp > 0; exp *= 256) {
+	for (int exp = 1; max/exp > 0; exp *= 256) {
 		countSort(array, n, exp);
 	}
 }
@@ -58,7 +58,8 @@ int main()
 	int k = 100;
 	int values[k];
 	int array[k];
-	clock_t t1,t2;
+	clock_t t1, t2;
+	clock_t t3, t4;
 
 	for (int i = 0; i < k; i++) {
 		values[i] = rand() % x;
@@ -66,13 +67,16 @@ int main()
 
 	t1 = clock();
 	qsort(values, k, sizeof(int), compare);
+	t2 = clock();
 
 	for (int i = 0; i < k; i++) {
 		values[i] = rand() % x;
 	}
 
-	t2 = clock();
-	radixSort(array, sizeof(array));
+	int p = sizeof(array) / sizeof(array[0]);
+	t3 = clock();
+	radixSort(array, p);
+	t4 = clock();
 
 	float diff ((float)t2-(float)t1);
 	float miseconds = (diff / CLOCKS_PER_SEC) * 1000000;
