@@ -1,0 +1,51 @@
+5 // numTriangles
+Triangle #1
+Coordinates of Vertices:
+(60, 148) (79, 47) (65, 53)
+Type of Triangle:
+Scalene
+Sides: 
+a = 102.772 
+b = 15.232 
+c = 95.131 
+
+Triangle #2
+Coordinates of Vertices:
+(41, 111) (69, 104) (77, 77)
+Type of Triangle:
+Scalene
+Sides: 
+a = 28.862 
+b = 28.160 
+c = 49.518 
+
+Triangle #3
+Coordinates of Vertices:
+(23, 112) (95, 44) (34, 75)
+Type of Triangle:
+Scalene
+Sides: 
+a = 99.035 
+b = 68.425 
+c = 38.601 
+
+Triangle #4
+Coordinates of Vertices:
+(41, 20) (43, 138) (74, 47)
+Type of Triangle:
+Scalene
+Sides: 
+a = 118.017 
+b = 96.135 
+c = 42.638 
+
+Triangle #5
+Coordinates of Vertices:
+(2, 10) (3, 82) (42, 23)
+Type of Triangle:
+Scalene
+Sides: 
+a = 72.007 
+b = 70.725 
+c = 42.059 
+
