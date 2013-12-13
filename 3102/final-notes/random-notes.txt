@@ -1,0 +1,34 @@
+Kurchal's
+
+1. find the smallest edge
+2. unless that edge would make a cycle
+	3. connect the two nodes of that edge
+
+#1 2010
+
+s -> a -> b -> c -> d -> e
+
+???
+relax(u, v) {
+	if (d(v) > d(u) + w(u, s))
+	d(v) = d(u) + w(u, v)
+	parent(v) = u;
+}
+
+strongly connected components:
+
+1. run dfs on G
+	- mark finish tims
+	- sort vertices by decrasing finish times
+2. create g^t
+3. run dfs on g^t in this order ^^^
+	- get the component trees
+
+
+http://homepages.ius.edu/rwisman/C455/html/notes/Chapter22/SCC.htm
+Basic method for finding the SCC's of G:
+
+Perform DFS on G
+Perform DFS on GT, the transpose of G formed by reversing paths, in decreasing order of DFS(G) finish time.
+The DFS subtrees common to both G and GT comprise a SCC.
+They are connected in G and GT.
