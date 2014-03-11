@@ -2,6 +2,8 @@
 
 int main(void) {
   int numLowerCase(char *str);
+  void test1(int actualNum);
+
   char S[80];
   S[0] = 'H';
   S[1] = 'e';
@@ -15,8 +17,13 @@ int main(void) {
   S[9] = 'd';
   S[10] = 0;
 
+  int result = numLowerCase(S);
+  test1(result);
+
+}
+
+void test1(actualNum) {
   int expectedNum = 8;
-  int actualNum   = numLowerCase(S);
   printf("Number of lowercase characters in S: %d\n", actualNum);
   printf("Expected number: %d\n", expectedNum);
   if (expectedNum == actualNum) {

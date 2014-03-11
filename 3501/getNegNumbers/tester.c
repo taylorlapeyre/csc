@@ -2,6 +2,9 @@
 
 int main(void) {
   int getNegNumbers(int N, int *X, int *Y);
+  void test1(int actualNum);
+  void test2(int *Y);
+  
   int N = 10;
   int X[N];
   int Y[N];
@@ -16,9 +19,13 @@ int main(void) {
   X[8] = -2;
   X[9] = 9;
 
-  int expectedNum = 4;
-  int actualNum   = getNegNumbers(N, X, Y);
+  int numNegative = getNegNumbers(N, X, Y);
+  test1(numNegative);
+  test2(Y);
+}
 
+void test1(int actualNum) {
+  int expectedNum = 4;
   printf("Test 1\n");
   printf("======\n");
   printf("Number of negative numbers in X: %d\n", actualNum);
@@ -26,7 +33,10 @@ int main(void) {
   if (expectedNum == actualNum) {
     printf("Test Passed\n");
   }
+}
 
+void test2(int *Y) {
+  int expectedNum = 4;
   int expectedArray[expectedNum];
   expectedArray[0] = -4;
   expectedArray[1] = -7;
