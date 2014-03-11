@@ -1,12 +1,3 @@
-##  int i  = 0;
-##  int nl = 0;
-##  while (S[i]) {
-##    if (S[i] > 97 && S[i] < 122) {
-##      nl++;
-##    }
-##    i++;
-##  }
-
 ##  my registers:    %eax, %edx, %ecx
 ##  other registers: %esi, %ebp, %edi
 
@@ -26,6 +17,15 @@ _numLowerCase:
   movl %esi, (%esp)
 
   movl FSIZE+4(%esp), STR
+
+  ##  int i  = 0;
+  ##  int nl = 0;
+  ##  while (S[i]) {
+  ##    if (S[i] > 97 && S[i] < 122) {
+  ##      nl++;
+  ##    }
+  ##    i++;
+  ##  }
 
   xor II, II
   xor NL, NL
