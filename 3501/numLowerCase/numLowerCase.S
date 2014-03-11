@@ -11,7 +11,7 @@
 .globl _numLowerCase
 
 # %eax                   4
-# int  numLowerCase(char *str)
+# int numLowerCase(char *str)
 _numLowerCase:
   sub $FSIZE, %esp
   movl %esi, (%esp)
