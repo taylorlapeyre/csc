@@ -52,7 +52,7 @@ dgemv:
   xor II, II
   xor JJ, JJ
 
-  OUTERLOOP:
+  THELOOP:
     # Multiply A[i] by alpha
     fldl (A, II, 8)
     fmul %st(2), %st # FLOP!
@@ -90,7 +90,7 @@ dgemv:
       cmp JJ, FSIZE+4(%esp)
       je DONE
 
-      # Otherwise, reset I to point to the first element of the next column
+      # Otherwise, reset II to point to the first element of the next column
       sub II, FSIZE+8(%esp)
       add II, LDA
 
@@ -103,13 +103,13 @@ dgemv:
       mul JJ
 
       # And run that loop again
-      jmp OUTERLOOP
+      jmp THELOOP
 
     # We still have more elements in this row
     KEEPGOING:
       inc II
 
-  jmp OUTERLOOP
+  jmp THELOOP
 
 DONE:
 
