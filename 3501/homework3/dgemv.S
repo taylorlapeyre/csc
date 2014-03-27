@@ -19,20 +19,26 @@ _dax2:
   
   mov FSIZE+4(%esp), M
   mov FSIZE+8(%esp), N
-  fldl FSIZE+12(%esp) // ST = {alpha}
+  fldl FSIZE+12(%esp) # ST = {alpha}
   mov FSIZE+20(%esp), A
   mov FSIZE+24(%esp), LDA
   mov FSIZE+28(%esp), X
-  fldl FSIZE+32(%esp) // ST = {beta, alpha}
+  fldl FSIZE+32(%esp) # Stack = {beta, alpha}
   mov FSIZE+40(%esp), Y
 
-  // Body
+  # Body
   xor II, II
-  fldl (Y, II, 8)     // ST = {Y[0], beta, alpha}
-  fldl (X, II, 8)     // ST = {X[0], Y[0], beta, alpha}
-  fldl (A, II, 8)     // ST = {A[0], X[0], Y[0], beta, alpha}
-  fmul %st(1), %st    // ST = {A[0]*X[0], X[0], Y[0], beta, alpha}
-  fmul %fs(4), %st    // ST = {A[0]*X[0]*alpha, X[0], Y[0], beta, alpha}
+  fldl (A, II, 8)   #         Stack = {A[i], beta, alpha}
+  fmul %st(2), %st  # FLOP!   Stack = {A[i]*beta, beta, alpha}
+
+  fldl (X, II, 8)   #         Stack = {X[i], A[i]*beta, beta, alpha}
+  fmul %st(1), %st  # FLOP!   Stack = {X[i]*A[i]*beta, beta, alpha}
+
+  fstpl (X, II, 8)
+
+
+  fadd (Y, II, 8)   # FLOP
+
   
   
   fmul %
