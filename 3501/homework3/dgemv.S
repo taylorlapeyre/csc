@@ -7,14 +7,17 @@
 #define II %edi
 #define FSIZE 4*4
 
+#                      4            8               12                  20
+# void dgemv(const int M, const int N, const double alpha, const double *A,
+#                      24                28               32           40
+#            const int lda, const double *X, const double beta, double *Y)
 .text
-# void
-.globl _dax2
-_dax2:
+.globl _dgemv
+_dgemv:
 
-  /*
-   * Setup
-  */
+  ##
+  ## Setup
+  ##
 
   # Save our caller saved registers
   sub $FSIZE, %esp
@@ -33,9 +36,9 @@ _dax2:
   fldl FSIZE+32(%esp)     # ST = {beta, alpha}
   mov FSIZE+40(%esp), Y
 
-  /*
-   * Body
-  */
+  ##
+  ## Body
+  ##
 
   xor II, II
 
@@ -57,9 +60,9 @@ _dax2:
 
 DONE:
 
-  /*
-   * Tear Down
-  */
+  ##
+  ## Tear Down
+  ##
 
   fstp %st(0)
   mov (%esp), %ebp
@@ -68,5 +71,3 @@ DONE:
   mov 12(%esp), %edi
   add $FSIZE, %esp
   ret
-
-
