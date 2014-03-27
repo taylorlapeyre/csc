@@ -21,14 +21,17 @@ dgemv:
   ## Setup
   ##
 
-  # Save our caller saved registers
+  # Completely clear our floating point stack, just in case
+  finit
+
+  # Save the values of our caller saved registers
   sub $FSIZE, %esp
   mov %ebp, (%esp)
   mov %edx, 4(%esp)
   mov %esi, 8(%esp)
   mov %edi, 12(%esp)
 
-  # Load our values
+  # Load our values into them
   mov FSIZE+4(%esp), M
   mov FSIZE+8(%esp), N
   fldl FSIZE+12(%esp)     # ST = {alpha}
@@ -44,20 +47,28 @@ dgemv:
 
   xor II, II
 
+  # Multiply A[i] by alpha
   fldl (A, II, 8)         #         ST = { A[i], beta, alpha }
   fmul %st(2), %st        # FLOP!   ST = { A[i]*alpha, beta, alpha }
 
+  # Multiply that answer by X[i]
   fldl (X, II, 8)         #         ST = { X[i], A[i]*alpha, beta, alpha }
   fmul %st(1), %st        # FLOP!   ST = { X[i]*A[i]*alpha, A[i]*alpha, beta, alpha }
 
+  # Store the result of that into X[i] for safe-keeping
   fstpl (X, II, 8)        #         ST = { A[i]*alpha, beta, alpha }
 
+  # Multiply Y[i] by beta
   fldl (Y, II, 8)         #         ST = { Y[i], A[i]*alpha, beta, alpha}
   fmul %st(2), %st        # FLOP!   ST = { Y[i]*beta, A[i]*alpha, beta, alpha }
 
+  # Add the thing we stored in X[i] to the previous result
   fadd (X, II, 8)         # FLOP!   ST = { Y[i]*beta + X[i]*A[i]*alpha, A[i]*alpha, beta, alpha }
 
+  # Store the final answer back into Y[i]
   fstpl (Y, II, 8)        #         ST = { A[i]*alpha, beta, alpha }
+
+  # Get rid of the junk value still stored on the stack
   fstp %st                #         ST = { beta, alpha }
 
 DONE:
@@ -66,7 +77,10 @@ DONE:
   ## Tear Down
   ##
 
+  # Clear the stack
   fstp %st(0)
+
+  # Restore the values of the caller-saved registers we used
   mov (%esp), %ebp
   mov 4(%esp), %edx
   mov 8(%esp), %esi
