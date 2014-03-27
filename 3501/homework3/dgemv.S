@@ -8,39 +8,49 @@
 #define FSIZE 4*4
 
 .text
-# void 
+# void
 .globl _dax2
 _dax2:
+
+  /*
+   * Setup
+  */
+
+  # Save our caller saved registers
   sub $FSIZE, %esp
   mov %ebp, (%esp)
   mov %edx, 4(%esp)
   mov %esi, 8(%esp)
   mov %edi, 12(%esp)
-  
+
+  # Load our values
   mov FSIZE+4(%esp), M
   mov FSIZE+8(%esp), N
-  fldl FSIZE+12(%esp) # ST = {alpha}
+  fldl FSIZE+12(%esp)     # ST = {alpha}
   mov FSIZE+20(%esp), A
   mov FSIZE+24(%esp), LDA
   mov FSIZE+28(%esp), X
-  fldl FSIZE+32(%esp) # Stack = {beta, alpha}
+  fldl FSIZE+32(%esp)     # ST = {beta, alpha}
   mov FSIZE+40(%esp), Y
 
-  # Body
-  xor II, II
-  fldl (A, II, 8)   #         Stack = {A[i], beta, alpha}
-  fmul %st(2), %st  # FLOP!   Stack = {A[i]*beta, beta, alpha}
+  /*
+   * Body
+  */
 
-  fldl (X, II, 8)   #         Stack = {X[i], A[i]*beta, beta, alpha}
-  fmul %st(1), %st  # FLOP!   Stack = {X[i]*A[i]*beta, beta, alpha}
+  xor II, II
+  fldl (A, II, 8)         #         ST = {A[i], beta, alpha}
+  fmul %st(2), %st        # FLOP!   ST = {(A[i]*alpha), beta, alpha}
+
+  fldl (X, II, 8)         #         ST = {X[i], (A[i]*alpha), beta, alpha}
+  fmul %st(1), %st        # FLOP!   ST = {(X[i]*A[i]*alpha), (A[i]*alpha), beta, alpha}
 
   fstpl (X, II, 8)
 
 
-  fadd (Y, II, 8)   # FLOP
+  fadd (Y, II, 8)         # FLOP!
 
-  
-  
+
+
   fmul %
   fmul %st(2), %st
   fstpl (Y, II, 8)
@@ -48,6 +58,11 @@ _dax2:
 
 
 DONE:
+
+  /*
+   * Tear Down
+  */
+
   fstp %st(0)
   mov (%esp), %ebp
   mov 4(%esp), %edx
