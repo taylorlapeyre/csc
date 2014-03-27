@@ -64,19 +64,19 @@ dgemv:
   # Multiply Y[i] by beta
   fldl (Y, II, 8)
   fmul %st(2), %st # FLOP!
-  # Stack: { Y[i]*beta, A[i]*alpha, beta, alpha }
+  # Stack: {Y[i]*beta, A[i]*alpha, beta, alpha}
 
   # Add the thing we stored in X[i] to the previous result
   fadd (X, II, 8) # FLOP!
-  # Stack: { Y[i]*beta + X[i]*A[i]*alpha, A[i]*alpha, beta, alpha }
+  # Stack: {Y[i]*beta + X[i]*A[i]*alpha, A[i]*alpha, beta, alpha}
 
   # Store the final answer back into Y[i]
   fstpl (Y, II, 8)
-  # Stack: { A[i]*alpha, beta, alpha }
+  # Stack: {A[i]*alpha, beta, alpha}
 
   # Get rid of the junk value still stored on the stack
   fstp %st
-  # Stack: { beta, alpha }
+  # Stack: {beta, alpha}
 
 DONE:
 
