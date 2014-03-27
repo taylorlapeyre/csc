@@ -7,6 +7,7 @@
 #define X %esi
 #define Y %eax
 #define II %edi
+#defile JJ %bl
 #define FSIZE 4*4
 
 #                      4            8               12                  20
@@ -46,7 +47,7 @@ dgemv:
   # Stack: {beta, alpha}
 
   ##
-  ## Body
+  ## THE BUSINESS
   ##
 
   xor II, II
@@ -81,20 +82,20 @@ dgemv:
 
     # Are we at the end of this row?
     cmp II, N
-    je  NEXTROW
+    je  KEEPGOING
 
     NEXTROW:
-      # do some sort of compare to figure out if this is the last element...
+      cmp JJ, M
       je DONE
 
-      # Move to the beginning of the next row
-      sub II, N
-      add II, LDA
+      xor II, II
+      inc JJ, JJ
 
-      # And run the loop again
       jmp OUTERLOOP
 
-    inc II
+    KEEPGOING:
+      inc II
+
   jmp OUTERLOOP
 
 DONE:
