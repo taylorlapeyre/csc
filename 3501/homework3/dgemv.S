@@ -1,13 +1,12 @@
 ## Taylor Lapeyre
 
-#define M %ecx
-#define N %edx
+#define NN %edx
 #define A %ebp
 #define LDA %edx
 #define X %esi
 #define Y %eax
 #define II %edi
-#defile JJ %bl
+#define JJ %ecx
 #define FSIZE 4*4
 
 #                      4            8               12                  20
@@ -33,13 +32,13 @@ dgemv:
   mov %edi, 12(%esp)
 
   # Load our values into them
-  mov  FSIZE+4(%esp), M
-  mov  FSIZE+8(%esp), N
-  # skipping alpha, which we will load into the stack
+  # Skipping the constant N, which we will refer to directly
+  # Skipping the constant M, which we will refer to directly
+  # Skipping alpha, which we will load into the stack
   mov  FSIZE+20(%esp), A
   mov  FSIZE+24(%esp), LDA
   mov  FSIZE+28(%esp), X
-  # skipping beta, which we will load into the stack
+  # Skipping beta, which we will load into the stack
   mov  FSIZE+40(%esp), Y
 
   fldl FSIZE+12(%esp)
@@ -51,6 +50,7 @@ dgemv:
   ##
 
   xor II, II
+  xor JJ, JJ
 
   OUTERLOOP:
     # Multiply A[i] by alpha
@@ -83,24 +83,23 @@ dgemv:
     # Are we at the end of this row? In order to know, we need to figure out
     # what I should be.
 
-    # %ex = J * N
-    lea ($0, JJ, N), %ex
-    
-    cmp II, %ex
+    cmp II, NN
     jne KEEPGOING
 
     NEXTROW:
       # If we're here, that means that I == N
       # Therefore, if J == M, then we're done
-      cmp JJ, M
+      cmp JJ, FSIZE+4(%esp)
       je DONE
 
       # Otherwise, reset I to point to the first element of the next column
-      sub II, N
+      sub II, FSIZE+8(%esp)
       add II, LDA
 
       # Let the program know that we're on the next row
       inc JJ
+
+      mov NN, # N * J
 
       # And run that loop again
       jmp OUTERLOOP
