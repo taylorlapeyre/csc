@@ -1,0 +1,16 @@
+        xorl    II, II
+
+        fldl    (A,II,8)        #X, beta, alpha
+        fmul    %st(2), %st     #X*alpha, beta, alpha
+
+        fldl    (X,II,8)        #A, X*alpha, beta, alpha
+        fmul    %st(1), %st     #A*X*alpha, X*alpha, beta, alpha
+
+        fldl    (Y,II,8)        #Y, A*X*alpha, X*alpha, beta, alpha
+        fmul    %st(3), %st     #Y*beta, A*X*alpha, X*alpha, beta, alpha
+
+        fadd    %st(1)          #Y*beta + A*X*alpha, X*alpha, beta, alpha
+
+        fstpl   (Y, II, 8)
+
+        fstp    %st
