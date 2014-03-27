@@ -32,14 +32,18 @@ dgemv:
   mov %edi, 12(%esp)
 
   # Load our values into them
-  mov FSIZE+4(%esp), M
-  mov FSIZE+8(%esp), N
-  fldl FSIZE+12(%esp)     # ST = {alpha}
-  mov FSIZE+20(%esp), A
-  mov FSIZE+24(%esp), LDA
-  mov FSIZE+28(%esp), X
-  fldl FSIZE+32(%esp)     # ST = {beta, alpha}
-  mov FSIZE+40(%esp), Y
+  mov  FSIZE+4(%esp), M
+  mov  FSIZE+8(%esp), N
+  # skipping alpha, which we will load into the stack
+  mov  FSIZE+20(%esp), A
+  mov  FSIZE+24(%esp), LDA
+  mov  FSIZE+28(%esp), X
+  # skipping beta, which we will load into the stack
+  mov  FSIZE+40(%esp), Y
+
+  fldl FSIZE+12(%esp)
+  fldl FSIZE+32(%esp)
+  # Stack: {beta, alpha}
 
   ##
   ## Body
