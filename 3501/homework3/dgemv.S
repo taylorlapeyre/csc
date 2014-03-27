@@ -1,10 +1,10 @@
 ## Taylor Lapeyre
 
-#define NN %edx
+#define NN %eax
 #define A %ebp
 #define LDA %edx
 #define X %esi
-#define Y %eax
+#define Y %edx
 #define II %edi
 #define JJ %ecx
 #define FSIZE 4*4
@@ -80,9 +80,7 @@ dgemv:
     fstp %st(1)
     # Stack: {beta, alpha}
 
-    # Are we at the end of this row? In order to know, we need to figure out
-    # what I should be.
-
+    # Are we at the end of this row?
     cmp II, NN
     jne KEEPGOING
 
@@ -99,7 +97,10 @@ dgemv:
       # Let the program know that we're on the next row
       inc JJ
 
-      mov NN, # N * J
+      # NN holds the value that II has to equal in order for it to be at the
+      # end of the current row.
+      mov NN, FSIZE+8(%esp)
+      mul JJ
 
       # And run that loop again
       jmp OUTERLOOP
