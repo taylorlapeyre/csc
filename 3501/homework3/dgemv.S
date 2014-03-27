@@ -80,9 +80,14 @@ dgemv:
     fstp %st(1)
     # Stack: {beta, alpha}
 
-    # Are we at the end of this row?
-    cmp II, N
-    je  KEEPGOING
+    # Are we at the end of this row? In order to know, we need to figure out
+    # what I should be.
+
+    # %ex = J * N
+    lea ($0, JJ, N), %ex
+    
+    cmp II, %ex
+    jne KEEPGOING
 
     NEXTROW:
       # If we're here, that means that I == N
