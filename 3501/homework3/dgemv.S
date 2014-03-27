@@ -85,14 +85,22 @@ dgemv:
     je  KEEPGOING
 
     NEXTROW:
+      # If we're here, that means that I == N
+      # Therefore, if J == M, then we're done
       cmp JJ, M
       je DONE
 
-      xor II, II
-      inc JJ, JJ
+      # Otherwise, reset I to point to the first element of the next column
+      sub II, N
+      add II, LDA
 
+      # Let the program know that we're on the next row
+      inc JJ
+
+      # And run that loop again
       jmp OUTERLOOP
 
+    # We still have more elements in this row
     KEEPGOING:
       inc II
 
