@@ -38,24 +38,22 @@ _dax2:
   */
 
   xor II, II
-  fldl (A, II, 8)         #         ST = {A[i], beta, alpha}
-  fmul %st(2), %st        # FLOP!   ST = {(A[i]*alpha), beta, alpha}
 
-  fldl (X, II, 8)         #         ST = {X[i], (A[i]*alpha), beta, alpha}
-  fmul %st(1), %st        # FLOP!   ST = {(X[i]*A[i]*alpha), (A[i]*alpha), beta, alpha}
+  fldl (A, II, 8)         #         ST = { A[i], beta, alpha }
+  fmul %st(2), %st        # FLOP!   ST = { A[i]*alpha, beta, alpha }
 
-  fstpl (X, II, 8)
+  fldl (X, II, 8)         #         ST = { X[i], A[i]*alpha, beta, alpha }
+  fmul %st(1), %st        # FLOP!   ST = { X[i]*A[i]*alpha, A[i]*alpha, beta, alpha }
 
+  fstpl (X, II, 8)        #         ST = { A[i]*alpha, beta, alpha }
 
-  fadd (Y, II, 8)         # FLOP!
+  fldl (Y, II, 8)         #         ST = { Y[i], A[i]*alpha, beta, alpha}
+  fmul %st(2), %st        # FLOP!   ST = { Y[i]*beta, A[i]*alpha, beta, alpha }
 
+  fadd (X, II, 8)         # FLOP!   ST = { Y[i]*beta + X[i]*A[i]*alpha, A[i]*alpha, beta, alpha }
 
-
-  fmul %
-  fmul %st(2), %st
-  fstpl (Y, II, 8)
-
-
+  fstpl (Y, II, 8)        #         ST = { A[i]*alpha, beta, alpha }
+  fstp                    #         ST = { beta, alpha }
 
 DONE:
 
