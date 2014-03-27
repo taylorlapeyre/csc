@@ -1,3 +1,5 @@
+## Taylor Lapeyre
+
 #define M %ecx
 #define N %edx
 #define A %ebp
@@ -12,8 +14,8 @@
 #                      24                28               32           40
 #            const int lda, const double *X, const double beta, double *Y)
 .text
-.globl _dgemv
-_dgemv:
+.global dgemv
+dgemv:
 
   ##
   ## Setup
@@ -56,7 +58,7 @@ _dgemv:
   fadd (X, II, 8)         # FLOP!   ST = { Y[i]*beta + X[i]*A[i]*alpha, A[i]*alpha, beta, alpha }
 
   fstpl (Y, II, 8)        #         ST = { A[i]*alpha, beta, alpha }
-  fstp                    #         ST = { beta, alpha }
+  fstp %st                #         ST = { beta, alpha }
 
 DONE:
 
