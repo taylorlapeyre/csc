@@ -1,6 +1,5 @@
 ## Taylor Lapeyre
 
-#define NN %eax
 #define A %ebp
 #define LDA %edx
 #define X %esi
@@ -34,82 +33,73 @@ dgemv:
   # Load our values into them
   # Skipping the constant N, which we will refer to directly
   # Skipping the constant M, which we will refer to directly
-  # Skipping alpha, which we will load into the stack
+  # Skipping alpha, which we will refer to directly
   mov  FSIZE+20(%esp), A
   mov  FSIZE+24(%esp), LDA
   mov  FSIZE+28(%esp), X
-  # Skipping beta, which we will load into the stack
+  # Skipping beta, which we will refer to directly
   mov  FSIZE+40(%esp), Y
-
-  fldl FSIZE+12(%esp)
-  fldl FSIZE+32(%esp)
-  # Stack: {beta, alpha}
 
   ##
   ## THE BUSINESS
   ##
 
   xor II, II
+
+OUTERLOOP:
+
+INNERLOOP:
+
   xor JJ, JJ
 
-  THELOOP:
-    # Multiply A[i] by alpha
-    fldl (A, II, 8)
-    fmul %st(2), %st # FLOP!
-    # Stack: {A[i]*alpha, beta, alpha}
+  # Multiply A[j] by X[j]
+  fldl    (A, JJ, 8)
+  fmull   (X, JJ, 8)
+  # Stack: {A[j]*X[j]}
 
-    # Multiply that answer by X[i]
-    fldl (X, II, 8)
-    fmul %st(1), %st # FLOP!
-    # Stack: {X[i]*A[i]*alpha, A[i]*alpha, beta, alpha}
+  # Add previous product to that answer
+  faddp
+  # Stack: {[j]+X[j]+Product}
 
-    # Multiply Y[i] by beta
-    fldl (Y, II, 8)
-    fmul %st(3), %st # FLOP!
-    # Stack: {Y[i]*beta, X[i]*A[i]*alpha, A[i]*alpha, beta, alpha}
+  # J++
+  inc JJ
 
-    # Add that product to the result we got before that
-    fadd %st(1) # FLOP!
-    # Stack: {Y[i]*beta + X[i]*A[i]*alpha, X[i]*A[i]*alpha, A[i]*alpha, beta, alpha}
+  # If J is less than N, run the loop again
+  cmp JJ, FSIZE+8(%esp)
+  jne INNERLOOP
 
-    # Store the final answer back into Y[i]
-    fstpl (Y, II, 8)
-    # Stack: {X[i]*A[i]*alpha, A[i]*alpha, beta, alpha}
+  ##
+  ## End Inner Loop Logic
+  ##
 
-    # Get rid of the junk values still stored on the stack
-    fstp %st(1)
-    # Stack: {beta, alpha}
+  # Otherwise, we're back in the outer loop again
 
-    # Are we at the end of this row?
-    cmp II, NN
-    jne KEEPGOING
+  # Multiply the product by alpha
+  fmull FSIZE+12(%esp)
+  # Stack: {alpha*Product}
 
-    NEXTROW:
-      # If we're here, that means that I == N
-      # Therefore, if J == M, then we're done
-      cmp JJ, FSIZE+4(%esp)
-      je DONE
+  # Multiply Y[i] by beta
+  fldl (Y,II,8)
+  fmull FSIZE+32(%esp)
+  # Stack: {Y[i]*beta, alpha*Product}
 
-      # Otherwise, reset II to point to the first element of the next column
-      sub II, FSIZE+8(%esp)
-      add II, LDA
+  # Add the two together and then pop the stack
+  faddp
+  # Stack: {}
 
-      # Let the program know that we're on the next row
-      inc JJ
+  # Put the answer into Y[i]
+  fstpl (Y,II,8)
+  # Stack: {}
 
-      # NN holds the value that II has to equal in order for it to be at the
-      # end of the current row.
-      mov NN, FSIZE+8(%esp)
-      mul JJ
+  # I++
+  inc II
 
-      # And run that loop again
-      jmp THELOOP
+  # Move to the next row
+  add LDA, A
 
-    # We still have more elements in this row
-    KEEPGOING:
-      inc II
-
-  jmp THELOOP
+  # Run the whole thing again until I is equal to M
+  cmp II, FSIZE+4(%esp)
+  jne OUTERLOOP
 
 DONE:
 
