@@ -45,7 +45,7 @@ void GetFlags(int nargs, char **args, int *b, int *s, int *a, char *W){
                 *W = args[i][0];
             default:
                 printf("something went real wrong\n");
-                exit 1;
+                exit;
             }
         }
     }
@@ -53,7 +53,8 @@ void GetFlags(int nargs, char **args, int *b, int *s, int *a, char *W){
 
 //prints c num times
 void repeat(char c, int num){
-    for(int i = 0; i < num; i++) {
+    int i; //i needs to be decalred outside of the function for it to work with his make file
+    for(i = 0; i < num; i++) {
         printf("%c",c);
     }
 }
@@ -241,7 +242,6 @@ int main(int nargs, char **args)
         //terrible...
         if (way == -1 && uway >= 0 && W == 'b')
             read = 1;
-        }
 
         int blkOff = address & 31;
         //hardcoded
