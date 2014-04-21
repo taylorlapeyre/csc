@@ -65,13 +65,13 @@ void PrintHeader(){
     printf("Binary Address");
     repeat (' ', 23);
     printf("Set  Blk");
-    repeat(' ',14);
+    repeat(' ',15);
     printf("Memory\n");
 
 
     printf("Address (tag/index/offset)");
     repeat(' ', 14);
-    printf("Tag Index off  Way UWay Read Writ\n");
+    printf("Tag Index off  Way UWay  Read Writ\n");
 
     repeat('=',7);
     printf(" ");
@@ -86,7 +86,7 @@ void PrintHeader(){
     repeat('=',4);
     printf(" ");
     repeat('=',4);
-    printf(" ");
+    printf("  ");
     repeat('=',4);
     printf(" ");
     repeat('=',4);
@@ -148,13 +148,15 @@ unsigned int GetMask(int nset)
 
 int main(int nargs, char **args)
 {
-    printf("\n\n");
+    //here just to help visibility
+    //printf("\n\n");
 
     int b,s,a;
-    char W;
+    static char W;
     GetFlags(nargs, args, &b, &s, &a, &W);
     PrintHeader();
-
+	//TAYLOR I NEED YOU TO WRITE THE HEADING HERE. it should look something like:
+	// 2KB 1-way associative cache: ...
     //number of addresses
     int nref = 0;
     //arrays containing the sets and tags of the input. size is initialized to the number of sets + 1
@@ -164,30 +166,77 @@ int main(int nargs, char **args)
     char readOrWrite[s+1];
     //holds the R/W bit to put into the array
     char RW;
+    //printf("b:%d s:%d a:%d W:%c\n",b,s,a,W);
     while(scanf("%[R|W]",&RW) == 1){
         readOrWrite[nref] = RW;
         //printf("RW:%c\n",RW);
         //scan then skip colons
-        scanf("%[:]");
+        scanf(":");
         //get the hex address
         int address;
         scanf("%5x\n",&address);
 
         int tag = address >> 11;
         tag = tag & 31;
-        tags[nref] = tag;
+        //tags[nref] = tag;
 
         int setIndex = address >> 5;
         setIndex = setIndex & 31;
-        sets[nref] = setIndex;
+        int uway = 0;
+        int way = -1;
+        int read = 0;
+        int writ = 0;
+
+        //if the R/W bit is R, default read to 1, if W default writ to 1
+        if(RW == 'R') read = 1;
+        else if(RW == 'W' && W == 't') writ = 1;
+        else{}
+        int i;
+        if(nref > 0){
+            for(i = 0; i < nref; i++){
+                if(sets[i] == setIndex ){
+                    if(tags[i] == tag){
+                        if(RW == 'R'){
+                            way = 0;
+                            uway = -2;
+                            read = 0;
+                        }else if(RW == 'W' && W == 'b'){
+                            way = 0;
+                            uway = 0;
+                        }else{
+                            way = -1;
+                            uway = -1;
+                        }
+                        break;
+                    }
+                }else {
+                    if(i == nref-1){
+                        //if the set is NOT found, add it to sets
+                        sets[nref] = setIndex;
+                        tags[nref] = tag;
+                        if(RW == 'W' && W == 't') uway = -1;
+                        else uway = 0;
+                    }
+                }
+            }
+        }else{
+            sets[nref] = setIndex;
+            tags[nref] = tag;
+            //only works for 1-way associative
+            uway = 0;
+        }
+        //terrible...
+        if(way == -1 && uway >= 0 && W == 'b') read = 1;
 
         int blkOff = address & 31;
-        printf("%6x%c %26s %8d %5d %3d\n",address,RW, Int2Bits(address), tags[nref], sets[nref], blkOff);
+        //hardcoded
+        printf("%6x%c %26s %8d %5d %3d %4d %4d  %4d %4d\n",address,RW, Int2Bits(address), tag, setIndex, blkOff, way, uway, read, writ);
 
         nref++;
     }
-    //printf("4: %x%c = %d = %s\n",addresses[3],readOrWrite[3],addresses[3],Int2Bits(addresses[3]));
-    printf("nref:%d\n",nref);
-    printf("\n\n");
+
+    //visibility
+    //printf("\n\n");
     return 0;
 }
+	
