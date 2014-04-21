@@ -165,6 +165,8 @@ int main(int nargs, char **args)
     printf("   Block size = %d bytes\n",b);
     printf("   Number of [sets,blocks] = [%d,%d]\n",s, s*a);
     printf("   Extra space for tag storage = ???\n");
+	printf("   Bits for [tag,index,offset] = [num, num, num] = 24");
+
     if(W=='t')
         printf("   Write policy = Write-through\n\n");
     else
