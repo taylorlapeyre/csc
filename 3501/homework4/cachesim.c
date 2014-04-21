@@ -158,10 +158,20 @@ int main(int nargs, char **args)
     static char W;
 
     GetFlags(nargs, args, &b, &s, &a, &W);
+        //TAYLOR I NEED YOU TO WRITE THE HEADING HERE. it should look something like:
+    // 2KB 1-way associative cache: ...
+    char cacheSize[] = "1KB";
+    printf("%s %d-way associative cache:\n",cacheSize, a);
+    printf("   Block size = %d bytes\n",b);
+    printf("   Number of [sets,blocks] = [%d,%d]\n",s, s*a);
+    printf("   Extra space for tag storage = ???\n");
+    if(W=='t')
+        printf("   Write policy = Write-through\n\n");
+    else
+        printf("   Write policy = Write-back\n\n");
+
     PrintHeader();
 
-    //TAYLOR I NEED YOU TO WRITE THE HEADING HERE. it should look something like:
-    // 2KB 1-way associative cache: ...
 
     //number of addresses
     int nref = 0;
