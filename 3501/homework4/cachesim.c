@@ -18,10 +18,12 @@ void GetFlags(int nargs, char **args, int *b, int *s, int *a, char *W){
                 // set the block size
                 if (++i >= nargs) {
                     printf("Out of args. \n");
-                }
+         			 exit;
+				    }
                // b should be a power of 2
                 *b = atoi(args[i]);
-                break;
+                assert((*b & (*b - 1)) == 0);
+				break;
             case 's':
                 // set the number of sets
                 if (++i >= nargs) {
@@ -29,7 +31,10 @@ void GetFlags(int nargs, char **args, int *b, int *s, int *a, char *W){
                 }
                 // s should be a power of 2 unless a is set to 0
                 *s = atoi(args[i]);
-                break;
+				if(*a != 0) {
+                	assert((*s & (*s - 1)) == 0);
+				}
+				break;
             case 'a':
                 //set the associativity
                 if (++i >= nargs) {
@@ -53,7 +58,7 @@ void GetFlags(int nargs, char **args, int *b, int *s, int *a, char *W){
 
 //prints c num times
 void repeat(char c, int num){
-    int i; //i needs to be decalred outside of the function for it to work with his make file
+	int i; //i needs to be decalred outside of the function for it to work with his make file
     for(i = 0; i < num; i++) {
         printf("%c",c);
     }
@@ -148,34 +153,51 @@ unsigned int GetMask(int nset)
     return(mask);
 }
 
+int bitwiseLog2(x){
+    int result = 0;
+    while (x >>= 1){
+        result++;
+    }
+    return result;
+}
 
 int main(int nargs, char **args)
 {
     //here just to help visibility
     //printf("\n\n");
-
+    printf("\nLog of 64 = %d\n", bitwiseLog2(64));
     int b,s,a;
     static char W;
 
     GetFlags(nargs, args, &b, &s, &a, &W);
         //TAYLOR I NEED YOU TO WRITE THE HEADING HERE. it should look something like:
     // 2KB 1-way associative cache: ...
-    char cacheSize[] = "1KB";
+	//cache size = blksz*nsets*assoc (in BITS)
+	int cacheS = b*s*a;
+	char cacheSize[10];
+	if(cacheS % 1024 == 0){
+		sprintf(cacheSize,"%dKB", cacheS / 1024);
+	} else {
+		sprintf(cacheSize,"%dB", cacheS);
+	}
+
+    //calculating tag, index, offset bits
+
     printf("%s %d-way associative cache:\n",cacheSize, a);
-    printf("   Block size = %d bytes\n",b);
-    printf("   Number of [sets,blocks] = [%d,%d]\n",s, s*a);
+	printf("   Block size = %d bytes\n",b);
+	printf("   Number of [sets,blocks] = [%d,%d]\n",s, s*a);
+
     printf("   Extra space for tag storage = ???\n");
 	printf("   Bits for [tag,index,offset] = [num, num, num] = 24");
+	if(W=='t')
+		printf("   Write policy = Write-through\n\n");
+ 	else
+		printf("   Write policy = Write-back\n\n");
 
-    if(W=='t')
-        printf("   Write policy = Write-through\n\n");
-    else
-        printf("   Write policy = Write-back\n\n");
-
-    PrintHeader();
+	PrintHeader();
 
 
-    //number of addresses
+	//number of addresses
     int nref = 0;
 
     //arrays containing the sets and tags of the input. size is initialized to the number of sets + 1
