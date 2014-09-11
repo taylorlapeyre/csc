@@ -6,3 +6,4 @@ Answers to assignments for Computer Science classes at LSU.
 - **CSC 2700** - Digital Media Programming
 - **CSC 3102** - Algorithms and Data Structures
 - **CSC 3501** - Computer Organization
+- **CSC 4101** - Programming Languages
