@@ -16,3 +16,6 @@ Answers to assignments for Computer Science classes at LSU.
 
 - **CSC 4101** - Programming Languages
   - *Introduction to LISP, an implementation of a Scheme iterpreter.*
+
+- **CSC 4402** - Databases
+  - *Introduction to SQL and relational databases.*
