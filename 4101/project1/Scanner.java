@@ -20,12 +20,21 @@ class Scanner {
       System.err.println("We fail: " + e.getMessage());
     }
 
-    // TODO: skip white space and comments
-	
     if (bite == -1)
       return null;
 
     char ch = (char) bite;
+
+    // Ignore Whitespace
+    // TODO: Test if ignoring whitespace actually works
+    if (ch == " " || ch == "\n") {
+      return getNextToken();
+    } else if (ch == ";") {
+      do {
+        bite = in.read();
+      } while (ch != "\n");
+      return getNextToken();
+    }
 	
     // Special characters
     if (ch == '\'')

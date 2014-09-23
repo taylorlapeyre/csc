@@ -15,7 +15,7 @@ public class Main {
 
 
   public static void main(String[] args) {
-    Scanner in = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
     if (args.length > 2) {
       System.err.println("Usage: java Main " + "[-d]");
