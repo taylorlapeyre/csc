@@ -18,10 +18,10 @@ class Token
   def to_s
     %Q(
       Token {
-        type:        #{@type}
-        integer_val: #{get_integer_val}
-        string_val:  #{get_string_val}
-        name:        #{get_name}
+        type:        #{@type.inspect}
+        integer_val: #{get_integer_val.inspect}
+        string_val:  #{get_string_val.inspect}
+        name:        #{get_name.inspect}
       }
     )
   end
@@ -72,20 +72,29 @@ class Scanner
   def get_next_token
     char = read_next_char
 
-    ################################################
+
     # Nothing
     ################################################
     return nil if char.nil?
 
-    ################################################
+
     # Whitespace
     ################################################
-    if [' ', "\n"].include?(char)
-      puts "[log]: skipping whitespace..."
+    if [' ', "\n"].include? char
       return get_next_token
     end
 
+
+    # Comments
     ################################################
+    if char == ';'
+      until ["\n", nil].include? char
+        char = read_next_char
+      end
+      return get_next_token
+    end
+
+
     # Strings
     ################################################
     if char == '"'
@@ -95,38 +104,33 @@ class Scanner
         string += char
         char = read_next_char
       end
-      puts "[log]: found a string: #{string.inspect}"
       return StringToken.new(string)
     end
 
-    ################################################
+
     # Special Characters
     ################################################
     # Quote
     if char == "'"
-      puts "[log]: found a quote: #{char.inspect}"
       return Token.new(:QUOTE)
     end
 
     # Left Parenthesis
     if char == '('
-      puts "[log]: found a left parentheses: #{char.inspect}"
       return Token.new(:LPAREN)
     end
 
     # Right Parenthesis
     if char == ')'
-      puts "[log]: found a right parentheses: #{char.inspect}"
       return Token.new(:RPAREN)
     end
 
     # Dot
     if char == '.'
-      puts "[log]: found a dot: #{char.inspect}"
       return Token.new(:DOT)
     end
 
-    ################################################
+
     # Boolean Constants
     ################################################
     if char == '#'
@@ -134,29 +138,25 @@ class Scanner
       next_char = read_next_char
       if next_char == 't'
         constant += next_char
-        puts "[log]: found a truth constant: #{constant.inspect}"
         return Token.new(:TRUE)
       elsif next_char == 'f'
         constant += next_char
-        puts "[log]: found a false constant: #{constant.inspect}"
         return Token.new(:FALSE)
       else
         raise "Invalid boolean constant"
       end
     end
 
-    ################################################
+
     # Integer Constants
     ################################################
     if char =~ /\d/
-      puts "[log]: found an integer: #{char.inspect}"
       return Token.new(char.to_i)
     end
 
-    ################################################
+
     # Identifiers
     ################################################
-    puts "[log]: found an identifier: #{char.inspect}"
     IdentifierToken.new(char)
   end
 end
@@ -168,7 +168,6 @@ loop do
   token = scanner.get_next_token
   while token
     puts token
-    puts
     token = scanner.get_next_token
   end
 end
