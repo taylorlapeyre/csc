@@ -65,6 +65,9 @@ class IdentifierToken < Token
 end
 
 class Scanner
+  WHITESPACE_CHARS = [" ", "\n"]
+  VALID_VARIABLE_REGEX = /[a-zA-Z_$]/
+
   def initialize(string)
     @string = string
   end
@@ -84,7 +87,7 @@ class Scanner
 
     # Whitespace
     ################################################
-    if [' ', "\n"].include? char
+    if WHITESPACE_CHARS.include? char
       return get_next_token
     end
 
@@ -162,14 +165,14 @@ class Scanner
 
     # Identifiers
     ################################################
-    if char =~ /[a-zA-Z_$]/
+    if char =~ VALID_VARIABLE_REGEX
       identifier = ""
-      while char =~ /[a-zA-Z_$]/
+      while char =~ VALID_VARIABLE_REGEX
         identifier += char
         char = read_next_char
       end
       # "put back" the last character we read
-      @string.prepend(char)
+      @string.prepend(char) unless char.nil?
       return IdentifierToken.new(identifier)
     end
 
@@ -195,10 +198,15 @@ end
 
 # REPL
 ################################################
+puts "Lexical Analyzer REPL v0.1"
+puts 'Type "exit" to quit'
+
 loop do
   print "> "
 
   input   = gets.chomp # "chomp" to get rid of newline at the end
+  exit if input == "exit"
+
   scanner = Scanner.new(input)
   token   = scanner.get_next_token
 
