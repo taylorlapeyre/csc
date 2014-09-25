@@ -65,7 +65,7 @@ class IdentifierToken < Token
 end
 
 class Scanner
-  WHITESPACE_CHARS = [" ", "\n"]
+  WHITESPACE_CHARS     = [" ", "\n"]
   VALID_VARIABLE_REGEX = /[a-zA-Z_$]/
 
   def initialize(string)
@@ -141,13 +141,10 @@ class Scanner
     # Boolean Constants
     ################################################
     if char == '#'
-      constant = '#'
       next_char = read_next_char
       if next_char == 't'
-        constant += next_char
         return Token.new(:TRUE)
       elsif next_char == 'f'
-        constant += next_char
         return Token.new(:FALSE)
       else
         throw_syntax_error("Invalid boolean constant")
@@ -159,7 +156,14 @@ class Scanner
     # Integer Constants
     ################################################
     if char =~ /\d/
-      return IntegerToken.new(char.to_i)
+      number = ""
+      while char =~ /\d/
+        number += char
+        char = read_next_char
+      end
+      # "put back" the last character we read
+      @string.prepend(char) unless char.nil?
+      return IntegerToken.new(number.to_i)
     end
 
 
@@ -198,7 +202,7 @@ end
 
 # REPL
 ################################################
-puts "Lexical Analyzer REPL v0.1"
+puts "Lexical Analyzer REPL v1"
 puts 'Type "exit" to quit'
 
 loop do
