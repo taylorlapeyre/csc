@@ -5,45 +5,58 @@ class Scanner
     @string = string
   end
 
-  def read()
-    first = @string[0]
-    rest  = @string[1..-1]
-    @string = rest
-    first
+  def read
+    @string.slice!(0)
   end
 
   def getNextToken()
-    bite = read()
+    bite = read
+    return if bite.nil?
 
+    puts
     if [' ', "\n"].include?(bite)
-      getNextToken()
+      puts "[log]: detected whitespace, skipping" 
+      getNextToken
     else
-      puts formatToken(bite)
+      puts "[log]: found a token: #{bite.inspect}"
     end
+    puts
+
+    formatToken(bite)
   end
 
 
   def formatToken(token)
-    case token
-    when '('
-      'LPAREN'
-    when ')'
-      'RPAREN'
-    when ' '
-      ''
-    when "\n"
-      ''
-    when /\d+/
-      'INT'
+    print "[parse]: "
+    if token.match(/\A[+-]?\d+?(\.\d+)?\Z/) == nil ? false : true
+      "INTEGER: #{token}"
     else
-      'INDENT'
+      case token
+      when '('
+        "LPAREN: #{token}"
+      when ')'
+        "RPAREN: #{token}"
+      else
+        "IDENTIFIER: #{token}"
+      end
     end
   end
-  
-  def scan
-    while thing = getNextToken
-    
 end
 
-scanner = Scanner.new("(+ 1 2)")
-scanner.getNextToken()
+class Main
+  def self.run
+    loop do
+      print "> "
+      scanner = Scanner.new(gets.chomp)
+
+      tok = scanner.getNextToken
+      while tok
+        puts tok
+        tok = scanner.getNextToken
+      end
+    end
+  end
+end
+
+
+Main.run
