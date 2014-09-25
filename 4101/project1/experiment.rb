@@ -186,6 +186,7 @@ class Scanner
     begin
       fail SyntaxError, message
     rescue Exception => e
+      @string = "" # stop scanning
       p e
     end
   end
