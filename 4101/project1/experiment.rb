@@ -161,6 +161,9 @@ class Scanner
     IdentifierToken.new(char)
   end
 
+
+  # Just a helper method
+  ################################################
   def throw_syntax_error(message)
     begin
       fail SyntaxError, message
@@ -170,11 +173,16 @@ class Scanner
   end
 end
 
+
+# REPL
+################################################
 loop do
   print "> "
-  scanner = Scanner.new(gets.chomp)
 
-  token = scanner.get_next_token
+  input   = gets.chomp # "chomp" to get rid of newline at the end
+  scanner = Scanner.new(input)
+  token   = scanner.get_next_token
+
   while token
     puts token
     token = scanner.get_next_token
