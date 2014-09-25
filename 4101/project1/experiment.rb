@@ -1,18 +1,22 @@
 class Token
+  DEFAULT_STRING_VAL  = ""
+  DEFAULT_INTEGER_VAL = 0
+  DEFAULT_NAME        = ""
+
   def initialize(token_type)
     @type = token_type
   end
 
   def get_string_val
-    ""
+    DEFAULT_STRING_VAL
   end
 
   def get_integer_val
-    0
+    DEFAULT_INTEGER_VAL
   end
 
   def get_name
-    ""
+    DEFAULT_NAME
   end
 
   def to_s
@@ -158,7 +162,21 @@ class Scanner
 
     # Identifiers
     ################################################
-    IdentifierToken.new(char)
+    if char =~ /[a-zA-Z_$]/
+      identifier = ""
+      while char =~ /[a-zA-Z_$]/
+        identifier += char
+        char = read_next_char
+      end
+      # "put back" the last character we read
+      @string.prepend(char)
+      return IdentifierToken.new(identifier)
+    end
+
+
+    # Invalid Characters
+    ################################################
+    throw_syntax_error("Invalid Character")
   end
 
 
