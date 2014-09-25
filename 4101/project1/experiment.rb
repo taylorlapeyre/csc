@@ -143,7 +143,8 @@ class Scanner
         constant += next_char
         return Token.new(:FALSE)
       else
-        raise "Invalid boolean constant"
+        throw_syntax_error("Invalid boolean constant")
+        return
       end
     end
 
@@ -151,13 +152,21 @@ class Scanner
     # Integer Constants
     ################################################
     if char =~ /\d/
-      return Token.new(char.to_i)
+      return IntegerToken.new(char.to_i)
     end
 
 
     # Identifiers
     ################################################
     IdentifierToken.new(char)
+  end
+
+  def throw_syntax_error(message)
+    begin
+      fail SyntaxError, message
+    rescue Exception => e
+      p e
+    end
   end
 end
 
