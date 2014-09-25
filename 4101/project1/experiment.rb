@@ -1,4 +1,24 @@
-input = "(+ 1 2)"
+class Token
+  def initialize(token_type)
+    @type = token_type
+  end
+
+  def get_string_val
+    ""
+  end
+
+  def get_integer_val
+    0
+  end
+
+  def get_name
+    ""
+  end
+
+  def to_s
+    "Token {type: #{@type}}"
+  end
+end
 
 class Scanner
   def initialize(string)
@@ -10,76 +30,76 @@ class Scanner
   end
 
   def get_next_token
-    token = read_next_char
+    char = read_next_char
 
     ################################################
     # Nothing
     ################################################
-    return nil if token.nil?
+    return nil if char.nil?
 
     ################################################
     # Whitespace
     ################################################
-    if [' ', "\n"].include?(token)
-      puts "[log]: found whitespace, skipping..."
+    if [' ', "\n"].include?(char)
+      puts "[log]: skipping whitespace..."
       return get_next_token
     end
 
     ################################################
     # Strings
     ################################################
-    if token == '"'
+    if char == '"'
       string = ""
-      token = read_next_char
-      until token == '"'
-        string += token
-        token = read_next_char
+      char = read_next_char
+      until char == '"'
+        string += char
+        char = read_next_char
       end
       puts "[log]: found a string: #{string.inspect}"
-      return format_token(string)
+      return Token.new(:STRING)
     end
 
     ################################################
     # Special Characters
     ################################################
     # Quote
-    if token == "'"
-      puts "[log]: found a quote: #{token.inspect}"
-      return format_token(token)
+    if char == "'"
+      puts "[log]: found a quote: #{char.inspect}"
+      return Token.new(:QUOTE)
     end
 
     # Left Parenthesis
-    if token == '('
-      puts "[log]: found a left parentheses: #{token.inspect}"
-      return format_token(token)
+    if char == '('
+      puts "[log]: found a left parentheses: #{char.inspect}"
+      return Token.new(:LPAREN)
     end
 
     # Right Parenthesis
-    if token == ')'
-      puts "[log]: found a right parentheses: #{token.inspect}"
-      return format_token(token)
+    if char == ')'
+      puts "[log]: found a right parentheses: #{char.inspect}"
+      return Token.new(:RPAREN)
     end
 
     # Dot
-    if token == '.'
-      puts "[log]: found a dot: #{token.inspect}"
-      return format_token(token)
+    if char == '.'
+      puts "[log]: found a dot: #{char.inspect}"
+      return Token.new(:DOT)
     end
 
     ################################################
     # Boolean Constants
     ################################################
-    if token == '#'
+    if char == '#'
       constant = '#'
       next_char = read_next_char
       if next_char == 't'
         constant += next_char
         puts "[log]: found a truth constant: #{constant.inspect}"
-        return format_token(constant)
+        return Token.new(:TRUE)
       elsif next_char == 'f'
         constant += next_char
         puts "[log]: found a false constant: #{constant.inspect}"
-        return format_token(constant)
+        return Token.new(:FALSE)
       else
         raise "Invalid boolean constant"
       end
@@ -88,44 +108,16 @@ class Scanner
     ################################################
     # Integer Constants
     ################################################
-    if token =~ /\d/
-      number = token
-      token = read_next_char
-      while token =~ /\d/
-        number += token
-        token = read_next_char
-      end
-      puts "[log]: found an integer: #{number.inspect}"
-      return format_token(number)
+    if char =~ /\d/
+      puts "[log]: found an integer: #{char.inspect}"
+      return Token.new(:INTEGER)
     end
 
     ################################################
     # Identifiers
     ################################################
-    puts "[log]: found an identifier: #{token.inspect}"
-    format_token(token)
-
-  end
-
-  def format_token(token)
-    case token
-    when '('
-      "LPAREN"
-    when ')'
-      "RPAREN"
-    when /\d+/
-      "INTEGER"
-    when /("|').*("|')/
-      "STRING"
-    when "."
-      "DOT"
-    when "'"
-      "QUOTE"
-    when /#(t|f)/
-      "BOOLEAN"
-    else
-      "IDENTIFIER"
-    end
+    puts "[log]: found an identifier: #{char.inspect}"
+    Token.new(:IDENT)
   end
 end
 
@@ -133,10 +125,10 @@ loop do
   print "> "
   scanner = Scanner.new(gets.chomp)
 
-  tok = scanner.get_next_token
-  while tok
-    puts tok
+  token = scanner.get_next_token
+  while token
+    puts token.to_s.prepend("       ")
     puts
-    tok = scanner.get_next_token
+    token = scanner.get_next_token
   end
 end
