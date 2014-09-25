@@ -16,7 +16,47 @@ class Token
   end
 
   def to_s
-    "Token {type: #{@type}}"
+    %Q(
+      Token {
+        type:        #{@type}
+        integer_val: #{get_integer_val}
+        string_val:  #{get_string_val}
+        name:        #{get_name}
+      }
+    )
+  end
+end
+
+class IntegerToken < Token
+  def initialize(int_val)
+    @type = :INTEGER
+    @val = int_val
+  end
+
+  def get_integer_val
+    @val
+  end
+end
+
+class StringToken < Token
+  def initialize(str_val)
+    @type = :STRING
+    @val = str_val
+  end
+
+  def get_string_val
+    @val
+  end
+end
+
+class IdentifierToken < Token
+  def initialize(name)
+    @type = :IDENT
+    @name = name
+  end
+
+  def get_name
+    @name
   end
 end
 
@@ -56,7 +96,7 @@ class Scanner
         char = read_next_char
       end
       puts "[log]: found a string: #{string.inspect}"
-      return Token.new(:STRING)
+      return StringToken.new(string)
     end
 
     ################################################
@@ -110,14 +150,14 @@ class Scanner
     ################################################
     if char =~ /\d/
       puts "[log]: found an integer: #{char.inspect}"
-      return Token.new(:INTEGER)
+      return Token.new(char.to_i)
     end
 
     ################################################
     # Identifiers
     ################################################
     puts "[log]: found an identifier: #{char.inspect}"
-    Token.new(:IDENT)
+    IdentifierToken.new(char)
   end
 end
 
@@ -127,7 +167,7 @@ loop do
 
   token = scanner.get_next_token
   while token
-    puts token.to_s.prepend("       ")
+    puts token
     puts
     token = scanner.get_next_token
   end
