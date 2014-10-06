@@ -64,7 +64,7 @@ Regular.java
      Add an appropriate constructor.
 
 Scanner.java
-     skip white space and comments
+     Test if ignoring whitespace actually works
        scan a string into the buffer variable buf
        scan the number and convert it to an integer
        scan an identifier into the buffer

@@ -2,7 +2,7 @@ class Cons extends Node {
     private Node car;
     private Node cdr;
     private Special form;
-  
+
     // parseList() `parses' special forms, constructs an appropriate
     // object of a subclass of Special, and stores a pointer to that
     // object in variable form.  It would be possible to fully parse
@@ -15,17 +15,17 @@ class Cons extends Node {
     // TODO: Add any helper functions for parseList as appropriate.
 
     public Cons(Node a, Node d) {
-	car = a;
-	cdr = d;
-	parseList();
+      car = a;
+      cdr = d;
+      parseList();
     }
 
     void print(int n) {
-	form.print(this, n, false);
+    	form.print(this, n, false);
     }
 
     void print(int n, boolean p) {
-	form.print(this, n, p);
+    	form.print(this, n, p);
     }
 
 }

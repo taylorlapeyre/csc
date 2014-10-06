@@ -1,9 +1,4 @@
-require_relative 'boolean_lit'
-require_relative 'cons'
-require_relative 'int_lit'
-require_relative 'string_lit'
-require_relative 'ident'
-require_relative 'nil'
+require_relative 'literals'
 
 module Scheme
   class Parser
@@ -17,7 +12,6 @@ module Scheme
     end
 
     def parse_exp(token)
-      token = @scanner.get_next_token
       case token.get_type
       when :LPAREN
         parse_rest
@@ -26,9 +20,12 @@ module Scheme
       when :FALSE
         Scheme::BooleanLit.new(false)
       when :QUOTE
-        Scheme::Cons.new(Scheme::Ident.new("quote"), Scheme::Cons.new(parse_exp, Scheme::Nil.instance))
+        Scheme::Cons.new(
+          Scheme::Ident.new("quote"),
+          Scheme::Cons.new(parse_next_exp, Scheme::Nil.instance)
+        )
       when :INTEGER
-        Scheme::IntLit.new(token.get_integer_val)
+        Scheme::IntegerLit.new(token.get_integer_val)
       when :STRING
         Scheme::StringLit.new(token.get_string_val)
       when :IDENT
@@ -45,7 +42,7 @@ module Scheme
       when :RPAREN
         Scheme::Nil.instance
       when :DOT
-        parse_dot
+        parse_dot # ???
       else
         Scheme::Cons.new(parse_exp(token), parse_rest)
       end
