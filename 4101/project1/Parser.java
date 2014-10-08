@@ -38,12 +38,14 @@ class Parser {
 
   public Parser(Scanner s) { scanner = s; }
   
-  public Node parseExp() {
+  public Node parseExp() 
+  {
     // TODO: write code for parsing an exp
     return null;
   }
   
-  protected Node parseRest() {
+  protected Node parseRest() 
+  {
     // TODO: write code for parsing rest
     return null;
   }
