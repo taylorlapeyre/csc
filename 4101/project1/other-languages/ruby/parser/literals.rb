@@ -1,3 +1,4 @@
+require 'singleton'
 require_relative 'special_forms'
 
 module Scheme
@@ -76,7 +77,9 @@ module Scheme
     end
   end
 
-  class Nil < Node
+  class Nil
+    include Singleton
+
     def pprint(n, p=false)
       print(' ' * n)
       print(is_pair? ? ')' : '()')
