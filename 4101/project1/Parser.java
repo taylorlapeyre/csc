@@ -37,18 +37,46 @@ class Parser {
   private Scanner scanner;
 
   public Parser(Scanner s) { scanner = s; }
-  
-  public Node parseExp() 
+
+  public Node parseNextExp()
   {
-    // TODO: write code for parsing an exp
-    return null;
+    Token token = scanner.getNextToken();
+    return parseExp(token);
   }
-  
-  protected Node parseRest() 
+
+  public Node parseExp(Token token)
   {
-    // TODO: write code for parsing rest
-    return null;
+    switch (token.getType()) {
+      case Token.LPAREN:
+        return parseRest();
+      case Token.TRUE:
+        return new BooleanLit(true);
+      case Token.FALSE:
+        return new BooleanLit(false);
+      case Token.QUOTE:
+        return new Cons(new Ident("quote"), new Cons(parseNextExp(), new Nil()));
+      case Token.INT:
+        return new IntLit(token.getIntVal());
+      case Token.STRING:
+        return new StrLit(token.getStrVal());
+      case Token.IDENT:
+        return new Ident(token.getName());
+      default:
+        System.err.println("Something broke parseExp");
+        return null;
+    }
   }
-  
-  // TODO: Add any additional methods you might need.
+
+  protected Node parseRest()
+  {
+    Token token = scanner.getNextToken();
+    switch (token.getType()) {
+      case Token.RPAREN:
+        return new Nil();
+      case Token.DOT:
+        return new Cons(parseNextExp(), parseRest());
+      default:
+        return new Cons(parseExp(token), parseRest());
+    }
+  }
 };

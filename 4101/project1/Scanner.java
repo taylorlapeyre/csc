@@ -1,7 +1,3 @@
-package taylorlapeyre; /**
- * Created by taylorlapeyre on 10/9/14.
- */
-
 import java.io.*;
 
 public class Scanner {
