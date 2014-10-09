@@ -11,7 +11,7 @@ public class Main {
     "INT",
     "STRING",
     "IDENT"
-  }
+  };
 
 
   public static void main(String[] args) {
