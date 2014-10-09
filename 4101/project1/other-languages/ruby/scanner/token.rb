@@ -1,5 +1,7 @@
 module Scheme
   class Token
+    attr_reader :type
+
     DEFAULT_STRING_VAL  = ""
     DEFAULT_INTEGER_VAL = 0
     DEFAULT_NAME        = ""

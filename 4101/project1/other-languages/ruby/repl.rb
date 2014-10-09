@@ -1,4 +1,5 @@
 require_relative 'scanner/scanner'
+require_relative 'parser/parser'
 
 # REPL
 ################################################
@@ -12,10 +13,11 @@ loop do
   exit if input == "exit"
 
   scanner = Scheme::Scanner.new(input)
-  token   = scanner.get_next_token
+  parser  = Scheme::Parser.new(scanner)
 
-  while token
-    puts token
-    token = scanner.get_next_token
+  root = parser.parse_next_exp
+  while root
+    root.pprint
+    root = parser.parse_next_exp
   end
 end

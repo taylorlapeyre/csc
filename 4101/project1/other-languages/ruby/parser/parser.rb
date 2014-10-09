@@ -12,7 +12,13 @@ module Scheme
     end
 
     def parse_exp(token)
-      case token.get_type
+
+      # Debugging Purposes
+      puts "Lexical Analysis Found:"
+      puts token
+      puts "parsing..."
+
+      case token.type
       when :LPAREN
         parse_rest
       when :TRUE
@@ -36,9 +42,9 @@ module Scheme
       end
     end
 
-    def parse_rest(token)
+    def parse_rest
       token = @scanner.get_next_token
-      case token.get_type
+      case token.type
       when :RPAREN
         Scheme::Nil.instance
       when :DOT
