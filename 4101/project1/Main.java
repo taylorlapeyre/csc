@@ -24,7 +24,7 @@ public class Main {
 
     if (args.length == 2 && args[0].equals("-d")) {
       Token token = scanner.getNextToken();
-      while (token) {
+      while (token != null) {
         int tokenType = token.getType();
         System.out.print(TokenName[tokenType]);
 

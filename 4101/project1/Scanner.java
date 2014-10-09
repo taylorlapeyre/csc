@@ -56,28 +56,28 @@ public class Scanner {
                 sb.append(ch);
                 ch = (char)readNextBite();
             }
-            return new StringToken(sb.toString());
+            return new StrToken(sb.toString());
         }
 
 
         // Special Characters
         // Quote
         if (ch == '\'') {
-            return new Token("QUOTE");
+            return new Token(Token.QUOTE);
         }
 
         // Left Parenthesis
         if (ch == '(') {
-            return new Token("LPAREN");
+            return new Token(Token.LPAREN);
         }
 
         // Right Parenthesis
         if (ch == ')') {
-            return new Token("RPAREN");
+            return new Token(Token.RPAREN);
         }
 
         if (ch == '.') {
-            return new Token("DOT");
+            return new Token(Token.DOT);
         }
 
 
@@ -85,9 +85,9 @@ public class Scanner {
         if (ch == '#') {
             ch = (char)readNextBite();
             if (ch == 't') {
-                return new Token("TRUE");
+                return new Token(Token.TRUE);
             } else if (ch == 'f') {
-                return new Token("FALSE");
+                return new Token(Token.FALSE);
             } else {
                 System.err.println("Invalid boolean constant");
             }
