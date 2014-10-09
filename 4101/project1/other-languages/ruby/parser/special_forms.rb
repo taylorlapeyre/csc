@@ -23,7 +23,7 @@ module Scheme
 
       print "\n"
 
-      third_node = nodr.cdr.cdr
+      third_node = node.cdr.cdr
       if third_node.is_pair?
         third_node.pprint(n, true)
       else

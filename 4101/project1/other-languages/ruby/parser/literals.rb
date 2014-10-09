@@ -4,7 +4,7 @@ require_relative 'special_forms'
 module Scheme
   class Node
     def pprint
-      # FIXME
+      puts "Why am I in Scheme::Node#pprint ?"
     end
 
     def is_boolean?
@@ -82,7 +82,7 @@ module Scheme
 
     def pprint(n, p=false)
       print(' ' * n)
-      print(is_pair? ? ')' : '()')
+      print(p ? ')' : '()')
     end
 
     def is_null?
