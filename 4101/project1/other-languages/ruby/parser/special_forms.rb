@@ -36,7 +36,7 @@ module Scheme
     def pprint(node, n, p)
       print '(begin'
       if node.cdr
-        node.cdr.pprint(n, p)
+        node.cdr.pprint(self, n, p)
       else
         fail SyntaxError, "Invalid expression, was expecting a cons."
       end
@@ -76,5 +76,13 @@ module Scheme
     end
   end
 
-  # WIP
+  class Regular < Special
+    def pprint(node, n, p)
+      print "(" unless p
+      node.car.pprint(0)
+      unless node.cdr.is_null?
+        node.cdr.pprint(1, true)
+      end
+    end
+  end
 end

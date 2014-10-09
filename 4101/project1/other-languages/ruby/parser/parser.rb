@@ -14,9 +14,8 @@ module Scheme
     def parse_exp(token)
 
       # Debugging Purposes
-      puts "Lexical Analysis Found:"
+      puts "Scanner Found:"
       puts token
-      puts "parsing..."
 
       case token.type
       when :LPAREN
@@ -48,7 +47,7 @@ module Scheme
       when :RPAREN
         Scheme::Nil.instance
       when :DOT
-        parse_dot # ???
+        Scheme::Cons.new(parse_next_exp, parse_rest)
       else
         Scheme::Cons.new(parse_exp(token), parse_rest)
       end

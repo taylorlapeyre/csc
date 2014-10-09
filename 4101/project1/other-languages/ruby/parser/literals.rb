@@ -91,6 +91,8 @@ module Scheme
   end
 
   class Ident < Node
+    attr_reader :name
+
     def initialize(name)
       @name = name
     end
@@ -141,7 +143,7 @@ module Scheme
     end
 
     def pprint(n, p=false)
-      parse_list.pprint(n, p)
+      parse_list.pprint(self, n, p)
     end
 
     def is_pair?

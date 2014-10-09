@@ -17,7 +17,7 @@ loop do
 
   root = parser.parse_next_exp
   while root
-    root.pprint
+    root.pprint(0)
     root = parser.parse_next_exp
   end
 end
