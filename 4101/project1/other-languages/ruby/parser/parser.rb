@@ -12,32 +12,30 @@ module Scheme
     end
 
     def parse_exp(token)
+      if token
 
-      # Debugging Purposes
-      puts "Scanner Found:"
-      puts token
-
-      case token.type
-      when :LPAREN
-        parse_rest
-      when :TRUE
-        Scheme::BooleanLit.new(true)
-      when :FALSE
-        Scheme::BooleanLit.new(false)
-      when :QUOTE
-        Scheme::Cons.new(
-          Scheme::Ident.new("quote"),
-          Scheme::Cons.new(parse_next_exp, Scheme::Nil.instance)
-        )
-      when :INTEGER
-        Scheme::IntegerLit.new(token.get_integer_val)
-      when :STRING
-        Scheme::StringLit.new(token.get_string_val)
-      when :IDENT
-        Scheme::Ident.new(token.get_name)
-      else
-        puts "Something broke parse_exp"
-        nil
+        case token.type
+        when :LPAREN
+          parse_rest
+        when :TRUE
+          Scheme::BooleanLit.new(true)
+        when :FALSE
+          Scheme::BooleanLit.new(false)
+        when :QUOTE
+          Scheme::Cons.new(
+            Scheme::Ident.new("quote"),
+            Scheme::Cons.new(parse_next_exp, Scheme::Nil.instance)
+          )
+        when :INTEGER
+          Scheme::IntegerLit.new(token.get_integer_val)
+        when :STRING
+          Scheme::StringLit.new(token.get_string_val)
+        when :IDENT
+          Scheme::Ident.new(token.get_name)
+        else
+          puts "Something broke parse_exp"
+          nil
+        end
       end
     end
 

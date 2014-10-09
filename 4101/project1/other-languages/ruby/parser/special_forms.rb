@@ -4,17 +4,17 @@ module Scheme
   end
 
   class Quote < Special
-    def pprint(node, n, p) # what does p stand for?
-      cdr = node.cdr
+    def pprint(cons, n, p) # what does p stand for?
+      cdr = cons.cdr
       print "'"
-      node.cdr.pprint(n, p: true)
+      cons.cdr.pprint(n+ 10, p: true)
     end
   end
 
   class Lambda < Special
-    def pprint(node, n, p)
+    def pprint(cons, n, p)
       print '(lambda '
-      second_node = node.cdr.car
+      second_node = cons.cdr.car
       if second_node.is_pair?
         second_node.pprint(n, p)
       else
@@ -23,9 +23,9 @@ module Scheme
 
       print "\n"
 
-      third_node = node.cdr.cdr
+      third_node = cons.cdr.cdr
       if third_node.is_pair?
-        third_node.pprint(n, true)
+        third_node.pprint(n + 2, true)
       else
         fail SyntaxError, "Invalid expression, was expecting a cons."
       end
@@ -33,10 +33,10 @@ module Scheme
   end
 
   class Begin < Special
-    def pprint(node, n, p)
+    def pprint(cons, n, p)
       print '(begin'
-      if node.cdr
-        node.cdr.pprint(self, n, p)
+      if cons.cdr
+        cons.cdr.pprint(n, p)
       else
         fail SyntaxError, "Invalid expression, was expecting a cons."
       end
@@ -44,28 +44,30 @@ module Scheme
   end
 
   class If < Special
-    def pprint(node, n, p)
+    def pprint(cons, n, p)
       print(' ' * n)
       print '(if '
 
-      predicate = node.cdr.car
+      predicate = cons.cdr.car
       if predicate
-        predicate.pprint(0, p)
+        predicate.pprint(n, p)
       else
         fail SyntaxError, "Invalid If statement, missing predicate."
       end
 
-      print(' ' * n)
+      puts
+      print ' ' * n
 
-      then_clause = node.cdr.cdr.car
+      then_clause = cons.cdr.cdr.car
       if then_clause
         then_clause.pprint(n + 2, p)
       else
         fail SyntaxError, "Invalid If statement, missing then statement."
       end
 
-      else_clause = node.cdr.cdr.car
+      else_clause = cons.cdr.cdr.car
       if else_clause
+        puts
         else_clause.pprint(n + 2, p)
       else
         fail SyntaxError, "Invalid If statement, missing else statement."
@@ -77,11 +79,12 @@ module Scheme
   end
 
   class Regular < Special
-    def pprint(node, n, p)
+    def pprint(cons, n, p)
+      print ' ' * n
       print "(" unless p
-      node.car.pprint(0)
-      unless node.cdr.is_null?
-        node.cdr.pprint(1, true)
+      cons.car.pprint(0)
+      unless cons.cdr.is_null?
+        cons.cdr.pprint(1, true)
       end
     end
   end
