@@ -132,7 +132,7 @@ module Scheme
           Scheme::Cond.new
         when 'define'
           Scheme::Define.new
-        when 'setbang'
+        when 'set!'
           Scheme::Setbang.new
         else
           Scheme::Regular.new

@@ -42,14 +42,18 @@ class Node {
   public Node getCar() {
     return null;
   }
-  
+
   public Node getCdr() {
     return null;
   }
-  
+
   public void setCar(Node a) {
   }
-  
+
   public void setCdr(Node d) {
+  }
+
+  public String getName() {
+    return null;
   }
 }

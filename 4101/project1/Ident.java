@@ -10,4 +10,8 @@ class Ident extends Node {
 
     System.out.println(name);
   }
+
+  public String getName() {
+    return name;
+  }
 }
