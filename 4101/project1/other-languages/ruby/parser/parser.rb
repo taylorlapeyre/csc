@@ -13,6 +13,8 @@ module Scheme
     end
 
     def parse_exp(token)
+      return token if token.nil?
+
       case token.type
       when :LPAREN
         parse_rest
