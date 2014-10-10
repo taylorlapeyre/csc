@@ -123,4 +123,50 @@ module Scheme
       cons.cdr.pprint(0, true)
     end
   end
+
+  class Define < Special
+    def pprint(cons, n, p)
+      print ' ' * n
+      print "(define "
+
+      name = cons.cdr.car
+      if name.is_symbol?
+        name.pprint(0)
+      else
+        fail SyntaxError, "Invalid Define statement, was expecting a symbol."
+      end
+
+      value = cons.cdr.cdr.car
+      if value
+        value.pprint(0)
+      else
+        fail SyntaxError, "Invalid Define statement, was expecting a value."
+      end
+
+      print ')'
+    end
+  end
+
+  class Setbang < Special
+    def pprint(cons, n, p)
+      print ' ' * n
+      print "(set! "
+
+      name = cons.cdr.car
+      if name.is_symbol?
+        name.pprint(0)
+      else
+        fail SyntaxError, "Invalid Set! statement, was expecting a symbol."
+      end
+
+      value = cons.cdr.cdr.car
+      if value
+        value.pprint(0)
+      else
+        fail SyntaxError, "Invalid Set! statement, was expecting a value."
+      end
+
+      print ')'
+    end
+  end
 end

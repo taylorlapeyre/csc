@@ -96,4 +96,28 @@ class TestParser < Minitest::Test
 
     assert_equal out.join, expected_output
   end
+
+  def test_it_can_print_a_setbang_statement
+    input = '(set! x 43)'
+    expected_output = '(set! x 42)'
+
+    parser = Scheme::Parser.new(input)
+    out = capture_io do
+      parser.pretty_print
+    end
+
+    assert_equal out.join, expected_output
+  end
+
+  def test_it_can_print_a_define_statement
+    input = '(define x 42)'
+    expected_output = '(define x 42)'
+
+    parser = Scheme::Parser.new(input)
+    out = capture_io do
+      parser.pretty_print
+    end
+
+    assert_equal out.join, expected_output
+  end
 end
