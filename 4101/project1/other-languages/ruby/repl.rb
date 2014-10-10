@@ -2,7 +2,7 @@ require_relative 'parser/parser'
 
 # REPL
 ################################################
-puts "Lexical Analyzer REPL v1"
+puts "Scheme Pretty Printer v2"
 puts 'Type "exit" to quit'
 
 loop do
