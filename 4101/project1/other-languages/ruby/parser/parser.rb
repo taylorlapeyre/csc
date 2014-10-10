@@ -1,10 +1,19 @@
 require_relative 'literals'
+require_relative '../scanner/scanner'
 require 'pry'
 
 module Scheme
   class Parser
-    def initialize(scanner)
-      @scanner = scanner
+    def initialize(input)
+      @scanner = Scheme::Scanner.new(input)
+    end
+
+    def pretty_print
+      root = parse_next_exp
+      while root
+        root.pprint(0)
+        root = parse_next_exp
+      end
     end
 
     def parse_next_exp

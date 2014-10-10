@@ -38,9 +38,33 @@ module Scheme
 
   class Begin < Special
     def pprint(cons, n, p)
-      print '(begin'
+      print ' ' * n
+      puts '(begin'
       if cons.cdr
-        cons.cdr.pprint(n + 2, p)
+        cons.cdr.pprint(n + 2, true)
+      else
+        fail SyntaxError, "Invalid expression, was expecting a cons."
+      end
+    end
+  end
+
+  class Let < Special
+    def pprint(cons, n, p)
+      print ' ' * n
+      print '(let '
+
+      assignments = cons.cdr.car
+      if assignments
+        assignments.pprint(n, true)
+      else
+        fail SyntaxError, "Invalid expression, was expecting a cons."
+      end
+
+      puts
+
+      body = cons.cdr.cdr
+      if body
+        body.pprint(n + 2, true)
       else
         fail SyntaxError, "Invalid expression, was expecting a cons."
       end
@@ -60,7 +84,6 @@ module Scheme
       end
 
       puts
-      print ' ' * n
 
       then_clause = cons.cdr.cdr.car
       if then_clause
@@ -87,9 +110,7 @@ module Scheme
       print ' ' * n
       print "(" unless p
       cons.car.pprint(0)
-      unless cons.cdr.is_null?
-        cons.cdr.pprint(1, true)
-      end
+      cons.cdr.pprint(0, true)
     end
   end
 end

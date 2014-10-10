@@ -1,4 +1,3 @@
-require_relative 'scanner/scanner'
 require_relative 'parser/parser'
 
 # REPL
@@ -9,15 +8,9 @@ puts 'Type "exit" to quit'
 loop do
   print "> "
 
-  input   = gets.chomp # "chomp" to get rid of newline at the end
+  input = gets.chomp # "chomp" to get rid of newline at the end
   exit if input == "exit"
 
-  scanner = Scheme::Scanner.new(input)
-  parser  = Scheme::Parser.new(scanner)
-
-  root = parser.parse_next_exp
-  while root
-    root.pprint(0)
-    root = parser.parse_next_exp
-  end
+  parser = Scheme::Parser.new(input)
+  parser.pretty_print
 end
