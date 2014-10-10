@@ -41,6 +41,15 @@ public class Main {
         token = scanner.getNextToken();
       }
     }
+
+    Parser parser = new Parser(scanner);
+    Node root = parser.parseNextExp();
+
+    while (root != null) {
+      root.print(0);
+      root = parser.parseNextExp();
+    }
+
     System.exit(0);
   }
 

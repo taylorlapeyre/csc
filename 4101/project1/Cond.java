@@ -2,9 +2,9 @@ import java.io.*;
 
 class Cond extends Special {
 
-	public Cond() { 
+	public Cond() {
 	}
-	
+
 	void printTheElements(Cons c, int n, boolean isAQuote) {
 	   if(isAQuote == true) {
 	      System.out.print(" ");
