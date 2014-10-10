@@ -44,4 +44,18 @@ class Cons extends Node {
     	parseList().print(this, n, p);
     }
 
+    public void printQuote(int n, boolean p) {
+      parseList().printQuote(this, n, p);
+    }
+    
+    @Override
+    public Node getCar() {
+      return car;
+    }
+
+    @Override
+    public Node getCdr() {
+      return cdr;
+    }
+
 }
