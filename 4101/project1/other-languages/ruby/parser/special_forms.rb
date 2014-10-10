@@ -7,7 +7,7 @@ module Scheme
     def pprint(cons, n, p) # what does p stand for?
       cdr = cons.cdr
       print "'"
-      cons.cdr.pprint(n+ 10, p: true)
+      cons.cdr.pprint(n, true)
     end
   end
 
@@ -16,6 +16,10 @@ module Scheme
       print '(lambda '
       second_node = cons.cdr.car
       if second_node.is_pair?
+        # puts "LAMBDA FOUND A SECOND NODE."
+        # puts "It is definitely a cons, and it is the car of the cdr of whatever cons"
+        # puts "created this lambda in its parse_list function."
+        # puts "this new cons has a car of: {#{second_node.car}} and a cdr of {#{second_node.cdr}}"
         second_node.pprint(n, p)
       else
         fail SyntaxError, "Invalid expression, was expecting a cons."
@@ -36,7 +40,7 @@ module Scheme
     def pprint(cons, n, p)
       print '(begin'
       if cons.cdr
-        cons.cdr.pprint(n, p)
+        cons.cdr.pprint(n + 2, p)
       else
         fail SyntaxError, "Invalid expression, was expecting a cons."
       end

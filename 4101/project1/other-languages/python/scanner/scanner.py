@@ -1,77 +1,18 @@
 import re
-
-class Token:
-  def __init__(self, token_type):
-    self.type = token_type
-
-  def get_string_val(self):
-    return ""
-
-  def get_integer_val(self):
-    return 0
-
-  def get_name(self):
-    return ""
-
-  def __str__(self):
-    return """
-    Token (
-      Type: {0}
-      String Val: {1}
-      Integer Val: {2}
-      Name: {3}
-    )
-    """.format(
-      self.type,
-      self.get_string_val(),
-      self.get_integer_val(),
-      self.get_name()
-    )
-
-
-class IntegerToken(Token):
-  def __init__(self, int_val):
-    self.type = "INTEGER"
-    self.val  = int_val
-
-  def get_integer_val(self):
-    return self.val
-
-
-class StringToken(Token):
-  def __init__(self, string_val):
-    self.type = "STRING"
-    self.val  = string_val
-
-  def get_string_val(self):
-    return self.val
-
-
-class IdentifierToken(Token):
-  def __init__(self, name):
-    self.type = "IDENT"
-    self.name  = name
-
-  def get_name(self):
-    return self.name
-
+import tokens
 
 class Scanner:
   def __init__(self, string):
     self.string = string
 
   def read_next_char(self):
-    if len(self.string) == 0:
-      return None
-    elif len(self.string) == 1:
-      char = self.string
-      self.string = ""
-      return char
-    else:
-      first_char  = self.string[0]
-      rest        = self.string[1:]
-      self.string = rest
-      return first_char
+    char = ""
+    try:
+      char = self.string[0]
+      self.string = self.string[1:]
+    except IndexError:
+      char = None
+    return char
 
   def get_next_token(self):
     char = self.read_next_char()
@@ -107,28 +48,28 @@ class Scanner:
     ################################################
     # Quote
     if char == "'":
-      return Token("QUOTE")
+      return tokens.Token("QUOTE")
 
     # Left Parenthesis
     if char == "(":
-      return Token("LPAREN")
+      return tokens.Token("LPAREN")
 
     # Right Parenthesis
     if char == ")":
-      return Token("RPAREN")
+      return tokens.Token("RPAREN")
 
     # Dot
     if char == ".":
-      return Token("DOT")
+      return tokens.Token("DOT")
 
     # Boolean Constants
     ################################################
     if char == "#":
       next_char = self.read_next_char()
       if next_char == 't':
-        return Token("TRUE")
+        return tokens.Token("TRUE")
       elif next_char == 'f':
-        return Token("FALSE")
+        return tokens.Token("FALSE")
       else:
         raise "Invalid boolean constant"
 
@@ -141,7 +82,7 @@ class Scanner:
         number += char
         char = self.read_next_char()
       self.string = char + self.string
-      return IntegerToken(int(number))
+      return tokens.IntegerToken(int(number))
 
     # Identifiers
     ################################################
@@ -152,22 +93,8 @@ class Scanner:
         identifier += char
         char = self.read_next_char()
       self.string = char + self.string
-      return IdentifierToken(identifier)
+      return tokens.IdentifierToken(identifier)
 
     # Invalid Characters
     ################################################
     raise "invalid character"
-
-while True:
-  print("> "),
-
-  console_input = raw_input()
-  if console_input == "exit":
-    exit()
-
-  scanner = Scanner(console_input)
-  token   = scanner.get_next_token()
-
-  while token:
-    print(token)
-    token = scanner.get_next_token()
