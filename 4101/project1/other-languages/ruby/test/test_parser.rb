@@ -2,6 +2,8 @@ require "minitest/autorun"
 require_relative "../parser/parser"
 
 class TestParser < Minitest::Test
+  make_my_diffs_pretty!
+
   def test_it_can_parse_an_identifier
     parser = Scheme::Parser.new("testing")
     root = parser.parse_next_exp
@@ -72,6 +74,20 @@ class TestParser < Minitest::Test
     input = '(lambda (x) (print x))'
     expected_output = '(lambda (x)
   (print x))'
+
+    parser = Scheme::Parser.new(input)
+    out = capture_io do
+      parser.pretty_print
+    end
+
+    assert_equal out.join, expected_output
+  end
+
+  def test_it_can_print_a_cond_statement
+    input = '(cond ((equal 1 2) #t) ((equal 3 3) #f))'
+    expected_output = '(cond
+  ((equal 1 2) #t)
+  ((equal 3 3) #f))'
 
     parser = Scheme::Parser.new(input)
     out = capture_io do

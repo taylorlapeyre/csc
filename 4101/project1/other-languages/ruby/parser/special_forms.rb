@@ -16,10 +16,6 @@ module Scheme
       print '(lambda '
       second_node = cons.cdr.car
       if second_node.is_pair?
-        # puts "LAMBDA FOUND A SECOND NODE."
-        # puts "It is definitely a cons, and it is the car of the cdr of whatever cons"
-        # puts "created this lambda in its parse_list function."
-        # puts "this new cons has a car of: {#{second_node.car}} and a cdr of {#{second_node.cdr}}"
         second_node.pprint(n, p)
       else
         fail SyntaxError, "Invalid expression, was expecting a cons."
@@ -71,6 +67,20 @@ module Scheme
     end
   end
 
+  class Cond < Special
+    def pprint(cons, n, p)
+      print ' ' * n
+      puts '(cond'
+
+      conditions = cons.cdr
+      if conditions.is_pair?
+        conditions.pprint(n + 2, true)
+      else
+        fail SyntaxError, "Invalid expression, was expecting a cons."
+      end
+    end
+  end
+
   class If < Special
     def pprint(cons, n, p)
       print(' ' * n)
@@ -101,7 +111,7 @@ module Scheme
       end
 
       print(' ' * n)
-      puts ')'
+      print ')'
     end
   end
 

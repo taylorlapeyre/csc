@@ -13,4 +13,5 @@ loop do
 
   parser = Scheme::Parser.new(input)
   parser.pretty_print
+  puts
 end
