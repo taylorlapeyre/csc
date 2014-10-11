@@ -15,7 +15,7 @@ class Let extends Special
         if (assignments.isPair()) {
             assignments.print(0, false);
         } else {
-            // raise exeption
+            throw new IllegalArgumentException("SYNTAX ERROR");
         }
 
         System.out.println();
@@ -24,8 +24,14 @@ class Let extends Special
         if (body.isPair()) {
             body.print(n + 2, true);
         } else {
-            // raise exception
+            throw new IllegalArgumentException("SYNTAX ERROR");
         }
+
+        System.out.println();
+        for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+        System.out.print("/LET");
    }
 
    void printQuote(Node c, int n, boolean p) {

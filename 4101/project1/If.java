@@ -16,7 +16,7 @@ class If extends Special {
 		if (predicate.isPair()) {
 			predicate.print(0, p);
 		} else {
-			// raise exception
+			throw new IllegalArgumentException("SYNTAX ERROR");
 		}
 
 		System.out.println();
@@ -25,7 +25,7 @@ class If extends Special {
 		if (!thenClause.isNull()) {
 			thenClause.print(n + 2, p);
 		} else {
-			// raise exception
+			throw new IllegalArgumentException("SYNTAX ERROR");
 		}
 
 		System.out.println();
@@ -34,8 +34,14 @@ class If extends Special {
 		if (!elseClause.isNull()) {
 			elseClause.print(n + 2, p);
 		} else {
-			// raise exception
+			throw new IllegalArgumentException("SYNTAX ERROR");
 		}
+
+		System.out.println();
+		for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+		System.out.print(')');
     }
 
     void printQuote(Node c, int n, boolean p) {

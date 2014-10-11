@@ -10,15 +10,14 @@ class Set extends Special
    		if(p != true) {
     	   System.out.print("(");
     	}
-    	if(c.getCar() instanceof Cons) {
+
+    	if(c.getCar().isPair()) {
     	   c.getCar().print(n, false);
     	} else {
        	   c.getCar().print(n, true);
     	}
 
-    	if(c.getCdr() != null) {
-    	   System.out.print(" ");
-    	}
+        System.out.print(" ");
 
     	if(c.getCdr() != null) {
     	   c.getCdr().print(n, true);

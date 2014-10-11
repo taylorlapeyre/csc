@@ -12,9 +12,9 @@ class Lambda extends Special {
 
         Node secondNode = c.getCdr().getCar();
         if (secondNode.isPair()) {
-            secondNode.print(0, p);
+            secondNode.print(0, false);
         } else {
-            // raise exception
+            throw new IllegalArgumentException("SYNTAX ERROR");
         }
 
         System.out.println();
@@ -23,8 +23,14 @@ class Lambda extends Special {
         if (thirdNode.isPair()) {
             thirdNode.print(n + 2, false);
         } else {
-            // raise exception
+            throw new IllegalArgumentException("SYNTAX ERROR");
         }
+
+        System.out.println();
+        for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+        System.out.print(')');
     }
 
     void printQuote(Node c, int n, boolean p) {

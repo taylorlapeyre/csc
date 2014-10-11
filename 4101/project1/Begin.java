@@ -13,8 +13,16 @@ class Begin extends Special {
 		if (c.getCdr().isPair()) {
 			c.getCdr().print(n + 2, true);
 		} else {
-			// raise exception
+			throw new IllegalArgumentException("SYNTAX ERROR");
 		}
+
+		System.out.println();
+		for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+
+
+		System.out.print("/BEGIN");
     }
 
     void printQuote(Node c, int n, boolean p) {

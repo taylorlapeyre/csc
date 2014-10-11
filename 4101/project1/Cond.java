@@ -15,7 +15,7 @@ class Cond extends Special {
 		if (conditions.isPair()) {
 			conditions.print(n + 2, true);
 		} else {
-			// raise exception
+			throw new IllegalArgumentException("SYNTAX ERROR");
 		}
     }
 

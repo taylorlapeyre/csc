@@ -109,9 +109,9 @@ public class Scanner {
 
 
         // Identifiers
-        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || ch == '*') {
+        if (isValidIdentCharacter(ch)) {
             StringBuilder sb = new StringBuilder();
-            while ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || ch == '*') {
+            while (isValidIdentCharacter(ch)) {
                 sb.append(ch);
                 ch = (char)readNextBite();
             }
@@ -127,5 +127,21 @@ public class Scanner {
 
         System.err.println("Illegal input character '" + (char) ch + '\'');
         return getNextToken();
+    }
+
+    private boolean isValidIdentCharacter(char ch) {
+        return(
+            (ch >= 'A' && ch <= 'Z') ||
+            (ch >= 'a' && ch <= 'z') ||
+            ch == '!'||
+            ch == '*' ||
+            ch == '/' ||
+            ch == '-' ||
+            ch == '+' ||
+            ch == '<' ||
+            ch == '>' ||
+            ch == '?' ||
+            ch == '!'
+        );
     }
 }

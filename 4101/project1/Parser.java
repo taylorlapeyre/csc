@@ -41,7 +41,11 @@ class Parser {
   public Node parseNextExp()
   {
     Token token = scanner.getNextToken();
-    return parseExp(token);
+    if (token == null) {
+      return null;
+    } else {
+      return parseExp(token);
+    }
   }
 
   public Node parseExp(Token token)
@@ -70,6 +74,11 @@ class Parser {
   protected Node parseRest()
   {
     Token token = scanner.getNextToken();
+
+    if (token == null) {
+      return null;
+    }
+
     switch (token.getType()) {
       case Token.RPAREN:
         return new Nil();

@@ -1,7 +1,6 @@
 class Cons extends Node {
     private Node car;
     private Node cdr;
-    private Special form;
 
     public Cons(Node a, Node d) {
       car = a;
@@ -42,10 +41,6 @@ class Cons extends Node {
 
     void print(int n, boolean p) {
     	parseList().print(this, n, p);
-    }
-
-    public void printQuote(int n, boolean p) {
-      parseList().printQuote(this, n, p);
     }
 
     @Override

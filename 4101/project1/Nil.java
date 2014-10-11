@@ -4,10 +4,7 @@ class Nil extends Node {
 
   public void print(int n)		{ print(n, false); }
   public void print(int n, boolean p) {
-    for (int i = 0; i < n; i++)
-      System.out.print(" ");
-
-    if (p) {
+    if (p) {  
       System.out.print(")");
     } else {
       System.out.print("()");
