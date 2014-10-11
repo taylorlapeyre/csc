@@ -109,9 +109,9 @@ public class Scanner {
 
 
         // Identifiers
-        if (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z') {
+        if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || ch == '*') {
             StringBuilder sb = new StringBuilder();
-            while (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z') {
+            while ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || ch == '*') {
                 sb.append(ch);
                 ch = (char)readNextBite();
             }

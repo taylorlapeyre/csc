@@ -7,10 +7,10 @@ class Quote extends Special {
 
   void print(Node c, int n, boolean p) {
   	 System.out.print("'");
-  	 ((Cons)list.getCar()).printQuote(n, false);
+  	 c.getCdr().print(0, true);
   }
 
   void printQuote(Node c, int n, boolean p) {
-     print(c, n, p);
+
   }
 }

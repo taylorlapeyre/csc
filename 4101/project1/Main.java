@@ -29,11 +29,11 @@ public class Main {
         System.out.print(TokenName[tokenType]);
 
         if (tokenType == Token.INT) {
-          System.out.println(", intVal = " + token.getIntVal());
+          System.out.print(", intVal = " + token.getIntVal());
         } else if (tokenType == Token.STRING) {
-          System.out.println(", strVal = " + token.getStrVal());
+          System.out.print(", strVal = " + token.getStrVal());
         } else if (tokenType == Token.IDENT) {
-          System.out.println(", name = " + token.getName());
+          System.out.print(", name = " + token.getName());
         } else {
           System.out.println();
         }

@@ -8,10 +8,14 @@ class Ident extends Node {
     for (int i = 0; i < n; i++)
       System.out.print(" ");
 
-    System.out.println(name);
+    System.out.print(name);
   }
 
   public String getName() {
     return name;
+  }
+
+  public boolean isSymbol() {
+      return true;
   }
 }

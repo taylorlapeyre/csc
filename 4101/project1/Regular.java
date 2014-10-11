@@ -7,26 +7,19 @@ class Regular extends Special
 	public Regular() {}
 
   void print(Node c, int n, boolean p) {
-		if(p != true) {
-			System.out.print("(");
-		}
-		if(c.getCar() instanceof Nil || c.getCar() instanceof Cons) {
-			c.getCar().print(n, false);
-		} else {
-			c.getCar().print(n, true);
-		}
+	for (int i = 0; i < n; i++) {
+	  System.out.print(' ');
+	}
 
-		if(c.getCdr() != null) {
-			System.out.print(" ");
-		}
-		if(c.getCdr() != null) {
-			c.getCdr().print(n, true);
-		} else {
-			System.out.print(")");
-		}
+	if (!p) {
+		System.out.print('(');
+	}
+
+	c.getCar().print(0);
+	System.out.print(' ');
+	c.getCdr().print(0, true);
   }
 
   void printQuote(Node c, int n, boolean p) {
-  	print(c, n, p);
   }
 }

@@ -12,9 +12,9 @@ class BooleanLit extends Node {
       System.out.print(" ");
     
     if (booleanVal) {
-      System.out.println("#t");
+      System.out.print("#t");
     } else {
-      System.out.println("#f");
+      System.out.print("#f");
     }
   }
 }

@@ -23,7 +23,7 @@ class Set extends Special
     	if(c.getCdr() != null) {
     	   c.getCdr().print(n, true);
     	} else {
-    	   System.out.println(")");
+    	   System.out.print(")");
     	}
 	}
 

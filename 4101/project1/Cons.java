@@ -47,7 +47,7 @@ class Cons extends Node {
     public void printQuote(int n, boolean p) {
       parseList().printQuote(this, n, p);
     }
-    
+
     @Override
     public Node getCar() {
       return car;
@@ -56,6 +56,10 @@ class Cons extends Node {
     @Override
     public Node getCdr() {
       return cdr;
+    }
+
+    public boolean isPair() {
+        return true;
     }
 
 }
