@@ -7,26 +7,23 @@ class Set extends Special
 	public Set() {}
 
     void print(Node c, int n, boolean p) {
+
    		if(p != true) {
     	   System.out.print("(");
     	}
-
     	if(c.getCar().isPair()) {
-    	   c.getCar().print(n, false);
+    	   c.getCar().print(0, false);
     	} else {
-       	   c.getCar().print(n, true);
+       	   c.getCar().print(0, true);
     	}
 
         System.out.print(" ");
+        Node value = c.getCdr();
+        if(value instanceof Nil) {
+            System.out.println(")");
+        } else {
+    	   value.print(0, true);
+    	} 
 
-    	if(c.getCdr() != null) {
-    	   c.getCdr().print(n, true);
-    	} else {
-    	   System.out.print(")");
-    	}
-	}
-
-	void printQuote(Node c, int n, boolean p) {
-		print(c, n, p);
 	}
 }

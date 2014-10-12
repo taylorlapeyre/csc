@@ -19,7 +19,4 @@ class Regular extends Special
 	System.out.print(' ');
 	c.getCdr().print(0, true);
   }
-
-  void printQuote(Node c, int n, boolean p) {
-  }
 }

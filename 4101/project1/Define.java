@@ -18,7 +18,7 @@ class Define extends Special {
             throw new IllegalArgumentException("SYNTAX ERROR");
         }
 
-        System.out.print(' ');
+        System.out.print(" ");
 
         Node value = c.getCdr().getCdr().getCar();
         if (!value.isNull()) {
@@ -26,15 +26,6 @@ class Define extends Special {
         } else {
             throw new IllegalArgumentException("SYNTAX ERROR");
         }
-
-        System.out.println();
-        for (int i = 0; i < n; i++) {
-            System.out.print(' ');
-        }
-        System.out.print("/DEFINE");
-    }
-
-    public void printQuote(Node c, int n, boolean p) {
-
+        System.out.print(")");
     }
 }

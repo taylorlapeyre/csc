@@ -5,6 +5,7 @@ class Cons extends Node {
     public Cons(Node a, Node d) {
       car = a;
       cdr = d;
+      parseList();
     }
 
     private Special parseList() {
@@ -45,12 +46,12 @@ class Cons extends Node {
 
     @Override
     public Node getCar() {
-      return car;
+      return this.car;
     }
 
     @Override
     public Node getCdr() {
-      return cdr;
+      return this.cdr;
     }
 
     public boolean isPair() {

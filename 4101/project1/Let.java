@@ -34,7 +34,4 @@ class Let extends Special
         System.out.print("/LET");
    }
 
-   void printQuote(Node c, int n, boolean p) {
-
-    }
 }

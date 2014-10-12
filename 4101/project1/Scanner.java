@@ -57,6 +57,7 @@ public class Scanner {
 
 
         // Special Characters
+
         // Quote
         if (ch == '\'') {
             return new Token(Token.QUOTE);
@@ -106,6 +107,11 @@ public class Scanner {
 
             return new IntToken(Integer.parseInt(sb.toString()));
         }
+
+        if (ch == '+' || ch == '-' || ch == '/' || ch == '*') {
+            return new IdentToken(Character.toString(ch));
+        }
+
 
 
         // Identifiers

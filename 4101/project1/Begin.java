@@ -11,21 +11,18 @@ class Begin extends Special {
 		System.out.println("(begin");
 
 		if (c.getCdr().isPair()) {
-			c.getCdr().print(n + 2, true);
+			System.out.println();
+			c.getCdr().print(n + 2, p);
+
 		} else {
 			throw new IllegalArgumentException("SYNTAX ERROR");
 		}
 
-		System.out.println();
 		for (int i = 0; i < n; i++) {
             System.out.print(' ');
         }
 
 
 		System.out.print("/BEGIN");
-    }
-
-    void printQuote(Node c, int n, boolean p) {
-
     }
 }
