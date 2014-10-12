@@ -11,7 +11,7 @@ class Begin extends Special {
 		System.out.println("(begin");
 
 		if (c.getCdr().isPair()) {
-			System.out.println();
+
 			c.getCdr().print(n + 2, p);
 
 		} else {
@@ -22,7 +22,6 @@ class Begin extends Special {
             System.out.print(' ');
         }
 
-
-		System.out.print("/BEGIN");
+		System.out.print(")");
     }
 }
