@@ -1,13 +1,49 @@
 import java.io.*;
 
 class If extends Special {
- 
-    // TODO: Add any fields needed.
-	
- 
-    // TODO: Add an appropriate constructor.
-	public If(Node t){	}
-    void print(Node t, int n, boolean p) {
-    	  Printer.printIf(t, n, p);
+
+	public If() {
+	}
+
+
+    void print(Node c, int n, boolean p) {
+		for (int i = 0; i < n; i++) {
+			System.out.print(' ');
+		}
+		System.out.print("(if ");
+
+		Node predicate = c.getCdr().getCar();
+		if (predicate.isPair()) {
+			predicate.print(0, p);
+		} else {
+			throw new IllegalArgumentException("SYNTAX ERROR");
+		}
+
+		System.out.println();
+
+		Node thenClause = c.getCdr().getCdr().getCar();
+		if (!thenClause.isNull()) {
+			thenClause.print(n + 2, p);
+		} else {
+			throw new IllegalArgumentException("SYNTAX ERROR");
+		}
+
+		System.out.println();
+
+		Node elseClause = c.getCdr().getCdr().getCdr().getCar();
+		if (!elseClause.isNull()) {
+			elseClause.print(n + 2, p);
+		} else {
+			throw new IllegalArgumentException("SYNTAX ERROR");
+		}
+
+		for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+		System.out.print(')');
+    }
+
+    void printQuote(Node c, int n, boolean p) {
+
     }
 }

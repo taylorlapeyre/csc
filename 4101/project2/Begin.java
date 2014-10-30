@@ -1,16 +1,27 @@
 import java.io.*;
 
 class Begin extends Special {
- 
-    // TODO: Add any fields needed.
 
- 
-    // TODO: Add an appropriate constructor.
-	public Begin(Node t){
-		
-	}
-    void print(Node t, int n, boolean p) {
-    	  Printer.printBegin(t, n, p);
+    public Begin() {}
 
+    void print(Node c, int n, boolean p) {
+		for (int i = 0; i < n; i++) {
+			System.out.print(' ');
+		}
+		System.out.println("(begin");
+
+		if (c.getCdr().isPair()) {
+
+			c.getCdr().print(n + 2, p);
+
+		} else {
+			throw new IllegalArgumentException("SYNTAX ERROR");
+		}
+
+		for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+
+		System.out.print(")");
     }
 }

@@ -3,7 +3,7 @@ import java.io.*;
 class Node {
   // The argument of print(int) is the number of characters to indent.
   // Every subclass of Node must implement print(int).
-  public void print(int n) {}
+  void print(int n) {}
 
   // The first argument of print(int, boolean) is the number of characters
   // to indent.  It is interpreted the same as for print(int).
@@ -20,7 +20,7 @@ class Node {
   // encode that in the sign bit of n.  If you need additional parameters,
   // make sure that you define the method print in all the appropriate
   // subclasses of Node as well.
-  public void print(int n, boolean p) {
+  void print(int n, boolean p) {
     print(n);
   }
 
@@ -29,27 +29,31 @@ class Node {
   // the type of a node and that extract some information.
 
   // TODO: implement these in the appropriate subclasses to return TRUE.
-  public boolean isBoolean()   { return false; }  // BooleanLit //done
-  public boolean isNumber() { return false; }  // IntLit  // done
-  public boolean isString() { return false; }  // StringLit  //done
-  public boolean isSymbol() { return false; }  // Ident  // done
-  public boolean isNull()   { return false; }  // nil  // done
-  public boolean isPair()   { return false; }  // Cons // done
+  public boolean isBoolean()   { return false; }  // BooleanLit
+  public boolean isNumber() { return false; }  // IntLit
+  public boolean isString() { return false; }  // StringLit
+  public boolean isSymbol() { return false; }  // Ident
+  public boolean isNull()   { return false; }  // nil
+  public boolean isPair()   { return false; }  // Cons
 
   // TODO: Report an error in these default methods and implement them
   // in class Cons.  After setCar, a Cons cell needs to be `parsed' again
   // using parseList.
-  
-  public static void print(Node t, int n, boolean p) { t.print(n, p); }
-  public static Node getCar(Node t) { return t.getCar(); }
-  public static Node getCdr(Node t) { return t.getCdr(); }
-  public static boolean isNull(Node t) { return t.isNull(); }
-  public static boolean isPair(Node t) { return t.isPair(); }
-  
-  public Node getCar() {return null;}
-  public Node getCdr() {return null;}
-  public void setCar(Node a) {}
-  public void setCdr(Node d) {}
-  
-  public String getName() { return ""; }
+  public Node getCar() {
+    return null;
+  }
+
+  public Node getCdr() {
+    return null;
+  }
+
+  public void setCar(Node a) {
+  }
+
+  public void setCdr(Node d) {
+  }
+
+  public String getName() {
+    return null;
+  }
 }

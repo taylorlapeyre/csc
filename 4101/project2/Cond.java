@@ -1,15 +1,25 @@
 import java.io.*;
 
 class Cond extends Special {
- 
-    // TODO: Add any fields needed.
 
- 
-    // TODO: Add an appropriate constructor.
-	public Cond(Node t){
-
+	public Cond() {
 	}
-    void print(Node t, int n, boolean p) { 
-    	Printer.printCond(t, n, p);
+
+    void print(Node c, int n, boolean p) {
+		for (int i = 0; i < n; i++) {
+			System.out.print(' ');
+		}
+		System.out.println("(cond");
+
+		Node conditions = c.getCdr();
+		if (conditions.isPair()) {
+			conditions.print(n + 2, true);
+		} else {
+			throw new IllegalArgumentException("SYNTAX ERROR");
+		}
+    }
+
+    void printQuote(Node c, int n, boolean p) {
+
     }
 }

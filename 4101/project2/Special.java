@@ -1,3 +1,5 @@
+// Special.h -- the parse tree node data structure for special forms
+
 import java.io.*;
 
 // There are several different approaches for how to implement the Special
@@ -5,8 +7,6 @@ import java.io.*;
 // is to not add any fields and to use empty constructors.
 
 abstract class Special {
-    abstract void print(Node t, int n, boolean p);
- 
-    	
+    abstract void print(Node c, int n, boolean p);
 }
 

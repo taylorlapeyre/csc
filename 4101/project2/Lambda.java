@@ -1,14 +1,38 @@
 import java.io.*;
 
 class Lambda extends Special {
-		
-    // TODO: Add any fields needed.
 
-	
-	    // TODO: Add an appropriate constructor.
-	public Lambda(Node t){}
-    void print(Node t, int n, boolean p) {
-    	  Printer.printLambda(t, n, p);
-  	}
+    public Lambda() {}
 
+    void print(Node c, int n, boolean p) {
+        for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+        System.out.print("(lambda ");
+
+        Node secondNode = c.getCdr().getCar();
+        if (secondNode.isPair()) {
+            secondNode.print(0, false);
+        } else {
+            throw new IllegalArgumentException("SYNTAX ERROR");
+        }
+
+        System.out.println();
+
+        Node thirdNode = c.getCdr().getCdr().getCar();
+        if (thirdNode.isPair()) {
+            thirdNode.print(n + 2, false);
+        } else {
+            throw new IllegalArgumentException("SYNTAX ERROR");
+        }
+
+        System.out.println();
+        for (int i = 0; i < n; i++) {
+            System.out.print(' ');
+        }
+        System.out.print(')');
+    }
+
+    void printQuote(Node c, int n, boolean p) {
+    }
 }

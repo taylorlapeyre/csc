@@ -1,16 +1,29 @@
 import java.io.*;
 
-class Set extends Special {
- 
-    // TODO: Add any fields needed.
+class Set extends Special
+{
+	private Cons cons;
 
- 
-    // TODO: Add an appropriate constructor.
-	public Set(Node t){
+	public Set() {}
+
+    void print(Node c, int n, boolean p) {
+
+   		if(p != true) {
+    	   System.out.print("(");
+    	}
+    	if(c.getCar().isPair()) {
+    	   c.getCar().print(0, false);
+    	} else {
+       	   c.getCar().print(0, true);
+    	}
+
+        System.out.print(" ");
+        Node value = c.getCdr();
+        if(value instanceof Nil) {
+            System.out.println(")");
+        } else {
+    	   value.print(0, true);
+    	} 
 
 	}
-	
-    void print(Node t, int n, boolean p) {
-    	Printer.printSet(t, n, p);
-    }
 }

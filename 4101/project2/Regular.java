@@ -1,16 +1,22 @@
 import java.io.*;
 
-class Regular extends Special {
- 
-    // TODO: Add any fields needed.
+class Regular extends Special
+{
+	private Cons cons;
 
-    
-    // TODO: Add an appropriate constructor.
+	public Regular() {}
 
-    public Regular(Node t){
-
+  void print(Node c, int n, boolean p) {
+	for (int i = 0; i < n; i++) {
+	  System.out.print(' ');
 	}
-    void print(Node t, int n, boolean p) {
-    	  Printer.printRegular(t, n, p);
-    }    
+
+	if (!p) {
+		System.out.print('(');
+	}
+
+	c.getCar().print(0);
+	System.out.print(' ');
+	c.getCdr().print(0, true);
+  }
 }
