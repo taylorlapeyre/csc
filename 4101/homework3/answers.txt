@@ -1,0 +1,60 @@
+Taylor Lapeyre
+Homework 3, CSC 4101
+
+
+1. It is fairly simple to implement this kind of pretty printing using multimethods.
+   We can simply write multiple print methods, each taking a different type as an
+   argument. Based on this argument, we print the correct string. The benefit of this
+   approach is that all printing logic is defined in one place instead of being
+   spread out among many files.
+
+   void print(StringLit node) {
+     .. print a string ..
+   }
+
+   void print(If node) {
+     .. print an if statement ..
+   }
+
+2. The most logical way to maintain such a list of objects is to implement a simple
+   linked list structure, where each Node contains a pointer to either a C or a D
+   as its value, as well as a pointer to the next Node in the list. Using this
+   method, it is trivial to call foo() on each item in the list:
+
+   Node head = this.head;
+   while (head) {
+     head.klass.foo();
+     head = head.next;
+   }
+
+   Where "klass" is a pointer to a generic object.
+
+3. In the first case, C::foo will be called because "p" is a C, not a D.
+   In the second and third case, the first declaration of D::foo (the one that
+   accepts a C as its argument) will be called because Java will always choose
+   the method that accepts the lowest level of abstraction. In this case, since
+   "q" and "r" both extend C, that method will be called. Therefore:
+
+   i = 1
+   j = 2
+   k = 2
+
+4. Given a number and a procedure, this computes the result of applying that procedure
+   to the number a certain number of times. Also known as a "lazy" sequence, the
+   result is a sequence of theoretically infinite length, where each element is
+   computed only when needed.
+
+   The structure of each element in this sequence is a pair, where the "car" (head) is
+   the result of applying the procedure "n" number of times to the number. The
+   "cdr" tail of the pair is a closure which, when executed, will return a pair
+   containing the result of applying the procedure "n + 1" times to the number as well
+   as a closure for generating the next iteration of the sequence. This closure is what
+   the "lambda" statement achieves.
+
+   The procedure "nth", given a stream, will return the head of the nth iteration
+   of the sequence. For instance:
+
+   (nth square-2-stream 3)
+   Is analogous to:
+   (head (tail (tail (tail square-2-stream))))
+
