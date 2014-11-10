@@ -19,6 +19,6 @@ class BooleanLit extends Node {
   }
 
   public Node eval(Environment env) {
-    return env.lookup(this);
+    return this;
   }
 }

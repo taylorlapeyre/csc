@@ -18,4 +18,8 @@ class Ident extends Node {
   public boolean isSymbol() {
       return true;
   }
+
+  public Node eval(Environment env) {
+    return env.lookup(this);
+  }
 }
