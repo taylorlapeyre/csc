@@ -10,4 +10,8 @@ class IntLit extends Node {
 
     System.out.print(intVal);
   }
+
+  public Node eval(Environment env) {
+    return env.lookup(this);
+  }
 }

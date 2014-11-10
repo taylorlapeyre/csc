@@ -22,31 +22,19 @@ public class Main {
       System.exit(1);
     }
 
-    if (args.length == 2 && args[0].equals("-d")) {
-      Token token = scanner.getNextToken();
-      while (token != null) {
-        int tokenType = token.getType();
-        System.out.print(TokenName[tokenType]);
+    Environment env = new Environment();
+    Ident *id;
 
-        if (tokenType == Token.INT) {
-          System.out.print(", intVal = " + token.getIntVal());
-        } else if (tokenType == Token.STRING) {
-          System.out.print(", strVal = " + token.getStrVal());
-        } else if (tokenType == Token.IDENT) {
-          System.out.print(", name = " + token.getName());
-        } else {
-          System.out.println();
-        }
+    id = new Ident("b+");
+    env.define(id, new BuiltIn(id));
 
-        token = scanner.getNextToken();
-      }
-    }
+    // And so on...
 
     Parser parser = new Parser(scanner);
     Node root = parser.parseNextExp();
 
     while (root != null) {
-      root.print(0);
+      root.eval(env).print(0);
       root = parser.parseNextExp();
     }
 

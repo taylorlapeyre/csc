@@ -10,4 +10,8 @@ class StrLit extends Node {
 
     System.out.print("\"" + strVal + "\"");
   }
+
+  public Node eval(Environment env) {
+    return env.lookup(this);
+  }
 }

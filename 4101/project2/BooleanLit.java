@@ -17,4 +17,8 @@ class BooleanLit extends Node {
       System.out.print("#f");
     }
   }
+
+  public Node eval(Environment env) {
+    return env.lookup(this);
+  }
 }
