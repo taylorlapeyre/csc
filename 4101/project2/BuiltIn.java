@@ -14,31 +14,37 @@
 // of the function symbol.
 
 class BuiltIn extends Node {
-    private Node symbol;
+private Node symbol;
 
-    public BuiltIn(Node s)		{ symbol = s; }
+public BuiltIn(Node s) {
+        symbol = s;
+}
 
-    public Node getSymbol()		{ return symbol; }
+public Node getSymbol() {
+        return symbol;
+}
 
-    // TODO: The method isProcedure() should be defined in
-    // class Node to return false.
-    public boolean isProcedure()	{ return true; }
+// TODO: The method isProcedure() should be defined in
+// class Node to return false.
+public boolean isProcedure() {
+        return true;
+}
 
-    public void print(int n) {
-	// there got to be a more efficient way to print n spaces
-	for (int i = 0; i < n; i++)
-	    System.out.print(' ');
-	System.out.println("#{Built-in Procedure");
-	symbol.print(n+3);
-	for (int i = 0; i < n; i++)
-	    System.out.print(' ');
-	System.out.println('}');
-    }
+public void print(int n) {
+        // there got to be a more efficient way to print n spaces
+        for (int i = 0; i < n; i++)
+                System.out.print(' ');
+        System.out.println("#{Built-in Procedure");
+        symbol.print(n+3);
+        for (int i = 0; i < n; i++)
+                System.out.print(' ');
+        System.out.println('}');
+}
 
-    // TODO: The method apply() should be defined in class Node
-    // to report an error.  It should be overwritten only in classes
-    // BuiltIn and Closure.
-    public Node apply (Node args, Environment env) {
+// TODO: The method apply() should be defined in class Node
+// to report an error.  It should be overwritten only in classes
+// BuiltIn and Closure.
+public Node apply (Node args, Environment env) {
         if (args == null) return null;
 
         String symbolName = symbol.getName();
@@ -47,125 +53,125 @@ class BuiltIn extends Node {
 
         // BINARY OPERATORS
         if (symbolName == "b+") {
-            if (arg1.isNumber() && arg2.isNumber()) {
-                return new IntLit(arg1.getValue() + arg2.getValue());
-            } else {
-                return System.err.println("Arguments for + must be numbers.");
-            }
+                if (arg1.isNumber() && arg2.isNumber()) {
+                        return new IntLit(arg1.getValue() + arg2.getValue());
+                } else {
+                        return System.err.println("Arguments for + must be numbers.");
+                }
         }
 
         if (symbolName == "b-") {
-            if (arg1.isNumber() && arg2.isNumber()) {
-                return new IntLit(arg1.getValue() - arg2.getValue());
-            } else {
-                return System.err.println("Arguments for - must be numbers.");
-            }
+                if (arg1.isNumber() && arg2.isNumber()) {
+                        return new IntLit(arg1.getValue() - arg2.getValue());
+                } else {
+                        return System.err.println("Arguments for - must be numbers.");
+                }
         }
 
         if (symbolName == "b*") {
-            if (arg1.isNumber() && arg2.isNumber()) {
-                return new IntLit(arg1.getValue() * arg2.getValue());
-            } else {
-                return System.err.println("Arguments for * must be numbers.");
-            }
+                if (arg1.isNumber() && arg2.isNumber()) {
+                        return new IntLit(arg1.getValue() * arg2.getValue());
+                } else {
+                        return System.err.println("Arguments for * must be numbers.");
+                }
         }
 
         if (symbolName == "b/") {
-            if (arg1.isNumber() && arg2.isNumber()) {
-                return new IntLit(arg1.getValue() / arg2.getValue());
-            } else {
-                return System.err.println("Arguments for / must be numbers.");
-            }
+                if (arg1.isNumber() && arg2.isNumber()) {
+                        return new IntLit(arg1.getValue() / arg2.getValue());
+                } else {
+                        return System.err.println("Arguments for / must be numbers.");
+                }
         }
 
         if (symbolName == "b<") {
-            if (arg1.isNumber() && arg2.isNumber()) {
-                return new BooleanLit(arg1.getValue() < arg2.getValue());
-            } else {
-                return System.err.println("Arguments for < must be numbers.");
-            }
+                if (arg1.isNumber() && arg2.isNumber()) {
+                        return new BooleanLit(arg1.getValue() < arg2.getValue());
+                } else {
+                        return System.err.println("Arguments for < must be numbers.");
+                }
         }
 
         if (symbolName == "b>") {
-            if (arg1.isNumber() && arg2.isNumber()) {
-                return new BooleanLit(arg1.getValue() > arg2.getValue());
-            } else {
-                return System.err.println("Arguments for > must be numbers.");
-            }
+                if (arg1.isNumber() && arg2.isNumber()) {
+                        return new BooleanLit(arg1.getValue() > arg2.getValue());
+                } else {
+                        return System.err.println("Arguments for > must be numbers.");
+                }
         }
 
         if (symbolName == "b=") {
-            if (arg1.isNumber() && arg2.isNumber()) {
-                return new BooleanLit(arg1.getValue() == arg2.getValue());
-            } else {
-                return System.err.println("Arguments for + must be numbers.");
-            }
+                if (arg1.isNumber() && arg2.isNumber()) {
+                        return new BooleanLit(arg1.getValue() == arg2.getValue());
+                } else {
+                        return System.err.println("Arguments for + must be numbers.");
+                }
         }
 
         // TYPE TESTS
         if (symbolName == "number?") {
-            return new BooleanLit(arg1.isNumber());
+                return new BooleanLit(arg1.isNumber());
         }
 
         if (symbolName == "symbol?") {
-            return new BooleanLit(arg1.isSymbol());
+                return new BooleanLit(arg1.isSymbol());
+        }
+
+        if (symbolName == "null?") {
+                return new BooleanLit(arg1.isNull());
+        }
+
+        if (symbolName == "pair?") {
+                return new BooleanLit(arg1.isPair());
+        }
+
+        if (symbolName == "procedure?") {
+                return new BooleanLit(env.lookup(arg1).isProcedure());
         }
 
         // LISPY STUFF
         if (symbolName == "car") {
-            if (arg1.isNull()) {
-                return arg1;
-            } else {
-                return arg1.getCar();
-            }
+                if (arg1.isNull()) {
+                        return arg1;
+                } else {
+                        return arg1.getCar();
+                }
         }
 
         if (symbolName == "cdr") {
-            if (arg1.isNull()) {
-                return arg1;
-            } else {
-                return arg1.getCdr();
-            }
+                if (arg1.isNull()) {
+                        return arg1;
+                } else {
+                        return arg1.getCdr();
+                }
         }
 
         if (symbolName == "set-car!") {
-            arg1.setCar(arg2);
-            return arg1;
+                arg1.setCar(arg2);
+                return arg1;
         }
 
         if (symbolName == "set-cdr!") {
-            arg1.setCdr(arg2);
-            return arg1;
+                arg1.setCdr(arg2);
+                return arg1;
         }
 
         if (symbolName == "cons") {
-            return new Cons(arg1, arg2);
-        }
-
-        if (symbolName == "null?") {
-            return new BooleanLit(arg1.isNull());
-        }
-
-        if (symbolName == "pair?") {
-            return new BooleanLit(arg1.isPair());
+                return new Cons(arg1, arg2);
         }
 
         if (symbolName == "eq?") {
-            return new BooleanLit(arg1 == arg2);
-        }
-
-        if (symbolName == "procedure?") {
-            return new BooleanLit(env.lookup(arg1).isProcedure());
+                return new BooleanLit(arg1 == arg2);
         }
 
         if (symbolName == "display" || symbolName == "eval") {
-            return arg1;
+                return arg1;
         }
 
         if (symbolName == "apply") {
-            return arg1.apply(arg2, env);
+                return arg1.apply(arg2, env);
         }
 
         return null;
-    }
+}
 }
