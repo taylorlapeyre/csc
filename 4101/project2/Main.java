@@ -23,12 +23,7 @@ public class Main {
         }
 
         Environment env = new Environment();
-        Ident *id;
-
-        id = new Ident("b+");
-        env.define(id, new BuiltIn(id));
-
-        // And so on...
+        env.defineBuiltins();
 
         Parser parser = new Parser(scanner);
         Node root = parser.parseNextExp();

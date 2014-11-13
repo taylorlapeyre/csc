@@ -16,6 +16,7 @@ class Node {
     public boolean isSymbol()    { return false; }  // Ident
     public boolean isNull()      { return false; }  // nil
     public boolean isPair()      { return false; }  // Cons
+    public boolean isProcedure() { return false; }
 
     public Node getCar() {
         return null;

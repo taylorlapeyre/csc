@@ -70,15 +70,15 @@ class Environment extends Node {
         }
     }
 
-    public void makeGlobalEnvironment() {
+    public void defineBuiltIns() {
         String[] builtins = {"b+", "b-", "b*", "b/", "b=", "b<", "b>", "number?", "null?",
-            "symbol?", "car", "cdr", "set-car!", "set-cdr!", "cons", "eq?",
-            "procedure?", "read", "write", "eval", "apply", "display",
-            "newline", "interaction-environment"};
-            Ident id;
-            for (int i = 0; i < builtins.length; i++) {
-                id = new Ident(s);
-                this.define(id, new Builtin(id));
-            }
+                            "symbol?", "car", "cdr", "set-car!", "set-cdr!", "cons", "eq?",
+                            "procedure?", "read", "write", "eval", "apply", "display",
+                            "newline", "interaction-environment"};
+        Ident id;
+        for (int i = 0; i < builtins.length; i++) {
+            id = new Ident(s);
+            this.define(id, new Builtin(id));
+        }
     }
 }
