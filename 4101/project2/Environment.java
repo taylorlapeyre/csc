@@ -77,7 +77,7 @@ class Environment extends Node {
                             "newline", "interaction-environment"};
         Ident id;
         for (int i = 0; i < builtins.length; i++) {
-            id = new Ident(s);
+            id = new Ident(builtins[i]);
             this.define(id, new Builtin(id));
         }
     }
