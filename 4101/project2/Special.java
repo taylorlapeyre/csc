@@ -9,4 +9,3 @@ import java.io.*;
 abstract class Special {
     abstract void print(Node c, int n, boolean p);
 }
-

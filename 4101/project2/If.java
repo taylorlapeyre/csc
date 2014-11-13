@@ -2,9 +2,7 @@ import java.io.*;
 
 class If extends Special {
 
-	public If() {
-	}
-
+	public If() { }
 
     void print(Node c, int n, boolean p) {
 		for (int i = 0; i < n; i++) {
@@ -43,7 +41,7 @@ class If extends Special {
 		System.out.print(')');
     }
 
-    void printQuote(Node c, int n, boolean p) {
-
-    }
+	public Node eval(Node t, Environment env) {
+		return null;
+	}
 }

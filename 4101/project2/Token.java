@@ -1,15 +1,21 @@
 class Token implements TokenType {
-  private int tt;
+    private int tt;
 
-  Token(int t) {
-    tt = t;
-  }
+    Token(int t) {
+        tt = t;
+    }
 
-  int getType() {
-    return tt;
-  }
+    int getType() {
+        return tt;
+    }
 
-  int getIntVal() { return 0; }
-  String getStrVal() { return ""; }
-  String getName() { return ""; }
+    int getIntVal() {
+        return 0;
+    }
+    String getStrVal() {
+        return "";
+    }
+    String getName() {
+        return "";
+    }
 }

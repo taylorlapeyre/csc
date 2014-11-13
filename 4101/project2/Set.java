@@ -23,7 +23,14 @@ class Set extends Special
             System.out.println(")");
         } else {
     	   value.print(0, true);
-    	} 
+    	}
 
+	}
+
+	public Node eval(Node t, Environment env) {
+		Node var = t.getCar();
+		Node val = t.getCdr();
+		env.assign(var, val.eval(env));
+		return val;
 	}
 }

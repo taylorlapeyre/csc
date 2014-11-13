@@ -1,17 +1,17 @@
 import java.io.*;
 class IntLit extends Node {
-  private int intVal;
+    private int intVal;
 
-  public IntLit(int i) { intVal = i; }
+    public IntLit(int i) { intVal = i; }
 
-  public void print(int n) {
-    for (int i = 0; i < n; i++)
-      System.out.print(" ");
+    public void print(int n) {
+        for (int i = 0; i < n; i++)
+            System.out.print(" ");
 
-    System.out.print(intVal);
-  }
+        System.out.print(intVal);
+    }
 
-  public Node eval(Environment env) {
-    return this;
-  }
+    public Node eval(Environment env) {
+        return this;
+    }
 }

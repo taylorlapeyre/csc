@@ -1,24 +1,23 @@
 import java.io.*;
 
-class Regular extends Special
-{
+class Regular extends Special {
 	private Cons cons;
 
 	public Regular() {}
 
-  void print(Node c, int n, boolean p) {
-	for (int i = 0; i < n; i++) {
-	  System.out.print(' ');
-	}
+	void print(Node c, int n, boolean p) {
+		for (int i = 0; i < n; i++) {
+	  		System.out.print(' ');
+		}
 
-	if (!p) {
-		System.out.print('(');
-	}
+		if (!p) {
+			System.out.print('(');
+		}
 
-	c.getCar().print(0);
-	System.out.print(' ');
-	c.getCdr().print(0, true);
-  }
+		c.getCar().print(0);
+		System.out.print(' ');
+		c.getCdr().print(0, true);
+	}
 
 	public Node eval(Node t, Environment env) {
 		Node first = t.getCar();

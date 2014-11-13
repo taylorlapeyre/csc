@@ -10,42 +10,45 @@
 // the function body.
 
 class Closure extends Node {
-private Node fun;       // a lambda expression
-private Environment env;      // the environment in which the function
-// was defined
+    private Node fun;       // a lambda expression
+    private Environment env;      // the environment in which the function
+    // was defined
 
-public Closure(Node f, Environment e) {
+    public Closure(Node f, Environment e) {
         fun = f;  env = e;
-}
+    }
 
-public Node getFun()    {
+    public Node getFun()    {
         return fun;
-}
-public Environment getEnv()   {
+    }
+    public Environment getEnv()   {
         return env;
-}
+    }
 
-// TODO: The method isProcedure() should be defined in
-// class Node to return false.
-public boolean isProcedure()  {
+    // TODO: The method isProcedure() should be defined in
+    // class Node to return false.
+    public boolean isProcedure()  {
         return true;
-}
+    }
 
-public void print(int n) {
+    public void print(int n) {
         // there got to be a more efficient way to print n spaces
         for (int i = 0; i < n; i++)
-                System.out.print(' ');
+            System.out.print(' ');
         System.out.println("#{Procedure");
-        fun.print(n+3);
-        for (int i = 0; i < n; i++)
-                System.out.print(' ');
-        System.out.println('}');
-}
 
-// TODO: The method apply() should be defined in class Node
-// to report an error.  It should be overwritten only in classes
-// BuiltIn and Closure.
-public Node apply (Node args) {
+        fun.print(n+3);
+
+        for (int i = 0; i < n; i++)
+            System.out.print(' ');
+
+        System.out.println('}');
+    }
+
+    // TODO: The method apply() should be defined in class Node
+    // to report an error.  It should be overwritten only in classes
+    // BuiltIn and Closure.
+    public Node apply (Node args) {
         return null;
-}
+    }
 }

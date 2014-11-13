@@ -1,11 +1,9 @@
 import java.io.*;
 
-class Let extends Special
-{
-   public Let() {
-   }
+class Let extends Special {
+    public Let() { }
 
-   void print(Node c, int n, boolean p) {
+    void print(Node c, int n, boolean p) {
         for (int i = 0; i < n; i++) {
             System.out.print(' ');
         }
@@ -32,6 +30,10 @@ class Let extends Special
             System.out.print(' ');
         }
         System.out.print("/LET");
-   }
+    }
+
+    public Node eval(Node t, Environment env) {
+        return null;
+    }
 
 }

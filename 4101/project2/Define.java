@@ -28,4 +28,8 @@ class Define extends Special {
         }
         System.out.print(")");
     }
+
+    public Node eval(Node t, Environment env) {
+        return null;
+    }
 }
