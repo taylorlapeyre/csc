@@ -9,7 +9,7 @@ class Quote extends Special {
         if(c.getCdr() instanceof Nil) {
             System.out.print("");
         } else {
-    	       c.getCdr().print(0, false);
+               c.getCdr().print(0, false);
         }
     }
 
