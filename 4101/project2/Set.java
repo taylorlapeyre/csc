@@ -28,9 +28,16 @@ class Set extends Special
     }
 
     public Node eval(Node t, Environment env) {
-        Node var = t.getCar();
-        Node val = t.getCdr();
-        env.assign(var, val.eval(env));
+        Node var = t.getCdr.getCar();
+        Node val = t.getCdr().getCdr().getCar();
+
+        Node existingVar = env.lookup(var);
+
+        if (existingVar.isNull()) {
+            // throw an error or something
+        } else {
+            env.assign(var, val.eval(env));
+        }
         return val;
     }
 }

@@ -30,6 +30,17 @@ class Define extends Special {
     }
 
     public Node eval(Node t, Environment env) {
-        return null;
+        Node name = t.getCdr().getCar();
+        Node val  = t.getCdr().getCdr().getCar();
+        Environment scope = new Environment(env);
+
+        if (key.isSymbol()) {
+            scope.define(name, val);
+        } else {
+            Closure procedure = new Closure(t.getCdr().getCdr(), scope);
+            scope.define(name.getCar(), procedure);
+        }
+
+        return name;
     }
 }

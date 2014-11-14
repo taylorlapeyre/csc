@@ -46,8 +46,8 @@ class Environment extends Node {
     public Node lookup (Node id) {
         Node val = find(id, scope);
         if (val == null && env == null) {
-            System.out.println("undefined variable");
-            return null;
+            System.out.println("Unable to find identifier in current context");
+            return new Nil();
         } else if (val == null)
             // look up the identifier in the enclosing scope
             return env.lookup(id);
