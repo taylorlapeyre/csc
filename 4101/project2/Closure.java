@@ -49,6 +49,15 @@ class Closure extends Node {
     // to report an error.  It should be overwritten only in classes
     // BuiltIn and Closure.
     public Node apply (Node args) {
-        return null;
+        Node args = fun.getCdr().getCar();
+        Node body = fun.getCdr().getCdr();
+
+
+        while (!body.isNull()) {
+            Node val = body.getCar().eval(env);
+            body = body.getCdr();
+        }
+
+        return val;
     }
 }

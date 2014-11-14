@@ -31,9 +31,9 @@ class Set extends Special
         Node var = t.getCdr.getCar();
         Node val = t.getCdr().getCdr().getCar();
 
-        Node existingVar = env.lookup(var);
+        Node currentVar = env.lookup(var);
 
-        if (existingVar.isNull()) {
+        if (currentVar.isNull()) {
             // throw an error or something
         } else {
             env.assign(var, val.eval(env));
