@@ -1,6 +1,7 @@
 class Cons extends Node {
     private Node car;
     private Node cdr;
+    private Special form;
 
     public Cons(Node a, Node d) {
         car = a;
@@ -11,18 +12,20 @@ class Cons extends Node {
     private Special parseList() {
         if (car.isSymbol()) {
             String name = car.getName();
-            if (name == "quote")  return new Quote();
-            if (name == "lambda") return new Lambda();
-            if (name == "if")     return new If();
-            if (name == "begin")  return new Begin();
-            if (name == "let")    return new Let();
-            if (name == "cond")   return new Cond();
-            if (name == "define") return new Define();
-            if (name == "set!")   return new Set();
-            return new Regular();
+            if (name == "quote")  form = new Quote();
+            if (name == "lambda") form = new Lambda();
+            if (name == "if")     form = new If();
+            if (name == "begin")  form = new Begin();
+            if (name == "let")    form = new Let();
+            if (name == "cond")   form = new Cond();
+            if (name == "define") form = new Define();
+            if (name == "set!")   form = new Set();
+            form = new Regular();
         } else {
-            return new Regular();
+            form = new Regular();
         }
+
+        return form;
     }
 
     void print(int n) {
@@ -45,6 +48,10 @@ class Cons extends Node {
 
     public boolean isPair() {
         return true;
+    }
+
+    public Node eval(Node t, Environment env) {
+        return form.eval(this, env);
     }
 
 }
