@@ -4,15 +4,15 @@ class Environment extends Node {
     // every list element (every frame) is an association list.
     // Instead of Nil(), we use null to terminate the list.
 
-    private Frame scope;       // the innermost scope, an association list
+    private EnvironmentStore scope;       // the innermost scope, an association list
     private Environment env;      // the enclosing environment
 
     public Environment()    {
-        scope = new Frame();
+        scope = new EnvironmentStore();
         env = null;
     }
     public Environment(Environment e) {
-        scope = new Frame();
+        scope = new EnvironmentStore();
         env = e;
     }
 
