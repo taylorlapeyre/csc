@@ -4,25 +4,8 @@ class Begin extends Special {
 
     public Begin(Node node) {}
 
-    void print(Node c, int n, boolean p) {
-		for (int i = 0; i < n; i++) {
-			System.out.print(' ');
-		}
-		System.out.println("(begin");
-
-		if (c.getCdr().isPair()) {
-
-			c.getCdr().print(n + 2, p);
-
-		} else {
-			throw new IllegalArgumentException("SYNTAX ERROR");
-		}
-
-		for (int i = 0; i < n; i++) {
-            System.out.print(' ');
-        }
-
-		System.out.print(")");
+    void print(Node node, int n, boolean bool) {
+        Printer.printBegin(node, n, bool);
     }
 
     public Node eval(Node node, Environment env) {

@@ -91,10 +91,10 @@ class Node {
   }
 
   public Node eval(Environment env) {
-    if(this instanceof Ident) {
-      id = new Ident(this.getName());
-      return id.eval(this, env);
-    }
-    return this;
+      if(this instanceof Ident) {
+          id = new Ident(this.getName());
+          return id.eval(this, env);
+      }
+      return this;
   }
 }

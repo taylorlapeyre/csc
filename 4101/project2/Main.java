@@ -115,9 +115,14 @@ public class Main {
 
     while (root != null) {
        if(env2 != null) {
+           try {
           root.eval(env2).print(0);
-          root = parser.parseExp();
-        } else {
+           } catch(NullPointerException e) {
+             System.err.println("Error: The variable is undefined");
+           } finally {
+             root = parser.parseExp();
+           }
+       } else {
            System.err.println("Error: No environment is defined.");
        }
     }

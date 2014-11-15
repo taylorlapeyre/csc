@@ -1,6 +1,8 @@
 import java.io.*;
 class BooleanLit extends Node {
   private boolean booleanVal;
+  private static BooleanLit True = null;
+  private static BooleanLit False = null;
 
   public BooleanLit(boolean b) {
     booleanVal = b;
@@ -25,6 +27,20 @@ class BooleanLit extends Node {
       System.out.print("#f");
     }
   }
+
+    public static BooleanLit getInstance(boolean val) {
+        if (val == true) {
+            if (True == null) {
+                True = new BooleanLit(true);
+            }
+            return True;
+        } else {
+            if (False == null) {
+                False = new BooleanLit(false);
+            }
+            return False;
+        }
+    }
 
   public Node eval(Environment env) {
     return this;

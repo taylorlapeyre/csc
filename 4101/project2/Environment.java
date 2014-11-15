@@ -67,16 +67,15 @@ public Node eval(Node node, Environment env) {
 // This is not in an object-oriented style, it's more or less a
 // translation of the Scheme assq function.
 private static Node find (Node id, Node alist) {
-        if (!alist.isPair())
-                return null; // in Scheme we'd return #f
-        else {
-                Node bind = alist.getCar();
-                if (id.getName().equals(bind.getCar().getName()))
-                        // return a list containing the value as only element
-                        return bind.getCdr();
-                else
-                        return find(id, alist.getCdr());
-        }
+    if (!alist.isPair())
+        return null;
+    else {
+        Node bind = alist.getCar();
+        if (id.getName().equals(bind.getCar().getName()))
+            return bind.getCdr();
+        else
+            return find(id, alist.getCdr());
+    }
 }
 
 public Node lookup (Node id) {

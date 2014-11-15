@@ -52,7 +52,7 @@ class Ident extends Node {
         arg = env.lookup(arg);
       }
 
-      if(arg.isNull() || arg == null) {
+      if(arg == null || arg.isNull()) {
         return new Nil();
       }
 

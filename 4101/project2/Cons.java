@@ -64,10 +64,12 @@ class Cons extends Node {
       parseList();
     }
 
+    @Override
     public boolean isPair() {
         return true;
     }
 
+    @Override
     public Node eval(Environment env) {
       return specialForm.eval(this, env);
     }

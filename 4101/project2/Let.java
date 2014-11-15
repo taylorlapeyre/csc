@@ -35,32 +35,35 @@ class Let extends Special
    }
 
    public Node eval(Node node, Environment env) {
-        Environment localEnv = new Environment(env);
-        Node args = node.getCdr().getCar();
-        Node exp = node.getCdr().getCdr().getCar();
-        args = letEnvironment(args, localEnv);
-        return exp.eval(localEnv);
+       Node args;
+       Node exp;
+       Environment localEnv = new Environment(env);
+       args = node.getCdr().getCar();
+       exp = node.getCdr().getCdr().getCar();
+       args = letEnvironment(args, localEnv);
+       return exp.eval(localEnv);
    }
 
    public Node letEnvironment(Node node, Environment env) {
-        if(node.isNull() || node == null) {
-            Node letList = new Cons(new Nil(), new Nil());
-            return letList;
-        } else {
-            Node arg = node.getCar().getCar();
-            Node exp = node.getCar().getCdr().getCar();
-            Node rest = node.getCdr();
+       if (node == null || node.isNull()) {
+           Node list = new Cons(new Nil(), new Nil());
+           return list;
+       } else {
+           Node arg, exp, rest;
+           arg = node.getCar().getCar();
+           exp = node.getCar().getCdr().getCar();
+           rest = node.getCdr();
 
-            if(arg.isSymbol()) {
-                env.define(arg, exp.eval(env));
-                return letEnvironment(rest, env);
-            } else if(arg.isPair()) {
-                return arg.eval(env);
-            } else if(arg.isNull() || arg == null) {
-                return new Nil();
-            }
-        }
-        return null;
+           if (arg.isSymbol()) {
+               env.define(arg, exp.eval(env));
+               return letEnvironment(rest, env);
+           } else if (arg.isPair()) {
+               return arg.eval(env);
+           } else if (arg == null || arg.isNull()) {
+               return new Nil();
+           }
+       }
+       return null;
    }
 
 }
