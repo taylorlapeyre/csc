@@ -11,26 +11,15 @@ class Cons extends Node {
     private Special parseList() {
         if (car.isSymbol()) {
             String name = car.getName();
-            switch (name) {
-                case "quote":
-                    return new Quote();
-                case "lambda":
-                    return new Lambda();
-                case "if":
-                    return new If();
-                case "begin":
-                    return new Begin();
-                case "let":
-                    return new Let();
-                case "cond":
-                    return new Cond();
-                case "define":
-                    return new Define();
-                case "set!":
-                    return new Set();
-                default:
-                    return new Regular();
-            }
+            if (name == "quote")  return new Quote();
+            if (name == "lambda") return new Lambda();
+            if (name == "if")     return new If();
+            if (name == "begin")  return new Begin();
+            if (name == "let")    return new Let();
+            if (name == "cond")   return new Cond();
+            if (name == "define") return new Define();
+            if (name == "set!")   return new Set();
+            return new Regular();
         } else {
             return new Regular();
         }

@@ -52,7 +52,6 @@ class Closure extends Node {
         Node args = fun.getCdr().getCar();
         Node body = fun.getCdr().getCdr();
 
-
         while (!body.isNull()) {
             Node val = body.getCar().eval(env);
             body = body.getCdr();

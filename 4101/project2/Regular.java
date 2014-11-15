@@ -6,17 +6,7 @@ class Regular extends Special {
     public Regular() {}
 
     void print(Node c, int n, boolean p) {
-        for (int i = 0; i < n; i++) {
-              System.out.print(' ');
-        }
-
-        if (!p) {
-            System.out.print('(');
-        }
-
-        c.getCar().print(0);
-        System.out.print(' ');
-        c.getCdr().print(0, true);
+        Printer.printRegular(c, n, p);
     }
 
     public Node eval(Node t, Environment env) {

@@ -5,12 +5,7 @@ class Quote extends Special {
     public Quote() { }
 
     void print(Node c, int n, boolean p) {
-        System.out.print("'");
-        if(c.getCdr() instanceof Nil) {
-            System.out.print("");
-        } else {
-               c.getCdr().print(0, false);
-        }
+        Printer.printQuote(c, n, p);
     }
 
     public Node eval(Node t, Environment env) {
