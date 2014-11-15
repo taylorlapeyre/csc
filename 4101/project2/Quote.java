@@ -9,6 +9,7 @@ class Quote extends Special {
     }
 
     public Node eval(Node t, Environment env) {
+        System.out.println("IN QUOTE EVAL");
         return null;
     }
 }

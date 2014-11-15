@@ -10,11 +10,13 @@ class Regular extends Special {
     }
 
     public Node eval(Node t, Environment env) {
+        System.out.println("IN REGULAR EVAL");
         Node first = t.getCar();
         Node rest  = t.getCdr();
 
         if (first.isSymbol()) {
             first = env.lookup(first);
+            first.print(0);
         }
 
         if (first.isNull() || first == null) {

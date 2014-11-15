@@ -47,6 +47,7 @@ class Closure extends Node {
 
     // Double check this!
     public Node apply (Node args) {
+        System.out.println("IN CLOSURE APPLY");
         Node params = fun.getCar();
         Node body = fun.getCar().getCdr();
 

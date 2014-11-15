@@ -9,6 +9,7 @@ class Define extends Special {
     }
 
     public Node eval(Node t, Environment env) {
+        System.out.println("IN DEFINE EVAL");
         Node name = t.getCdr().getCar();
         Node val  = t.getCdr().getCdr().getCar();
 

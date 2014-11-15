@@ -9,6 +9,7 @@ class StrLit extends Node {
     }
 
     public Node eval(Node t, Environment env) {
+        System.out.println("IN STR LIT EVAL");
         return this;
     }
 }

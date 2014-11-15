@@ -15,6 +15,7 @@ class BooleanLit extends Node {
     }
 
     public Node eval(Node t, Environment env) {
+        System.out.println("IN BOOL LIT EVAL");
         return this;
     }
 }

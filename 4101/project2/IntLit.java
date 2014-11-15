@@ -9,6 +9,7 @@ class IntLit extends Node {
     }
 
     public Node eval(Environment env) {
+        System.out.println("IN INT LIT EVAL");
         return this;
     }
 }

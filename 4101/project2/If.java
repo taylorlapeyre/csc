@@ -9,6 +9,7 @@ class If extends Special {
     }
 
     public Node eval(Node t, Environment env) {
+		System.out.println("IN IF EVAL");
         Node predicate  = t.getCar().getCdr();
         Node ifClause   = t.getCar().getCdr().getCdr();
         Node elseClause = t.getCdr().getCdr().getCar().getCdr();

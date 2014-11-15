@@ -28,6 +28,7 @@ public class Main {
 
         Parser parser = new Parser(scanner);
         Node root = parser.parseExp();
+        System.out.println(root);
 
         while (root != null) {
             root.eval(env).print(0);
