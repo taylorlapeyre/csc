@@ -38,7 +38,7 @@ class Environment extends Node {
             return env.lookup(id);
         else
             // get the value out of the list we got from find()
-            return val.getCar();
+            return val;
     }
 
     public void define (Node id, Node val) {
