@@ -33,7 +33,14 @@ public class Main {
 
         while (root != null) {
             try {
-                root.eval(env).print(0);
+                System.out.print("Parser returned a: ");
+                System.out.println(root);
+
+                Node result = root.eval(env);
+                System.out.print("When eval'd, we got back a: ");
+                System.out.println(result);
+
+                // result.print(0);
             } catch (NullPointerException e) {
                 System.out.print("NPE: ");
                 System.out.println(e.getMessage());

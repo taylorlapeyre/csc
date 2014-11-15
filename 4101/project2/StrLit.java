@@ -8,7 +8,7 @@ class StrLit extends Node {
         Printer.printStrLit(n, strVal);
     }
 
-    public Node eval(Node t, Environment env) {
+    public Node eval(Environment env) {
         System.out.println("IN STR LIT EVAL");
         return this;
     }
