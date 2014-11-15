@@ -17,8 +17,9 @@ class Nil extends Node {
     }
 
     public static Nil getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new Nil();
+        }
         return instance;
     }
 }
