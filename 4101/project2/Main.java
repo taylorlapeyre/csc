@@ -24,6 +24,7 @@ public class Main {
 
         Environment env = new Environment();
         env.defineBuiltIns();
+        System.out.println("Built-in procedures have been defined.");
 
         Parser parser = new Parser(scanner);
         Node root = parser.parseExp();

@@ -65,7 +65,7 @@ class Environment extends Node {
         Ident id;
         for (int i = 0; i < builtins.length; i++) {
             id = new Ident(builtins[i]);
-            this.define(id, new BuiltIn(id));
+            define(id, new BuiltIn(id));
         }
     }
 }
