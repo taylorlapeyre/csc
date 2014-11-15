@@ -51,8 +51,7 @@ class Cons extends Node {
     }
 
     public Node eval(Environment env) {
-        System.out.println("IN CONS EVAL");
-        // t.print(0);
+        System.out.println("[IN CONS EVAL]");
         return form.eval(this, env);
     }
 

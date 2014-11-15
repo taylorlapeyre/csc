@@ -8,6 +8,10 @@ class IntLit extends Node {
          Printer.printIntLit(n, intVal);
     }
 
+    public boolean isNumber() {
+        return true;
+    }
+
     public Node eval(Environment env) {
         System.out.println("IN INT LIT EVAL");
         return this;

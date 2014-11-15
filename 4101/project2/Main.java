@@ -33,6 +33,7 @@ public class Main {
 
         while (root != null) {
             try {
+                System.out.println("-------------------------------------------");
                 System.out.print("Parser returned a: ");
                 System.out.println(root);
 
@@ -40,9 +41,11 @@ public class Main {
                 System.out.print("When eval'd, we got back a: ");
                 System.out.println(result);
 
-                // result.print(0);
+                System.out.println("Now we'll try to call .print(0) on it:");
+                result.print(0);
+                System.out.println("-------------------------------------------");
             } catch (NullPointerException e) {
-                System.out.print("NPE: ");
+                System.out.print("ERROR, NPE: ");
                 System.out.println(e.getMessage());
             }
 
