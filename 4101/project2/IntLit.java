@@ -12,6 +12,10 @@ class IntLit extends Node {
         return true;
     }
 
+    public int getValue() {
+        return intVal;
+    }
+
     public Node eval(Environment env) {
         System.out.println("IN INT LIT EVAL");
         return this;

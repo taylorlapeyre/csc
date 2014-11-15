@@ -8,6 +8,10 @@ class StrLit extends Node {
         Printer.printStrLit(n, strVal);
     }
 
+    public String getStrVal() {
+        return strVal;
+    }
+
     public Node eval(Environment env) {
         System.out.println("[IN STR LIT EVAL]");
         return this;

@@ -13,7 +13,6 @@ class Regular extends Special {
         System.out.println("[IN REGULAR EVAL]");
         Node first = t.getCar();
         Node rest  = t.getCdr();
-        System.out.println(rest.getCar().getValue());
 
         if (first.isSymbol()) {
             first = env.lookup(first);
