@@ -41,6 +41,10 @@ public void print(int n) {
         System.out.println('}');
 }
 
+public Node eval(Node node, Environment env) {
+        return new Nil();
+}
+
 // TODO: The method apply() should be defined in class Node
 // to report an error.  It should be overwritten only in classes
 // BuiltIn and Closure.
@@ -49,14 +53,24 @@ public Node apply (Node args, Environment env) {
 
         String symbolName = symbol.getName();
         Node arg1 = args.getCar();
-        Node arg2 = args.getCdr().getCar();
+        Node arg2 = args.getCdr(); //args.getCdr().getCar();
+
+        if(arg1 == null || arg1.isNull()) {
+            arg1 = new Nil();
+        }
+
+        if(arg2 == null || arg2.isNull()) {
+            arg2 = new Nil();
+        } else {
+            arg2 = arg2.getCar();
+        }
 
         // BINARY OPERATORS
         if (symbolName == "b+") {
                 if (arg1.isNumber() && arg2.isNumber()) {
                         return new IntLit(arg1.getValue() + arg2.getValue());
                 } else {
-                        return System.err.println("Arguments for + must be numbers.");
+                        System.err.println("Arguments for + must be numbers.");
                 }
         }
 
@@ -64,7 +78,7 @@ public Node apply (Node args, Environment env) {
                 if (arg1.isNumber() && arg2.isNumber()) {
                         return new IntLit(arg1.getValue() - arg2.getValue());
                 } else {
-                        return System.err.println("Arguments for - must be numbers.");
+                        System.err.println("Arguments for - must be numbers.");
                 }
         }
 
@@ -72,7 +86,7 @@ public Node apply (Node args, Environment env) {
                 if (arg1.isNumber() && arg2.isNumber()) {
                         return new IntLit(arg1.getValue() * arg2.getValue());
                 } else {
-                        return System.err.println("Arguments for * must be numbers.");
+                        System.err.println("Arguments for * must be numbers.");
                 }
         }
 
@@ -80,7 +94,7 @@ public Node apply (Node args, Environment env) {
                 if (arg1.isNumber() && arg2.isNumber()) {
                         return new IntLit(arg1.getValue() / arg2.getValue());
                 } else {
-                        return System.err.println("Arguments for / must be numbers.");
+                        System.err.println("Arguments for / must be numbers.");
                 }
         }
 
@@ -88,7 +102,7 @@ public Node apply (Node args, Environment env) {
                 if (arg1.isNumber() && arg2.isNumber()) {
                         return new BooleanLit(arg1.getValue() < arg2.getValue());
                 } else {
-                        return System.err.println("Arguments for < must be numbers.");
+                        System.err.println("Arguments for < must be numbers.");
                 }
         }
 
@@ -96,7 +110,7 @@ public Node apply (Node args, Environment env) {
                 if (arg1.isNumber() && arg2.isNumber()) {
                         return new BooleanLit(arg1.getValue() > arg2.getValue());
                 } else {
-                        return System.err.println("Arguments for > must be numbers.");
+                        System.err.println("Arguments for > must be numbers.");
                 }
         }
 
@@ -104,7 +118,7 @@ public Node apply (Node args, Environment env) {
                 if (arg1.isNumber() && arg2.isNumber()) {
                         return new BooleanLit(arg1.getValue() == arg2.getValue());
                 } else {
-                        return System.err.println("Arguments for + must be numbers.");
+                        System.err.println("Arguments for + must be numbers.");
                 }
         }
 
@@ -169,9 +183,9 @@ public Node apply (Node args, Environment env) {
         }
 
         if (symbolName == "apply") {
-                return arg1.apply(arg2, env);
+                return arg1.apply(arg2);
         }
 
         return null;
-}
+     }
 }

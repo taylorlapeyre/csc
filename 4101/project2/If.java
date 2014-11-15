@@ -2,9 +2,8 @@ import java.io.*;
 
 class If extends Special {
 
-	public If() {
+	public If(Node node) {
 	}
-
 
     void print(Node c, int n, boolean p) {
 		for (int i = 0; i < n; i++) {
@@ -43,7 +42,17 @@ class If extends Special {
 		System.out.print(')');
     }
 
-    void printQuote(Node c, int n, boolean p) {
-
+    public Node eval(Node node, Environment env) {
+    	Node exp;
+        Node someCond = node.getCdr().getCar();
+        if(someCond.eval(env).getBool()) {
+        	exp = node.getCdr().getCdr().getCar();
+        	return exp.eval(env);
+        } else if(!(node.getCdr().getCdr().getCdr()).isNull()) {
+        	exp = node.getCdr().getCdr().getCdr().getCar();
+        	return exp.eval(env);
+        } else {
+        	return new Nil();
+        }
     }
 }

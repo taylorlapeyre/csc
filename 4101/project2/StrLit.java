@@ -11,7 +11,11 @@ class StrLit extends Node {
     System.out.print("\"" + strVal + "\"");
   }
 
-  public Node eval(Environment env) {
+  public Node eval(Node node, Environment env) {
     return this;
+  }
+
+  public String getString() {
+    return strVal;
   }
 }

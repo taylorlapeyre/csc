@@ -2,7 +2,7 @@ import java.io.*;
 
 class Begin extends Special {
 
-    public Begin() {}
+    public Begin(Node node) {}
 
     void print(Node c, int n, boolean p) {
 		for (int i = 0; i < n; i++) {
@@ -23,5 +23,9 @@ class Begin extends Special {
         }
 
 		System.out.print(")");
+    }
+
+    public Node eval(Node node, Environment env) {
+    	return null;
     }
 }

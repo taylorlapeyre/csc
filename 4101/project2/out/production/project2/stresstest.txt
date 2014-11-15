@@ -1,0 +1,232 @@
+(define a (cons '(1 2 3) '(4 (5))))
+(define aa (cons '(1 (2) 3) '((4) (5))))
+(define b (b+ 1 1))
+(define c (b- 2 1))
+(define d (b< 2 1))
+(define e (b< 1 2))
+(define f (b/ 2 1))
+(define g (b* 2 1))
+(define h (b+ (b+ 1 1) (b+ 1 1)))
+(define i (b+ (b* 2 2) (b* 2 2)))
+(define j (b+ (b* 2 2) (b* 2 2)))
+(define k (symbol? b))
+(define l (symbol? 'x))
+(define m (symbol? 1))
+(define n (number? 1))
+(define o (number? 'c))
+(define p (number? '1))
+(define po (cons p o))
+(define aaa (cons a aa))
+(define ab (cons a b))
+(define cd (cons c d))
+(define mn (cons m n))
+(define poaaa (cons po aaa))
+(define poaaaab (cons poaaa ab))
+(define zzzq (cons '(((#f #f) ((1 2 3) 4 (5)) (1 (2) 3) (4) (5)) ((1 2 3) 4 (5)) 2) poaaaab ))
+(define zzzqzzzq (cons zzzq zzzq))
+(define zzzqzzzqzzzqzzzq (cons zzzqzzzq zzzqzzzq))
+(define ppp '(define (x z) (lambda (+ x z)(1 2))))
+
+(define lamplus ((lambda (y) (b+ y y)) 1))
+(define lamstar ((lambda (y) (b* y y)) 1))
+(define malformed ((lambda (y) b* y y) 1))
+"end defines"
+
+
+(symbol? 'foo)
+(symbol? (car '(a b)))
+(symbol? "bar")
+(symbol? 'nil)
+(symbol? '())
+(symbol? #f)
+
+
+(number? b)
+(number? 1)
+(number? 'x)
+
+
+(define ispair '(1 2))
+(define nonpair '())
+(define nonpair2 '())
+(define isnull '())
+(define nonNull 1)
+
+(null? isnull)
+(null? nonNull)
+(pair? ispair)
+(pair? '())
+(pair? nonpair)
+(pair? nonpair2)
+(pair? 1)
+
+(procedure? b+)
+(procedure? b-)
+(procedure? b*)
+(procedure? b/)
+(procedure? b<)
+(procedure? b=)
+
+
+a
+aa
+b
+c
+d
+e
+f
+g
+h
+i
+j
+k
+l
+m
+n
+o
+p
+po
+aaa
+ab
+cd
+mn
+ppp
+poaaa
+poaaaab
+zzzq
+zzzqzzzq
+zzzqzzzqzzzqzzzq
+"undefined variable:"
+dddddddddddddddddd
+
+"functions:"
+(define (x y) (b+ y y))
+(define (fun p q)(b* (b+ p q) (b+ p q)))
+(define z (b+ 1 1))
+(define zz (b+ z z))
+(x z)
+(fun zz z)
+
+lamplus
+lamstar
+malformed
+
+"specials"
+(quote 1 2)
+(define true #t)
+(define false #f)
+
+(if (symbol? 'x) 1 0);;#t
+(if (symbol? 'x) (b+ 1 0) ( b+ 0 0));;1
+(if (symbol? 1) (b+ 0 0) ( b+ 1 0));;
+
+(cond
+      ((false) 0)
+      ((false) 0)
+      ((false) 0)
+      ((false) 0)
+      ((false) 0)
+      ((false) 0)
+      ((false) 0)
+      ((false) 0)
+      ((false) 0)
+      ((true) 1)
+);;1
+
+(cond
+      ((symbol? 1) 0)
+      ((symbol? 'x) 1)
+);;1
+
+(cond
+      ((eq? 1 2) 0)
+      ((symbol? 'x) 1)
+);;1
+
+(cond
+        ((symbol? 1) 0)
+        (else 1)
+);;1
+(cond
+        (else 1);;scheme48 evaluates else immediately, regardless of what's after.
+        ((symbol? 1) 0)
+);;1
+(define nonprocedure '(1 2))
+(define (isprocedure y) (b+ y y))
+(procedure? isprocedure)
+(procedure? nonprocedure)
+
+
+(define x '())
+(define z '())
+(define p '(1))
+(define q '(1))
+(define y x)
+(eq? y x);;#t
+(eq? x z) ;;eq? of two nils returns #t in scheme48
+(eq? p q);;#f
+
+
+;;evaluating lists as code and evaluating nested code lists
+(define toEval '(b+ 1 2))
+(define nestedEval 'toEval)
+(eval toEval (interaction-environment));;3
+(eval nestedEval (interaction-environment));;(b+ 1 2)
+(define evalFromNestedEval (eval nestedEval (interaction-environment)))
+(eval evalFromNestedEval (interaction-environment));;3
+
+(begin
+    (define x 1)
+    (define y 2)
+    (b+ x y)
+);;3
+
+(begin
+    (define x 1)
+    (define y 2)
+    (set! x 10)
+    (b+ x y)
+);;12
+
+(define setme 1)
+setme
+(set! setme 2)
+setme
+(set! setme '(1 2))
+setme
+(begin (define x 1)
+        (define y 2)
+        (set! zzzzzzz 1)
+        (b+ x y)
+)
+
+;;basic let
+( let
+    ((x 2)
+     (y 2))
+    (define q 10)
+    (b+ q (b+ x y))
+)
+
+;;test enclosing environments
+
+(define x 1000)
+( let
+    ((x 2)
+     (y 2))
+    (define q 10)
+    (b+ q (b+ x y))
+);;14
+
+(let ((y 2))
+    (b+ x y)
+);;10002
+
+
+
+(define x (cons 1 2))
+(set-car! x 3)
+x;;(1 2)
+(car x);;3
+(define badcar 1)
+(set-car! badcar 0);;throw error

@@ -2,7 +2,7 @@ import java.io.*;
 
 class Cond extends Special {
 
-	public Cond() {
+	public Cond(Node node){
 	}
 
     void print(Node c, int n, boolean p) {
@@ -19,7 +19,18 @@ class Cond extends Special {
 		}
     }
 
-    void printQuote(Node c, int n, boolean p) {
+    public Node eval(Node node, Environment env) {
+    	Node exp;
+    	exp = node.getCdr();
 
+    	while ((!(exp.getCar()).getCar().eval(env).getBool()) && (!exp.isNull())) {
+    		exp = exp.getCdr();
+    	}
+
+    	if(exp.isNull()) {
+    		return new Nil();
+    	} else {
+    		return (exp.getCar().getCdr().getCar().eval(env));
+    	}
     }
 }

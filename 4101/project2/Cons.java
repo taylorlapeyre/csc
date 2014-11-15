@@ -1,6 +1,7 @@
 class Cons extends Node {
     private Node car;
     private Node cdr;
+    private Special specialForm;
 
     public Cons(Node a, Node d) {
       car = a;
@@ -8,40 +9,39 @@ class Cons extends Node {
       parseList();
     }
 
-    private Special parseList() {
+    private void parseList() {
       if (car.isSymbol()) {
         String name = car.getName();
-        switch (name) {
-          case "quote":
-            return new Quote();
-          case "lambda":
-            return new Lambda();
-          case "if":
-            return new If();
-          case "begin":
-            return new Begin();
-          case "let":
-            return new Let();
-          case "cond":
-            return new Cond();
-          case "define":
-            return new Define();
-          case "set!":
-            return new Set();
-          default:
-            return new Regular();
+        if(name == "quote") {
+          specialForm = new Quote(this);
+        } else if (name == "lambda") {
+          specialForm = new Lambda(this);
+        } else if (name == "if") {
+          specialForm = new If(this);
+        } else if (name == "begin") {
+          specialForm = new Begin(this);
+        } else if (name == "let") {
+          specialForm = new Let(this);
+        } else if (name == "cond") {
+          specialForm = new Cond(this);
+        } else if (name == "define") {
+          specialForm = new Define(this);
+        } else if (name == "set!") {
+          specialForm =  new Set(this);
+        } else {
+          specialForm = new Regular(this);
         }
       } else {
-        return new Regular();
+        specialForm = new Regular(this);
       }
     }
 
     void print(int n) {
-    	parseList().print(this, n, false);
+    	specialForm.print(this, n, false);
     }
 
     void print(int n, boolean p) {
-    	parseList().print(this, n, p);
+    	specialForm.print(this, n, p);
     }
 
     @Override
@@ -54,8 +54,22 @@ class Cons extends Node {
       return this.cdr;
     }
 
+    public void setCar(Node node) {
+      car = node;
+      parseList();
+    }
+
+    public void setCdr(Node node) {
+      cdr = node;
+      parseList();
+    }
+
     public boolean isPair() {
         return true;
+    }
+
+    public Node eval(Environment env) {
+      return specialForm.eval(this, env);
     }
 
 }

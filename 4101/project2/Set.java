@@ -4,7 +4,7 @@ class Set extends Special
 {
 	private Cons cons;
 
-	public Set() {}
+	public Set(Node node) {}
 
     void print(Node c, int n, boolean p) {
 
@@ -24,6 +24,12 @@ class Set extends Special
         } else {
     	   value.print(0, true);
     	} 
-
 	}
+
+    public Node eval(Node node, Environment env) {
+       Node id = node.getCdr().getCar();
+       Node exp = node.getCdr().getCdr().getCar();
+       env.define(id, exp.eval(env));
+       return new StrLit("");
+    }
 }

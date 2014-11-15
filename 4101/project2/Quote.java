@@ -2,7 +2,7 @@ import java.io.*;
 
 class Quote extends Special {
 
-  public Quote() { 
+  public Quote(Node node) {
   }
 
   void print(Node c, int n, boolean p) {
@@ -12,5 +12,9 @@ class Quote extends Special {
      } else {
      	c.getCdr().print(0, false); 
      }
+  }
+
+  public Node eval(Node node, Environment env) {
+    return node.getCdr().getCar();
   }
 }

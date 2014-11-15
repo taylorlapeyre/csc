@@ -1,6 +1,7 @@
 import java.io.*;
 
 class Node {
+   private Ident id;
   // The argument of print(int) is the number of characters to indent.
   // Every subclass of Node must implement print(int).
   void print(int n) {}
@@ -47,6 +48,14 @@ class Node {
     return null;
   }
 
+  public Node getCar(Node node) {
+    return node.getCar();
+  }
+
+  public Node getCdr(Node node) {
+    return node.getCdr();
+  }
+
   public void setCar(Node a) {
   }
 
@@ -54,6 +63,38 @@ class Node {
   }
 
   public String getName() {
-    return null;
+    return "";
+  }
+
+  public boolean isProcedure() {
+    return false;
+  }
+
+  public int getValue() {
+    return 0;
+  }
+
+  public boolean getBool() {
+    return false;
+  }
+
+  public boolean isBool() {
+    return false;
+  }
+
+  public Node apply(Node someArg) {
+    return new Nil();
+  }
+
+  public String getString() {
+    return "";
+  }
+
+  public Node eval(Environment env) {
+    if(this instanceof Ident) {
+      id = new Ident(this.getName());
+      return id.eval(this, env);
+    }
+    return this;
   }
 }

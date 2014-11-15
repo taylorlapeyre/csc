@@ -60,6 +60,10 @@ public void print(int n) {
         System.out.println('}');
 }
 
+public Node eval(Node node, Environment env) {
+    return new Nil();
+}
+
 // This is not in an object-oriented style, it's more or less a
 // translation of the Scheme assq function.
 private static Node find (Node id, Node alist) {
@@ -86,20 +90,25 @@ public Node lookup (Node id) {
                 return env.lookup(id);
         else
                 // get the value out of the list we got from find()
-                return val.getCar(); ;
+                return val.getCar(); 
 }
 
 public void define (Node id, Node val) {
-        scope.set(id, val);
+        Node node = find(id, scope);
+        if(node == null) {
+            scope = new Cons(new Cons(id, new Cons(val, new Nil())), scope);
+        } else {
+            val.setCar(val);
+        }
 }
 
 public void assign (Node id, Node val) {
-        Node foundNode = scope.find(id);
+        Node foundNode = find(id, scope);
 
         if (foundNode == null) {
-                scope.assign(id, val);
+                assign(id, env);
         } else {
-                scope.set(id, val);
+                setCar(new Cons(id, val));
         }
 }
 
@@ -110,8 +119,8 @@ public void makeGlobalEnvironment() {
                              "newline", "interaction-environment"};
         Ident id;
         for (int i = 0; i < builtins.length; i++) {
-                id = new Ident(s);
-                this.define(id, new Builtin(id));
+                id = new Ident(builtins[i]);
+                this.define(id, new BuiltIn(id));
         }
 }
 

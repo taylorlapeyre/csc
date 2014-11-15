@@ -8,5 +8,7 @@ import java.io.*;
 
 abstract class Special {
     abstract void print(Node c, int n, boolean p);
+
+    abstract Node eval(Node node, Environment env);
 }
 

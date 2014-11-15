@@ -34,10 +34,25 @@ class Closure extends Node {
 	System.out.println('}');
     }
 
+    public Node eval(Node node, Environment env) {
+        return new Nil();
+    }
+
     // TODO: The method apply() should be defined in class Node
     // to report an error.  It should be overwritten only in classes
     // BuiltIn and Closure.
     public Node apply (Node args) {
-	return null;
+	   Environment env = this.getEnv();
+       Node fun = getFun();
+       Node node = fun.getCar();
+       fun = fun.getCdr().getCar();
+
+       while(args != null && !args.getCar().isNull()) {
+          env.define(node.getCar(), args.getCar());
+          node = node.getCdr();
+          args = args.getCdr();
+       }
+
+       return fun.eval(env);
     }
 }

@@ -2,7 +2,7 @@ import java.io.*;
 
 class Lambda extends Special {
 
-    public Lambda() {}
+    public Lambda(Node node) {}
 
     void print(Node c, int n, boolean p) {
         for (int i = 0; i < n; i++) {
@@ -33,6 +33,7 @@ class Lambda extends Special {
         System.out.print(')');
     }
 
-    void printQuote(Node c, int n, boolean p) {
+    public Node eval(Node node, Environment env) {
+        return new Closure(node.getCdr(), env);
     }
 }
