@@ -25,13 +25,21 @@ public class Main {
         Environment env = new Environment();
         env.defineBuiltIns();
         System.out.println("Built-in procedures have been defined.");
+        System.out.println("Interpreter is ready for evaluaion.");
 
         Parser parser = new Parser(scanner);
+        System.out.print("> ");
         Node root = parser.parseExp();
-        System.out.println(root);
 
         while (root != null) {
-            root.eval(env).print(0);
+            try {
+                root.eval(env).print(0);
+            } catch (NullPointerException e) {
+                System.out.print("NPE: ");
+                System.out.println(e.getMessage());
+            }
+
+            System.out.print("> ");
             root = parser.parseExp();
         }
 
