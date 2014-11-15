@@ -33,7 +33,6 @@ public class Main {
 
         while (root != null) {
             try {
-                System.out.println("-------------------------------------------");
                 System.out.print("Parser returned a: ");
                 System.out.println(root);
 

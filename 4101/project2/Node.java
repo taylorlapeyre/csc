@@ -32,6 +32,7 @@ class Node {
     }
 
     public String getName() {
+        System.err.println("IN NODE GETNAME!!");
         return "";
     }
 

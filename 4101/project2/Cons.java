@@ -11,11 +11,9 @@ class Cons extends Node {
     }
 
     private Special parseList() {
-        System.out.println("[IN CONS PARSELIST]");
+        System.out.println("Trying to see if " + name + " is a symbol..");
         if (car.isSymbol()) {
             name = car.getName();
-            System.out.println("Trying to see if " + name + "is a special form keyword.");
-
             if (name == "quote") {
                 form = new Quote();
             } else if (name == "lambda") {
@@ -28,7 +26,7 @@ class Cons extends Node {
                 form = new Let();
             } else if (name == "cond") {
                 form = new Cond();
-            } else if (name == "d") {
+            } else if (name == "define") {
                 form = new Define();
             } else if (name == "set!") {
                 form = new Set();
@@ -37,7 +35,7 @@ class Cons extends Node {
             }
 
         } else {
-            System.out.println("IT's not a symbol? Ok it's a regular.");
+            System.out.println("Not a symbol? Ok, "+name+" is a regular.");
             form = new Regular();
         }
 
