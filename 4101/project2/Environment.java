@@ -37,7 +37,7 @@ class Environment extends Node {
             Node bind = alist.getCar();
             if (id.getName().equals(bind.getCar().getName()))
                 // return a list containing the value as only element
-                xreturn bind.getCdr();
+                return bind.getCdr();
             else
                 return find(id, alist.getCdr());
         }

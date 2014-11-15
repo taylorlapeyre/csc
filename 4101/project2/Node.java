@@ -8,7 +8,6 @@ class Node {
         print(n);
     }
 
-
     // TODO: implement these in the appropriate subclasses to return TRUE.
     public boolean isBoolean()   { return false; }  // BooleanLit
     public boolean isNumber()    { return false; }  // IntLit
@@ -27,12 +26,30 @@ class Node {
     }
 
     public void setCar(Node a) {
+        return null;
     }
 
     public void setCdr(Node d) {
+        return null;
     }
 
     public String getName() {
+        return "";
+    }
+
+    public Node eval(Environment env) {
         return null;
+    }
+
+    public Node apply(Node args, Environment env) {
+        System.err.println("Something went wrong!");
+    }
+
+    public boolean getBoolean() {
+        return false;
+    }
+
+    public int getValue() {
+        return 0;
     }
 }

@@ -56,7 +56,8 @@ class BuiltIn extends Node {
             if (arg1.isNumber() && arg2.isNumber()) {
                 return new IntLit(arg1.getValue() + arg2.getValue());
             } else {
-                return System.err.println("Arguments for + must be numbers.");
+                System.err.println("Arguments for + must be numbers.");
+                return null;
             }
         }
 
@@ -64,7 +65,8 @@ class BuiltIn extends Node {
             if (arg1.isNumber() && arg2.isNumber()) {
                 return new IntLit(arg1.getValue() - arg2.getValue());
             } else {
-                return System.err.println("Arguments for - must be numbers.");
+                System.err.println("Arguments for - must be numbers.");
+                return null;
             }
         }
 
@@ -72,7 +74,8 @@ class BuiltIn extends Node {
             if (arg1.isNumber() && arg2.isNumber()) {
                 return new IntLit(arg1.getValue() * arg2.getValue());
             } else {
-                return System.err.println("Arguments for * must be numbers.");
+                System.err.println("Arguments for * must be numbers.");
+                return null;
             }
         }
 
@@ -80,7 +83,8 @@ class BuiltIn extends Node {
             if (arg1.isNumber() && arg2.isNumber()) {
                 return new IntLit(arg1.getValue() / arg2.getValue());
             } else {
-                return System.err.println("Arguments for / must be numbers.");
+                System.err.println("Arguments for / must be numbers.");
+                return null;
             }
         }
 
@@ -88,7 +92,8 @@ class BuiltIn extends Node {
             if (arg1.isNumber() && arg2.isNumber()) {
                 return new BooleanLit(arg1.getValue() < arg2.getValue());
             } else {
-                return System.err.println("Arguments for < must be numbers.");
+                System.err.println("Arguments for < must be numbers.");
+                return null;
             }
         }
 
@@ -96,7 +101,8 @@ class BuiltIn extends Node {
             if (arg1.isNumber() && arg2.isNumber()) {
                 return new BooleanLit(arg1.getValue() > arg2.getValue());
             } else {
-                return System.err.println("Arguments for > must be numbers.");
+                System.err.println("Arguments for > must be numbers.");
+                return null;
             }
         }
 
@@ -104,7 +110,8 @@ class BuiltIn extends Node {
             if (arg1.isNumber() && arg2.isNumber()) {
                 return new BooleanLit(arg1.getValue() == arg2.getValue());
             } else {
-                return System.err.println("Arguments for + must be numbers.");
+                System.err.println("Arguments for + must be numbers.");
+                return null;
             }
         }
 

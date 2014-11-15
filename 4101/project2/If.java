@@ -42,6 +42,14 @@ class If extends Special {
     }
 
     public Node eval(Node t, Environment env) {
-        return null;
+        Node predicate  = t.getCar().getCdr();
+        Node ifClause   = t.getCar().getCdr().getCdr();
+        Node elseClause = t.getCdr().getCdr().getCar().getCdr();
+
+        if (predicate.eval(env).getBoolean()) {
+            return ifClause.eval(env);
+        } else {
+            return elseClause.eval(env);
+        }
     }
 }
