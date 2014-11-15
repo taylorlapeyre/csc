@@ -168,7 +168,34 @@ class BuiltIn extends Node {
         }
 
         if (symbolName == "eq?") {
-            return new BooleanLit(arg1 == arg2);
+            if (arg1.isBoolean() && arg2.isBoolean()) {
+                return new BooleanLit(arg1.getBoolean() == arg2.getBoolean());
+            }
+
+            if (arg1.isNumber() && arg2.isNumber()) {
+                return new BooleanLit(arg1.getValue() == arg2.getValue());
+            }
+
+            if (arg1.isString() && arg2.isString()) {
+                return new BooleanLit(arg1.getStrVal() == arg2.getStrVal());
+            }
+
+            if (arg1.isSymbol() && arg2.isSymbol()) {
+                return new BooleanLit(arg1.getName() == arg2.getName());
+            }
+
+            if (arg1.isPair() && arg2.isPair()) {
+                // Node cars = new Cons(arg1.getCar, new Cons(arg2.getCar(), Nil.getInstance()));
+                // Node cdrs = new Cons(arg1.getCdr, new Cons(arg2.getCdr(), Nil.getInstance()));
+                // // TODO: fix this
+                return new BooleanLit(false);
+            }
+
+            if (arg1.isNull() && arg2.isNull()) {
+                return new BooleanLit(true);
+            }
+
+            return new BooleanLit(false);
         }
 
         if (symbolName == "display" || symbolName == "eval") {

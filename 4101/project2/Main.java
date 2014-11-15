@@ -23,14 +23,14 @@ public class Main {
         }
 
         Environment env = new Environment();
-        env.defineBuiltins();
+        env.defineBuiltIns();
 
         Parser parser = new Parser(scanner);
-        Node root = parser.parseNextExp();
+        Node root = parser.parseExp();
 
         while (root != null) {
             root.eval(env).print(0);
-            root = parser.parseNextExp();
+            root = parser.parseExp();
         }
 
         System.exit(0);

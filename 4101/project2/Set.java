@@ -11,7 +11,7 @@ class Set extends Special
     }
 
     public Node eval(Node t, Environment env) {
-        Node var = t.getCdr.getCar();
+        Node var = t.getCdr().getCar();
         Node val = t.getCdr().getCdr().getCar();
 
         Node currentVar = env.lookup(var);

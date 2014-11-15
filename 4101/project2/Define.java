@@ -12,7 +12,7 @@ class Define extends Special {
         Node name = t.getCdr().getCar();
         Node val  = t.getCdr().getCdr().getCar();
 
-        if (key.isSymbol()) {
+        if (name.isSymbol()) {
             env.define(name, val);
         } else {
             Closure procedure = new Closure(t.getCdr().getCdr(), env);

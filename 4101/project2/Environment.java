@@ -4,15 +4,15 @@ class Environment extends Node {
     // every list element (every frame) is an association list.
     // Instead of Nil(), we use null to terminate the list.
 
-    private Node scope;       // the innermost scope, an association list
+    private Frame scope;       // the innermost scope, an association list
     private Environment env;      // the enclosing environment
 
     public Environment()    {
-        scope = new Nil();
+        scope = new Frame();
         env = null;
     }
     public Environment(Environment e) {
-        scope = new Nil();
+        scope = new Frame();
         env = e;
     }
 
@@ -20,7 +20,7 @@ class Environment extends Node {
         for (int i = 0; i < n; i++)
             System.out.print(' ');
         System.out.println("#{Environment");
-        scope.print(n+3);
+        scope.printScope(n+3);
         if (env != null)
             env.print(n+3);
         for (int i = 0; i < n; i++)
@@ -28,26 +28,11 @@ class Environment extends Node {
         System.out.println('}');
     }
 
-    // This is not in an object-oriented style, it's more or less a
-    // translation of the Scheme assq function.
-    private static Node find (Node id, Node alist) {
-        if (!alist.isPair())
-            return null; // in Scheme we'd return #f
-        else {
-            Node bind = alist.getCar();
-            if (id.getName().equals(bind.getCar().getName()))
-                // return a list containing the value as only element
-                return bind.getCdr();
-            else
-                return find(id, alist.getCdr());
-        }
-    }
-
     public Node lookup (Node id) {
-        Node val = find(id, scope);
+        Node val = scope.find(id);
         if (val == null && env == null) {
             System.out.println("Unable to find identifier in current context");
-            return new Nil();
+            return Nil.getInstance();
         } else if (val == null)
             // look up the identifier in the enclosing scope
             return env.lookup(id);
@@ -64,7 +49,9 @@ class Environment extends Node {
         Node foundNode = scope.find(id);
 
         if (foundNode == null) {
-            scope.assign(id, val);
+            // double check this...
+            scope.set(id, val);
+            //scope.assign(id, val);
         } else {
             scope.set(id, val);
         }
@@ -78,7 +65,7 @@ class Environment extends Node {
         Ident id;
         for (int i = 0; i < builtins.length; i++) {
             id = new Ident(builtins[i]);
-            this.define(id, new Builtin(id));
+            this.define(id, new BuiltIn(id));
         }
     }
 }

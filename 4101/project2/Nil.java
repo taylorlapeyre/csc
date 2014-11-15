@@ -1,5 +1,7 @@
 import java.io.*;
 class Nil extends Node {
+    private static Nil instance = null;
+
     public Nil() { }
 
     public void print(int n){
@@ -12,5 +14,11 @@ class Nil extends Node {
 
     public boolean isNull() {
         return true;
+    }
+
+    public static Nil getInstance() {
+        if (instance == null)
+            instance = new Nil();
+        return instance;
     }
 }

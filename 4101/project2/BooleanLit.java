@@ -7,7 +7,11 @@ class BooleanLit extends Node {
     }
 
     public void print(int n) {
-        return (booleanVal) ? Printer.printBoolLit(n, 1) : Printer.printBoolLit(n, 0);
+        if (booleanVal) {
+            Printer.printBoolLit(n, 1);
+        } else {
+            Printer.printBoolLit(n, 0);
+        }
     }
 
     public Node eval(Node t, Environment env) {

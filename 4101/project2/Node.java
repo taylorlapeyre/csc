@@ -26,11 +26,9 @@ class Node {
     }
 
     public void setCar(Node a) {
-        return null;
     }
 
     public void setCdr(Node d) {
-        return null;
     }
 
     public String getName() {
@@ -43,6 +41,7 @@ class Node {
 
     public Node apply(Node args, Environment env) {
         System.err.println("Something went wrong!");
+        return null;
     }
 
     public boolean getBoolean() {
@@ -51,5 +50,9 @@ class Node {
 
     public int getValue() {
         return 0;
+    }
+
+    public String getStrVal() {
+        return "";
     }
 }
