@@ -17,7 +17,6 @@ class Ident extends Node {
     }
 
     public Node eval(Environment env) {
-        System.out.println("[IN IDENT EVAL]");
         return env.lookup(this);
     }
 }

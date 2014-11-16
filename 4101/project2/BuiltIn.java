@@ -46,7 +46,6 @@ class BuiltIn extends Node {
     // to report an error.  It should be overwritten only in classes
     // BuiltIn and Closure.
     public Node apply (Node args) {
-        System.out.println("[IN BUILTIN APPLY]");
         if (args == null) return null;
 
         String symbolName = symbol.getName();

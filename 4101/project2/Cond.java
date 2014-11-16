@@ -9,7 +9,6 @@ class Cond extends Special {
     }
 
     public Node eval(Node t, Environment env) {
-        System.out.println("[IN COND EVAL]");
         Node exp = t.getCdr();
 
         while (!exp.getCar().getCar().eval(env).getBoolean() && !exp.isNull()) {

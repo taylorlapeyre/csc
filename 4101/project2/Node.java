@@ -32,7 +32,6 @@ class Node {
     }
 
     public String getName() {
-        System.err.println("IN NODE GETNAME!!");
         return "";
     }
 
@@ -43,11 +42,6 @@ class Node {
     public Node apply(Node args) {
         return new Nil();
     }
-
-    // public Node apply(Node args) {
-    //     System.err.println("You're trying to call apply on Node, and you can't do that dummy.");
-    //     return null;
-    // }
 
     public boolean getBoolean() {
         return false;

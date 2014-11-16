@@ -9,7 +9,6 @@ class Lambda extends Special {
     }
 
     public Node eval(Node t, Environment env) {
-        System.out.println("[IN LAMBDA EVAL]");
         return new Closure(t, env);
     }
 }

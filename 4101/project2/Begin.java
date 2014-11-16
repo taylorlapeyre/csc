@@ -9,7 +9,6 @@ class Begin extends Special {
     }
 
     public Node eval(Node t, Environment env) {
-        System.out.println("IN BEGIN EVAL");
         Node exp = t.getCdr();
         Node val = exp.getCar().eval(env);
 

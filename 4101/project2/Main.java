@@ -24,8 +24,6 @@ public class Main {
 
         Environment env = new Environment();
         env.defineBuiltIns();
-        System.out.println("Built-in procedures have been defined.");
-        System.out.println("Interpreter is ready for evaluaion.");
 
         Parser parser = new Parser(scanner);
         System.out.print("> ");
@@ -33,19 +31,9 @@ public class Main {
 
         while (root != null) {
             try {
-                System.out.println("------------- HOUSTON, WE HAVE LIFTOFF. STARTING EVAL -------------")   ;
-                System.out.print("[MAIN]: Parser returned a: ");
-                System.out.println(root);
-
                 Node result = root.eval(env);
-                System.out.print("[MAIN]: When eval'd, we got back a: ");
-                System.out.println(result);
-
-                System.out.println("[MAIN]: Now we'll try to call .print(0) on it:");
                 result.print(0);
-                System.out.println("[MAIN]: SUCCESSFUL EVAL!");
             } catch (NullPointerException e) {
-                System.out.print("ERROR, NPE: ");
                 System.out.println(e.getMessage());
             }
 

@@ -8,7 +8,6 @@ class Let extends Special {
     }
 
     public Node eval(Node t, Environment env) {
-        System.out.println("[IN LET EVAL]");
         Node assignments = t.getCdr().getCar();
         Node body        = t.getCdr().getCdr().getCar();
 
@@ -18,10 +17,6 @@ class Let extends Special {
             Node assignment = assignments.getCar();
             Node name = assignment.getCar();
             Node val  = assignment.getCdr().getCar();
-
-            System.out.print("LET ASSIGNMENT: ");
-            System.out.print("KEY: " + name);
-            System.out.println(" VAL: " + val);
 
             letEnv.define(name, val.eval(env));
 
