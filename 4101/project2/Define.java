@@ -19,7 +19,12 @@ class Define extends Special {
             return name;
         } else {
             System.out.println("looks like we're trying to define a procedure. Doing that...");
-            Closure procedure = new Closure(t.getCdr().getCdr(), env);
+            Closure procedure = new Closure(
+                new Cons(
+                    t.getCdr().getCar().getCdr(),
+                    t.getCdr().getCdr())
+                , env
+            );
             env.define(name.getCar(), procedure);
             return name.getCar();
         }

@@ -47,23 +47,26 @@ class Closure extends Node {
 
     // Double check this!
     public Node apply (Node args) {
-        Environment e = this.getEnv();
         System.out.println("[IN CLOSURE APPLY]");
-        System.out.println("FUN IS: " + fun);
+        System.out.println("THE CAR OF FUN IS: " + fun.getCar());
+
+        System.out.println("FUN IS: " + fun + " (car: "+fun.getCar().getCar().getName()+")");
         System.out.println("ARGS ARE: " + args);
 
-        Node params = fun.getCar();
-        Node body = fun.getCar().getCdr();
+        Node varList = fun.getCar();
+        Node body    = fun.getCdr().getCar();
 
-        System.out.println("PARAMS ARE: " + params);
-        System.out.println("BODY IS: " + body);
+        while (!varList.isNull() && !args.isNull()) {
+            Node key = varList.getCar();
+            Node val = args.getCar();
 
-        while (params != null && !params.getCar().isNull()) {
-            env.define(params.getCar(), args.getCar());
-            params = params.getCdr();
+            System.out.println("CLOSURE ASSIGNMENT: KEY: " + key.getName() + " VAL: " +val);
+            env.define(key, val);
+
+            varList = varList.getCdr();
             args = args.getCdr();
         }
 
-        return fun.eval(e);
+        return body.eval(env);
     }
 }
