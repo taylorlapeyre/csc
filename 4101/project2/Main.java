@@ -33,7 +33,7 @@ public class Main {
 
         while (root != null) {
             try {
-                System.out.println("------------- END OF PARSING, STARTING EVAL -------------")   ;
+                System.out.println("------------- HOUSTON, WE HAVE LIFTOFF. STARTING EVAL -------------")   ;
                 System.out.print("[MAIN]: Parser returned a: ");
                 System.out.println(root);
 

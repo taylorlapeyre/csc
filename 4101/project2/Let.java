@@ -14,8 +14,8 @@ class Let extends Special {
 
         Environment letEnv = new Environment(env);
 
-        Node assignment = assignments.getCar();
-        while (!assignment.isNull()) {
+        while (!assignments.isNull()) {
+            Node assignment = assignments.getCar();
             Node name = assignment.getCar();
             Node val  = assignment.getCdr().getCar();
 
@@ -25,7 +25,7 @@ class Let extends Special {
 
             letEnv.define(name, val.eval(env));
 
-            assignment = assignment.getCdr().getCdr();
+            assignments = assignments.getCdr();
         }
 
         return body.eval(letEnv);
