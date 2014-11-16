@@ -15,6 +15,7 @@
 
 class BuiltIn extends Node {
     private Node symbol;
+    private Environment interactionEnv = new Environment();
 
     public BuiltIn(Node s) {
         symbol = s;
@@ -205,6 +206,24 @@ class BuiltIn extends Node {
 
         if (symbolName == "apply") {
             return arg1.apply(arg2);
+        }
+
+        if (symbolName == "newline") {
+            System.out.println();
+            return Nil.getInstance();
+        }
+
+        if (symbolName == "read") {
+            Parser parser = new Parser(new Scanner(System.in));
+            return parser.parseExp();
+        }
+
+        if (symbolName == "write") {
+            arg1.print(0);
+        }
+
+        if (symbolName == "interaction-environment") {
+            interactionEnv.print(0);
         }
 
         return null;

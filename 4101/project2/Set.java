@@ -18,7 +18,7 @@ class Set extends Special
         Node currentVar = env.lookup(var);
 
         if (currentVar.isNull()) {
-            // throw an error or something
+            System.err.println("Something bad happened in Set");
         } else {
             env.assign(var, val.eval(env));
         }
