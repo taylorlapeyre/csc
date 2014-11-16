@@ -19,31 +19,31 @@ class Cons extends Node {
 
 
             if (name.equals("quote")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new Quote();
             } else if (name.equals("lambda")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new Lambda();
             } else if (name.equals("if")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new If();
             } else if (name.equals("begin")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new Begin();
             } else if (name.equals("let")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new Let();
             } else if (name.equals("cond")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new Cond();
             } else if (name.equals("define")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new Define();
             } else if (name.equals("set!")) {
-                System.out.println(name + "is a special form.");
+                System.out.println(name + " is a special form.");
                 form = new Set();
             } else {
-                System.out.println(name + " is none of the special forms.");
+                System.out.println(name + " is not a special form.");
                 form = new Regular();
             }
 
@@ -63,12 +63,10 @@ class Cons extends Node {
         System.out.println("<LIST !!FIX ME!!>");
     }
 
-    @Override
     public Node getCar() {
         return this.car;
     }
 
-    @Override
     public Node getCdr() {
         return this.cdr;
     }

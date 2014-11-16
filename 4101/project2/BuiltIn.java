@@ -190,7 +190,7 @@ class BuiltIn extends Node {
                 // Node cars = new Cons(arg1.getCar, new Cons(arg2.getCar(), Nil.getInstance()));
                 // Node cdrs = new Cons(arg1.getCdr, new Cons(arg2.getCdr(), Nil.getInstance()));
                 // // TODO: fix this
-                return new BooleanLit(false);
+                return new BooleanLit(true);
             }
 
             if (arg1.isNull() && arg2.isNull()) {
@@ -220,6 +220,10 @@ class BuiltIn extends Node {
 
         if (symbolName == "write") {
             arg1.print(0);
+        }
+
+        if (symbolName == "exit") {
+            System.exit(0);
         }
 
         if (symbolName == "interaction-environment") {
