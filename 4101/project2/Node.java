@@ -45,6 +45,11 @@ class Node {
         return null;
     }
 
+    // public Node apply(Node args) {
+    //     System.err.println("You're trying to call apply on Node, and you can't do that dummy.");
+    //     return null;
+    // }
+
     public boolean getBoolean() {
         return false;
     }

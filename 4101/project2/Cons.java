@@ -55,12 +55,12 @@ class Cons extends Node {
         return form;
     }
 
-    void print(int n) {
-        parseList().print(this, n, false);
+    public void print(int n) {
+        System.out.println("<LIST !!FIX ME!!>");
     }
 
-    void print(int n, boolean p) {
-        parseList().print(this, n, p);
+    public void print(int n, boolean p) {
+        System.out.println("<LIST !!FIX ME!!>");
     }
 
     @Override

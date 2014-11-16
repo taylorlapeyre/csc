@@ -11,7 +11,6 @@ class Regular extends Special {
 
     public Node eval(Node t, Environment env) {
         System.out.println("[IN REGULAR EVAL]");
-        System.out.println(t.getCar());
         Node first = t.getCar();
         Node rest  = t.getCdr();
 

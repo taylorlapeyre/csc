@@ -33,16 +33,17 @@ public class Main {
 
         while (root != null) {
             try {
-                System.out.print("Parser returned a: ");
+                System.out.println("------------- END OF PARSING, STARTING EVAL -------------")   ;
+                System.out.print("[MAIN]: Parser returned a: ");
                 System.out.println(root);
 
                 Node result = root.eval(env);
-                System.out.print("When eval'd, we got back a: ");
+                System.out.print("[MAIN]: When eval'd, we got back a: ");
                 System.out.println(result);
 
-                System.out.println("Now we'll try to call .print(0) on it:");
+                System.out.println("[MAIN]: Now we'll try to call .print(0) on it:");
                 result.print(0);
-                System.out.println("-------------------------------------------");
+                System.out.println("[MAIN]: SUCCESSFUL EVAL!");
             } catch (NullPointerException e) {
                 System.out.print("ERROR, NPE: ");
                 System.out.println(e.getMessage());
