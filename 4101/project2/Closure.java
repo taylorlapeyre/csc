@@ -47,6 +47,7 @@ class Closure extends Node {
 
     // Double check this!
     public Node apply (Node args) {
+        Environment e = this.getEnv();
         System.out.println("[IN CLOSURE APPLY]");
         System.out.println("FUN IS: " + fun);
         System.out.println("ARGS ARE: " + args);
@@ -63,6 +64,6 @@ class Closure extends Node {
             args = args.getCdr();
         }
 
-        return fun.eval(env);
+        return fun.eval(e);
     }
 }

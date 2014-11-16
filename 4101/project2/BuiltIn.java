@@ -44,7 +44,7 @@ class BuiltIn extends Node {
     // TODO: The method apply() should be defined in class Node
     // to report an error.  It should be overwritten only in classes
     // BuiltIn and Closure.
-    public Node apply (Node args, Environment env) {
+    public Node apply (Node args) {
         System.out.println("[IN BUILTIN APPLY]");
         if (args == null) return null;
 
@@ -134,7 +134,7 @@ class BuiltIn extends Node {
         }
 
         if (symbolName == "procedure?") {
-            return new BooleanLit(env.lookup(arg1).isProcedure());
+            return new BooleanLit(arg1.isProcedure());
         }
 
         // LISPY STUFF
@@ -204,7 +204,7 @@ class BuiltIn extends Node {
         }
 
         if (symbolName == "apply") {
-            return arg1.apply(arg2, env);
+            return arg1.apply(arg2);
         }
 
         return null;

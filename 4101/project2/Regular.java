@@ -26,10 +26,10 @@ class Regular extends Special {
 
         if (first.isProcedure()) {
             System.out.println("APPLYING A PROCEDURE "+ first +" TO ARGS");
-            return first.apply(rest, env);
+            return first.apply(rest);
         } else {
             System.out.println("APPLYING A NON-PROCEDURE "+ first +" TO ARGS");
-            return first.eval(env).apply(rest, env);
+            return first.eval(env).apply(rest);
         }
     }
 }

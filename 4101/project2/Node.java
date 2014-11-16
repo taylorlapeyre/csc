@@ -40,9 +40,8 @@ class Node {
         return null;
     }
 
-    public Node apply(Node args, Environment env) {
-        System.err.println("You're trying to call apply on Node, and you can't do that dummy.");
-        return null;
+    public Node apply(Node args) {
+        return new Nil();
     }
 
     // public Node apply(Node args) {
