@@ -17,28 +17,29 @@ class Cons extends Node {
 
             System.out.println("And it is! Turns out its name is \"" + name + "\"");
 
-            if (name == "quote") {
+
+            if (name.equals("quote")) {
                 System.out.println(name + " is the same as 'quote'.");
                 form = new Quote();
-            } else if (name == "lambda") {
+            } else if (name.equals("lambda")) {
                 System.out.println(name + " is the same as 'lambda'.");
                 form = new Lambda();
-            } else if (name == "if") {
+            } else if (name.equals("if")) {
                 System.out.println(name + " is the same as 'if'.");
                 form = new If();
-            } else if (name == "begin") {
+            } else if (name.equals("begin")) {
                 System.out.println(name + " is the same as 'begin'.");
                 form = new Begin();
-            } else if (name == "let") {
+            } else if (name.equals("let")) {
                 System.out.println(name + " is the same as 'let'.");
                 form = new Let();
-            } else if (name == "cond") {
+            } else if (name.equals("cond")) {
                 System.out.println(name + " is the same as 'cond'.");
                 form = new Cond();
-            } else if (name == "define") {
+            } else if (name.equals("define")) {
                 System.out.println(name + " is the same as 'define'.");
                 form = new Define();
-            } else if (name == "set!") {
+            } else if (name.equals("set!")) {
                 System.out.println(name + " is the same as 'set!'.");
                 form = new Set();
             } else {
