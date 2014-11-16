@@ -16,9 +16,13 @@ class BooleanLit extends Node {
         }
     }
 
-    public Node eval(Node t, Environment env) {
-        System.out.println("IN BOOL LIT EVAL");
+    public Node eval(Environment env) {
+        System.out.println("[IN BOOL LIT EVAL]");
         return this;
+    }
+
+    public boolean getBoolean() {
+        return booleanVal;
     }
 
      public static BooleanLit getInstance(boolean val){

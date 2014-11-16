@@ -11,11 +11,14 @@ class Regular extends Special {
 
     public Node eval(Node t, Environment env) {
         System.out.println("[IN REGULAR EVAL]");
+        System.out.println(t.getCar());
         Node first = t.getCar();
         Node rest  = t.getCdr();
 
         if (first.isSymbol()) {
+            System.out.println("LOOKING UP REGULAR...");
             first = env.lookup(first);
+            System.out.println("Found it! it's: " + first);
         }
 
         if (first.isNull() || first == null) {
