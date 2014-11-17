@@ -16,12 +16,9 @@ class Define extends Special {
             env.define(name, val);
             return name;
         } else {
-            Closure procedure = new Closure(
-                new Cons(
-                    t.getCdr().getCar().getCdr(),
-                    t.getCdr().getCdr())
-                , env
-            );
+            Node args = t.getCdr().getCar().getCdr();
+            Node body = t.getCdr().getCdr();
+            Closure procedure = new Closure(args, body, env);
             env.define(name.getCar(), procedure);
             return name.getCar();
         }

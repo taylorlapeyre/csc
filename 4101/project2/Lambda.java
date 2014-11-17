@@ -9,6 +9,8 @@ class Lambda extends Special {
     }
 
     public Node eval(Node t, Environment env) {
-        return new Closure(t, env);
+        Node args = t.getCdr().getCar();
+        Node body = t.getCdr().getCdr().getCar();
+        return new Closure(args, body, env);
     }
 }

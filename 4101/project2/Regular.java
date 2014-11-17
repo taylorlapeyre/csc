@@ -23,17 +23,16 @@ class Regular extends Special {
 
         if (first.isProcedure()) {
             if (rest.isNull()) {
-                return first.apply(new Cons(Nil.getInstance(), Nil.getInstance()));
+                return first.apply(new Cons(Nil.getInstance(), Nil.getInstance()), env);
             } else {
-                return first.apply(rest);
+                return first.apply(rest, env);
             }
         } else {
             if (rest.isNull()) {
-                return first.eval(env).apply(new Cons(Nil.getInstance(), Nil.getInstance()));
+                return first.eval(env).apply(new Cons(Nil.getInstance(), Nil.getInstance()), env);
             } else {
-                return first.eval(env).apply(rest);
+                return first.eval(env).apply(rest, env);
             }
-
         }
     }
 }

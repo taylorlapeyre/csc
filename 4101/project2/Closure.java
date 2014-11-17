@@ -10,23 +10,24 @@
 // the function body.
 
 class Closure extends Node {
-    private Node fun;       // a lambda expression
+    private Node arguments;       // a lambda expression
+    private Node body;
     private Environment env;      // the environment in which the function
     // was defined
 
-    public Closure(Node f, Environment e) {
-        fun = f;  env = e;
+    public Closure(Node arguments, Node body, Environment e) {
+        this.arguments = arguments;
+        this.body      = body;
+        this.env       = e;
     }
 
     public Node getFun()    {
-        return fun;
+        return body;
     }
     public Environment getEnv()   {
         return env;
     }
 
-    // TODO: The method isProcedure() should be defined in
-    // class Node to return false.
     public boolean isProcedure()  {
         return true;
     }
@@ -37,7 +38,7 @@ class Closure extends Node {
             System.out.print(' ');
         System.out.println("#{Procedure");
 
-        fun.print(n+3);
+        body.print(n+3);
 
         for (int i = 0; i < n; i++)
             System.out.print(' ');
@@ -45,21 +46,22 @@ class Closure extends Node {
         System.out.println('}');
     }
 
-    // Double check this!
-    public Node apply (Node args) {
-        Node varList = fun.getCar();
-        Node body    = fun.getCdr().getCar();
 
-        while (!varList.isNull() && !args.isNull()) {
-            Node key = varList.getCar();
-            Node val = args.getCar();
+    public Node apply (Node values, Environment env2) {
+        Node arguments = this.arguments;
+        Environment closureEnv = new Environment(this.env);
 
-            env.define(key, val);
 
-            varList = varList.getCdr();
-            args = args.getCdr();
+        while (!arguments.isNull() && !values.isNull()) {
+            Node key = arguments.getCar();
+            Node val = values.getCar();
+
+            env.define(key, val.eval(env));
+
+            arguments = arguments.getCdr();
+            values = values.getCdr();
         }
 
-        return body.eval(env);
+        return body.eval(closureEnv);
     }
 }

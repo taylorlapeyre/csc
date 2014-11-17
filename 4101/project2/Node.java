@@ -39,7 +39,7 @@ class Node {
         return null;
     }
 
-    public Node apply(Node args) {
+    public Node apply(Node args, Environment env) {
         return new Nil();
     }
 

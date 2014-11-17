@@ -45,12 +45,12 @@ class BuiltIn extends Node {
     // TODO: The method apply() should be defined in class Node
     // to report an error.  It should be overwritten only in classes
     // BuiltIn and Closure.
-    public Node apply (Node args) {
+    public Node apply (Node args, Environment env) {
         if (args == null) return null;
 
         String symbolName = symbol.getName();
-        Node arg1 = args.getCar();
-        Node arg2 = args.getCdr().getCar();
+        Node arg1 = args.getCar().eval(env);
+        Node arg2 = args.getCdr().getCar().eval(env);
 
         // BINARY OPERATORS
         if (symbolName == "b+") {
@@ -204,7 +204,7 @@ class BuiltIn extends Node {
         }
 
         if (symbolName == "apply") {
-            return arg1.apply(arg2);
+            return arg1.apply(arg2, env);
         }
 
         if (symbolName == "newline") {
