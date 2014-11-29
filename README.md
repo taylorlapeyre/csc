@@ -2,8 +2,11 @@
 
 Answers to assignments for Computer Science classes at LSU.
 
+- **CSC 1350** - Introduction to Java
+ - *Your basic programming 101 class.*
+
 - **CSC 1254** - Introduction to Java II
- - *Boring stuff. Introduction to Java syntax and OOP.*
+ - *More Java and OOP concepts*
 
 - **CSC 2700** - Digital Media Programming
   - *Robots, graphics, and sound processing. Very interesting.*
