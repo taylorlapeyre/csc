@@ -1,5 +1,3 @@
-package taylorlapeyre;
-
 import java.util.ArrayList;
 
 public class PageReplacementSimulator {
@@ -10,42 +8,42 @@ public class PageReplacementSimulator {
     int totalMisses;
     int totalEvictions;
 
-    public PageReplacementSimulator(int numberOfPageFrames) {
-        this.numberOfPageFrames = numberOfPageFrames;
-        this.frames = new ArrayList<String>();
-        this.evictedFrames = new ArrayList<String>();
-        this.totalHits = 0;
-        this.totalMisses = 0;
-        this.totalEvictions = 0;
+    public PageReplacementSimulator(int theNumberOfPageFrames) {
+        numberOfPageFrames = theNumberOfPageFrames;
+        frames = new ArrayList<String>();
+        evictedFrames = new ArrayList<String>();
+        totalHits = 0;
+        totalMisses = 0;
+        totalEvictions = 0;
     }
 
     public void onAlgorithmComplete() {
         System.out.println("Algorithm completed successfully.");
-        System.out.println("Total hits: " + this.totalHits);
-        System.out.println("Total misses: " + this.totalMisses);
-        System.out.println("Total evictions: " + this.totalEvictions);
+        System.out.println("Total hits: " + totalHits);
+        System.out.println("Total misses: " + totalMisses);
+        System.out.println("Total evictions: " + totalEvictions);
         System.out.println("Evicted frames: ");
-        System.out.println(this.evictedFrames);
+        System.out.println(evictedFrames);
     }
 
     public void onHit(String val) {
-        this.totalHits++;
+        totalHits++;
     }
 
     public void onMiss(String val) {
-        this.totalMisses++;
+        totalMisses++;
     }
 
     public void onAllocation(String val) {
     }
 
     public void onComplete(String val) {
-        this.printPageFrames();
+        printPageFrames();
     }
 
     public void onEviction(String val, String evictedVal) {
-        this.totalEvictions++;
-        this.evictedFrames.add(evictedVal);
+        totalEvictions++;
+        evictedFrames.add(evictedVal);
     }
 
     public int getFrameToBeEvicted() {
@@ -56,39 +54,35 @@ public class PageReplacementSimulator {
     public void simulate(String input) {
         String[] values = input.split(", ");
         for (String val : values) {
-            if (this.frames.contains(val)) {
+            if (frames.contains(val)) {
                 // Hit: val was found in our page frames.
                 onHit(val);
             } else {
                 // Miss: Value was not found in our page frames.
                 onMiss(val);
 
-                if (this.frames.size() == this.numberOfPageFrames) {
+                if (frames.size() == numberOfPageFrames) {
                     // Eviction: A frame must be replaced.
-                    int frameIndex = this.getFrameToBeEvicted();
-                    this.onEviction(val, this.frames.get(frameIndex));
-                    this.frames.set(frameIndex, val);
+                    int frameIndex = getFrameToBeEvicted();
+                    onEviction(val, frames.get(frameIndex));
+                    frames.set(frameIndex, val);
                 } else {
                     // Allocation: There are empty page frames. Set val to one of them.
-                    this.frames.add(val);
-                    this.onAllocation(val);
+                    frames.add(val);
+                    onAllocation(val);
                 }
 
             }
-
             onComplete(val);
         }
-
         onAlgorithmComplete();
     }
 
     public void printPageFrames() {
         System.out.println("-----");
-        for (String frame : this.frames) {
+        for (String frame : frames) {
             System.out.println("| " + frame + " |");
         }
         System.out.println("-----");
     }
-
-
 }
