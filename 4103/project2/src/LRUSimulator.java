@@ -9,21 +9,25 @@ public class LRUSimulator extends PageReplacementSimulator {
     }
 
     @Override
-    public void onComplete(String val) {
+    public void onAccessComplete(String val) {
+        if (mostRecentlyUsedValues.contains(val)) {
+            mostRecentlyUsedValues.remove(val);
+        }
+
         mostRecentlyUsedValues.add(val);
-        this.printPageFrames();
+        printPageFrames();
     }
 
     @Override
     public int getFrameToBeEvicted() {
-        String lru = mostRecentlyUsedValues.get(0);
-        mostRecentlyUsedValues.remove(0);
-        int indexOfLRU = frames.indexOf(lru);
+        // go up the list of least recently used values until we find one that is in the frames.
+        int leastUsed = 0;
+        String lru = mostRecentlyUsedValues.get(leastUsed);
 
-        if (indexOfLRU == -1) {
-            return getFrameToBeEvicted();
-        } else {
-            return indexOfLRU;
+        while (!frames.contains(lru)) {
+            lru = mostRecentlyUsedValues.get(leastUsed++);
         }
+
+        return frames.indexOf(lru);
     }
 }

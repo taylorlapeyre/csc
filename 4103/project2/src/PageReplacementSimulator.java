@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class PageReplacementSimulator {
     ArrayList<String> frames;
-    ArrayList<String> evictedFrames;
+    ArrayList<String> victims;
     int numberOfPageFrames;
     int totalHits;
     int totalMisses;
@@ -10,20 +10,20 @@ public class PageReplacementSimulator {
 
     public PageReplacementSimulator(int theNumberOfPageFrames) {
         numberOfPageFrames = theNumberOfPageFrames;
-        frames = new ArrayList<String>();
-        evictedFrames = new ArrayList<String>();
-        totalHits = 0;
-        totalMisses = 0;
-        totalEvictions = 0;
+        frames             = new ArrayList<String>();
+        victims            = new ArrayList<String>();
+        totalHits          = 0;
+        totalMisses        = 0;
+        totalEvictions     = 0;
     }
 
     public void onAlgorithmComplete() {
         System.out.println("Algorithm completed successfully.");
-        System.out.println("Total hits: " + totalHits);
-        System.out.println("Total misses: " + totalMisses);
+        System.out.println("Total hits:      " + totalHits);
+        System.out.println("Total misses:    " + totalMisses);
         System.out.println("Total evictions: " + totalEvictions);
-        System.out.println("Evicted frames: ");
-        System.out.println(evictedFrames);
+        System.out.print("Evicted frames:  ");
+        System.out.println(victims);
     }
 
     public void onHit(String val) {
@@ -37,13 +37,13 @@ public class PageReplacementSimulator {
     public void onAllocation(String val) {
     }
 
-    public void onComplete(String val) {
+    public void onAccessComplete(String val) {
         printPageFrames();
     }
 
-    public void onEviction(String val, String evictedVal) {
+    public void onEviction(String val, String victim) {
         totalEvictions++;
-        evictedFrames.add(evictedVal);
+        victims.add(victim);
     }
 
     public int getFrameToBeEvicted() {
@@ -73,7 +73,7 @@ public class PageReplacementSimulator {
                 }
 
             }
-            onComplete(val);
+            onAccessComplete(val);
         }
         onAlgorithmComplete();
     }
@@ -83,6 +83,6 @@ public class PageReplacementSimulator {
         for (String frame : frames) {
             System.out.println("| " + frame + " |");
         }
-        System.out.println("-----");
+        System.out.println("-----\n");
     }
 }
