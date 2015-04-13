@@ -24,4 +24,4 @@ Answers to assignments for Computer Science classes at LSU.
   - *Introduction to SQL and relational databases.*
 
 - **CSC 4103** - Operating Systems
-  - *Systems programming, concurrency and multithreading.*
+  - *Concurrency, memory management, and file systems.*
